@@ -15,13 +15,16 @@ import com.dibimbing.medicareflow.entity.UserAccount;
 import com.dibimbing.medicareflow.exception.ConflictException;
 import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.helper.JwtHelper;
+import com.dibimbing.medicareflow.helper.SecurityHelper;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
     private final UserAccountRepository userAccountRepository;
     private final AuthenticationManager authenticationManager;
@@ -71,19 +74,29 @@ public class AuthService {
     }
 
     public String logout(HttpServletRequest request) {
-
         String token = request.getHeader("Authorization");
 
         if(token != null && token.startsWith("Bearer ")) {
             token = token.substring(7).trim();
+            log.debug("Logout request for token: {}", token);
             long reminingMillis = jwtHelper.getRemainingTime(token);
 
             if(reminingMillis > 0) {
+                log.info("Blacklisting token for {} ms", reminingMillis);
                 blacklistService.blacklistToken(token, reminingMillis);
+            } else {
+                log.debug("Token already expired, no need to blacklist");
             }
+        } else {
+            log.warn("Logout attempt without a valid Bearer token");
         }
 
-        return "Logout successful";
+        String username = SecurityHelper.getCurrentUsername();
+        return "Logout as " + username + " successful";
+    }
+
+    public String me() {
+        return SecurityHelper.getCurrentUsername();
     }
 
 }
