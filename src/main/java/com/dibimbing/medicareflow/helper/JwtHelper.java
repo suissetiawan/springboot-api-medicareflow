@@ -63,7 +63,7 @@ public class JwtHelper {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -71,5 +71,11 @@ public class JwtHelper {
     public Boolean validateToken(String token, String username) {
         final String extractedUsername = extractUsername(token);
         return (extractedUsername.equals(username) && !isTokenExpired(token));
+    }
+
+    public long getRemainingTime(String token) {
+        Date exp = extractExpiration(token);
+        long diff = exp.getTime() - System.currentTimeMillis();
+        return diff;
     }
 }

@@ -1,6 +1,7 @@
 package com.dibimbing.medicareflow.service;
 
 import java.util.Optional;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.helper.JwtHelper;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthService {
     private final UserAccountRepository userAccountRepository;
     private final AuthenticationManager authenticationManager;
+    private final TokenBlacklistService blacklistService;
     private final PasswordEncoder passwordEncoder;
     private final JwtHelper jwtHelper;
 
@@ -65,6 +68,22 @@ public class AuthService {
         String token = jwtHelper.generateToken(userAccount.get().getUsername());
 
         return new LoginResponse(userAccount.get().getUsername(), userAccount.get().getRole().toString(), token);
+    }
+
+    public String logout(HttpServletRequest request) {
+
+        String token = request.getHeader("Authorization");
+
+        if(token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7).trim();
+            long reminingMillis = jwtHelper.getRemainingTime(token);
+
+            if(reminingMillis > 0) {
+                blacklistService.blacklistToken(token, reminingMillis);
+            }
+        }
+
+        return "Logout successful";
     }
 
 }

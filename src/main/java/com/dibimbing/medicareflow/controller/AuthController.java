@@ -7,6 +7,7 @@ import com.dibimbing.medicareflow.dto.request.RegisterRequest;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.AuthService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,4 +33,9 @@ public class AuthController {
         return ResponseHelper.success(authService.login(loginRequest), "Login successful");
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        return ResponseHelper.success(authService.logout(request));
+    }
+    
 }
