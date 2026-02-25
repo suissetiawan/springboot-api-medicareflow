@@ -43,5 +43,4 @@ public class AuthController {
     public ResponseEntity<?> me() {
         return ResponseHelper.success(authService.me());
     }
-    
 }

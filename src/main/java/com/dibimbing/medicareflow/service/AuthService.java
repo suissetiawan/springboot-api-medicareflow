@@ -11,14 +11,21 @@ import com.dibimbing.medicareflow.dto.request.LoginRequest;
 import com.dibimbing.medicareflow.dto.request.RegisterRequest;
 import com.dibimbing.medicareflow.dto.response.LoginResponse;
 import com.dibimbing.medicareflow.dto.response.RegisterResponse;
+import com.dibimbing.medicareflow.entity.Doctor;
+import com.dibimbing.medicareflow.entity.Patient;
 import com.dibimbing.medicareflow.entity.UserAccount;
+import com.dibimbing.medicareflow.enums.DoctorStatus;
+import com.dibimbing.medicareflow.enums.Role;
 import com.dibimbing.medicareflow.exception.ConflictException;
 import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.helper.JwtHelper;
 import com.dibimbing.medicareflow.helper.SecurityHelper;
+import com.dibimbing.medicareflow.repository.DoctorRepository;
+import com.dibimbing.medicareflow.repository.PatientRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,11 +34,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuthService {
     private final UserAccountRepository userAccountRepository;
+    private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
     private final AuthenticationManager authenticationManager;
     private final TokenBlacklistService blacklistService;
     private final PasswordEncoder passwordEncoder;
     private final JwtHelper jwtHelper;
 
+    @Transactional
     public RegisterResponse register(RegisterRequest registerRequest) {
 
         if(userAccountRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
@@ -48,7 +58,24 @@ public class AuthService {
         userAccount.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userAccount.setRole(registerRequest.getRole());
 
-        userAccountRepository.save(userAccount);
+        userAccount = userAccountRepository.save(userAccount);
+
+        if(registerRequest.getRole() == Role.DOCTOR) {
+            Doctor doctor = new Doctor();
+            doctor.setName(registerRequest.getName());
+            doctor.setSpecialization(registerRequest.getSpecialization());
+            doctor.setStatus(DoctorStatus.ACTIVE);
+            doctor.setUserAccount(userAccount);
+            doctorRepository.save(doctor);
+            
+        } else if(registerRequest.getRole() == Role.PATIENT) {
+            Patient patient = new Patient();
+            patient.setName(registerRequest.getName());
+            patient.setPhone(registerRequest.getPhone());
+            patient.setUserAccount(userAccount);
+            patientRepository.save(patient);
+        }
+
         
         return new RegisterResponse(userAccount.getUsername(), userAccount.getEmail(), userAccount.getRole().toString());
     }
@@ -68,7 +95,7 @@ public class AuthService {
             throw new NotFoundException("User not found");
         }
 
-        String token = jwtHelper.generateToken(userAccount.get().getUsername());
+        String token = jwtHelper.generateToken(userAccount.get());
 
         return new LoginResponse(userAccount.get().getUsername(), userAccount.get().getRole().toString(), token);
     }

@@ -3,6 +3,7 @@ package com.dibimbing.medicareflow.entity;
 import com.dibimbing.medicareflow.entity.base.BaseUuidEntity;
 import com.dibimbing.medicareflow.enums.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -20,5 +21,6 @@ public class UserAccount extends BaseUuidEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 }
