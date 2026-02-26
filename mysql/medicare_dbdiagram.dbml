@@ -1,0 +1,183 @@
+Enum user_role {
+ADMIN
+PATIENT
+DOCTOR
+}
+
+Enum appointment_status {
+PENDING
+CONFIRMED
+COMPLETED
+CANCELLED
+NO_SHOW
+}
+
+Enum time_slot_status {
+AVAILABLE
+BOOKED
+BLOCKED
+}
+
+Enum doctor_status {
+ACTIVE
+INACTIVE
+ON_LEAVE
+}
+
+Enum day_of_week {
+MONDAY
+TUESDAY
+WEDNESDAY
+THURSDAY
+FRIDAY
+SATURDAY
+SUNDAY
+}
+
+Table user_account {
+id uuid [pk]
+username varchar [unique]
+email varchar [unique]
+password varchar
+role user_role
+deleted_at timestamp
+updated_at timestamp
+created_at timestamp
+
+Indexes {
+role
+deleted_at
+}
+}
+
+Table patient {
+id uuid [pk]
+user_id uuid [unique, ref: > user_account.id]
+name varchar
+phone varchar
+deleted_at timestamp
+updated_at timestamp
+created_at timestamp
+
+Indexes {
+deleted_at
+}
+}
+
+Table doctor {
+id uuid [pk]
+user_id uuid [unique, ref: > user_account.id]
+name varchar
+specialization varchar
+status doctor_status
+deleted_at timestamp
+updated_at timestamp
+created_at timestamp
+
+Indexes {
+status
+specialization
+deleted_at
+}
+}
+
+Table consultation_type {
+id bigint [pk, increment]
+name varchar
+duration_minutes int
+fee decimal
+is_active boolean
+deleted_at timestamp
+updated_at timestamp
+created_at timestamp
+
+Indexes {
+is_active
+deleted_at
+}
+}
+
+Table doctor_service {
+doctor_id uuid [ref: > doctor.id]
+service_id bigint [ref: > consultation_type.id]
+
+Indexes {
+(doctor_id, service_id) [unique]
+}
+}
+
+Table working_schedule {
+id bigint [pk, increment]
+doctor_id uuid [ref: > doctor.id]
+service_id bigint [ref: > consultation_type.id]
+day_of_week day_of_week
+start_time time
+end_time time
+deleted_at timestamp
+updated_at timestamp
+created_at timestamp
+
+Indexes {
+doctor_id
+day_of_week
+deleted_at
+}
+}
+
+Table time_slot {
+id bigint [pk, increment]
+doctor_id uuid [ref: > doctor.id]
+service_id bigint [ref: > consultation_type.id]
+slot_date date
+start_time time
+end_time time
+status time_slot_status
+deleted_at timestamp
+updated_at timestamp
+created_at timestamp
+
+Indexes {
+(doctor_id, slot_date)
+(doctor_id, slot_date, status)
+(doctor_id, slot_date, start_time) [unique]
+status
+deleted_at
+}
+}
+
+Table appointment {
+id uuid [pk]
+patient_id uuid [ref: > patient.id]
+doctor_id uuid [ref: > doctor.id]
+service_id bigint [ref: > consultation_type.id]
+time_slot_id bigint [unique, ref: > time_slot.id]
+status appointment_status
+booked_at timestamp
+deleted_at timestamp
+updated_at timestamp
+created_at timestamp
+
+Indexes {
+patient_id
+doctor_id
+status
+booked_at
+deleted_at
+created_at
+}
+}
+
+Table consultation_record {
+id uuid [pk]
+appointment_id uuid [unique, ref: > appointment.id]
+summary text
+recommendation text
+follow_up_date date
+deleted_at timestamp
+updated_at timestamp
+created_at timestamp
+
+Indexes {
+follow_up_date
+}
+}

@@ -68,7 +68,7 @@ CREATE TABLE doctor (
 -- =====================================
 -- CONSULTATION SERVICE
 -- =====================================
-CREATE TABLE consultation_service (
+CREATE TABLE consultation_type (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(150) NOT NULL,
   duration_minutes INT NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE doctor_service (
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
 
   CONSTRAINT fk_ds_service
-    FOREIGN KEY (service_id) REFERENCES consultation_service(id)
+    FOREIGN KEY (service_id) REFERENCES consultation_type(id)
 ) ENGINE=InnoDB;
 
 -- =====================================
@@ -104,6 +104,7 @@ CREATE TABLE doctor_service (
 CREATE TABLE working_schedule (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   doctor_id BINARY(16) NOT NULL,
+  service_id BIGINT NOT NULL,
   day_of_week ENUM(
     'MONDAY','TUESDAY','WEDNESDAY',
     'THURSDAY','FRIDAY','SATURDAY','SUNDAY'
@@ -116,6 +117,9 @@ CREATE TABLE working_schedule (
 
   CONSTRAINT fk_ws_doctor
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
+  
+  CONSTRAINT fk_ws_service
+    FOREIGN KEY (service_id) REFERENCES consultation_type(id),
 
   INDEX idx_ws_doctor_day (doctor_id, day_of_week)
 ) ENGINE=InnoDB;
@@ -126,6 +130,7 @@ CREATE TABLE working_schedule (
 CREATE TABLE time_slot (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   doctor_id BINARY(16) NOT NULL,
+  service_id BIGINT NOT NULL,
   slot_date DATE NOT NULL,
   start_time TIME NOT NULL,
   end_time TIME NOT NULL,
@@ -137,6 +142,10 @@ CREATE TABLE time_slot (
   CONSTRAINT fk_slot_doctor
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
 
+  CONSTRAINT fk_slot_service
+    FOREIGN KEY (service_id) REFERENCES consultation_type(id),
+
+  CONSTRAINT UNIQUE idx_doctor_date_time (doctor_id, slot_date, start_time),
   INDEX idx_slot_doctor_date (doctor_id, slot_date),
   INDEX idx_slot_availability (doctor_id, slot_date, status),
   INDEX idx_slot_status (status),
@@ -168,7 +177,7 @@ CREATE TABLE appointment (
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
 
   CONSTRAINT fk_appt_service
-    FOREIGN KEY (service_id) REFERENCES consultation_service(id),
+    FOREIGN KEY (service_id) REFERENCES consultation_type(id),
 
   CONSTRAINT fk_appt_slot
     FOREIGN KEY (time_slot_id) REFERENCES time_slot(id),

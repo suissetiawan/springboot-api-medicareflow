@@ -68,7 +68,7 @@ FROM user_account WHERE role='DOCTOR';
 -- =====================================
 -- CONSULTATION SERVICE (3)
 -- =====================================
-INSERT INTO consultation_service (name,duration_minutes,fee,active,created_at,updated_at) VALUES
+INSERT INTO consultation_type (name,duration_minutes,fee,active,created_at,updated_at) VALUES
 ('Konsultasi Umum',30,150000,1,NOW(),NOW()),
 ('Konsultasi Spesialis',45,300000,1,NOW(),NOW()),
 ('Kontrol Rutin',20,100000,1,NOW(),NOW());
@@ -78,13 +78,13 @@ INSERT INTO consultation_service (name,duration_minutes,fee,active,created_at,up
 -- =====================================
 INSERT INTO doctor_service
 SELECT d.id, s.id
-FROM doctor d, consultation_service s
+FROM doctor d, consultation_type s
 WHERE d.specialization='Umum'
 AND s.name IN ('Konsultasi Umum','Kontrol Rutin');
 
 INSERT INTO doctor_service
 SELECT d.id, s.id
-FROM doctor d, consultation_service s
+FROM doctor d, consultation_type s
 WHERE d.specialization<>'Umum'
 AND s.name IN ('Konsultasi Spesialis','Kontrol Rutin');
 
@@ -132,7 +132,7 @@ FROM patient p
 JOIN doctor d
 JOIN time_slot ts ON ts.doctor_id = d.id
 JOIN doctor_service ds ON ds.doctor_id = d.id
-JOIN consultation_service s ON s.id = ds.service_id
+JOIN consultation_type s ON s.id = ds.service_id
 WHERE ts.status='AVAILABLE'
 LIMIT 3;
 

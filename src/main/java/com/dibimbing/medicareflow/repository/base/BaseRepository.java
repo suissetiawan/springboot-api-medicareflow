@@ -8,7 +8,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface BaseRepository<T, ID> extends JpaRepository<T, ID> {
-    @Query("SELECT e FROM #{#entityName} e WHERE e.deleted_at IS NULL")
+    @Query("SELECT e FROM #{#entityName} e WHERE e.deletedAt IS NULL")
     List<T> findAll();
 
 }

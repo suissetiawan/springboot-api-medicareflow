@@ -1,6 +1,5 @@
 package com.dibimbing.medicareflow.dto.request;
 
-import com.dibimbing.medicareflow.enums.DoctorStatus;
 import com.dibimbing.medicareflow.enums.Role;
 
 import lombok.Data;
