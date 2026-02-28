@@ -25,7 +25,6 @@ public class SlotTimeService {
         return slots.map(this::mapToTimeSlotResponse);
     }
 
-
     private TimeSlotResponse mapToTimeSlotResponse(TimeSlot timeSlot) {
         TimeSlotResponse response = new TimeSlotResponse();
         response.setId(timeSlot.getId().toString());

@@ -28,10 +28,29 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                // .requestMatchers("/api/doctor/**").hasRole("DOCTOR")
-                .requestMatchers("/api/patient/**").hasAnyRole("PATIENT", "ADMIN")
+
+                // PUBLIC
+                .requestMatchers("/api/auth/register","/api/auth/login","/docs/**").permitAll()
+
+                // ADMIN
+                .requestMatchers("/api/work-schedule/**").hasRole("ADMIN")
+                .requestMatchers("/api/slot-time/generate").hasRole("ADMIN")
+                .requestMatchers("/api/users/**").hasRole("ADMIN")
+                .requestMatchers("/api/consultationtypes/**").hasRole("ADMIN")
+                .requestMatchers("/api/doctors/*").hasRole("ADMIN")
+                .requestMatchers("/api/patients/*").hasRole("ADMIN")
+                .requestMatchers("/api/appointments").hasRole("ADMIN")
+                .requestMatchers("/api/slot-time").hasRole("ADMIN")
+
+                // DOCTOR
+                .requestMatchers("/api/appointments/*/records").hasRole("DOCTOR")
+                .requestMatchers("/api/appointments/*/status").hasRole("DOCTOR")
+
+                // PATIENT
+                .requestMatchers("/api/appointments/my").hasAnyRole("PATIENT","DOCTOR")
+                .requestMatchers("/api/appointments").hasRole("PATIENT")
+
+
                 .anyRequest().authenticated())
             .exceptionHandling(exception -> exception
                 .authenticationEntryPoint(customAuthenticationHandler)

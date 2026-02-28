@@ -25,7 +25,5 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> 
 
     @Query("SELECT u FROM UserAccount u WHERE u.role = :role")
     List<UserAccount> findByRole(Role role);
-
-    
     
 }

@@ -1,8 +1,9 @@
 package com.dibimbing.medicareflow.controller;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,8 +43,8 @@ public class WorkScheduleController {
     public ResponseEntity<?> getAllWorkSchedule(
         @RequestParam(required = false) String username, 
         @RequestParam(required = false) String dayofweek,
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size) {
+        @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+        Pageable pageable) {
         
         DayOfWeek day = null;
         if (dayofweek != null && !dayofweek.isBlank()) {
@@ -54,11 +55,10 @@ public class WorkScheduleController {
             }
         }
 
-        Pageable pageable = PageRequest.of(page, size);
         Page<WorkScheduleResponse> schedule = workScheduleService.getAllWorkSchedule(username, day, pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
-                .page(schedule.getNumber())
+                .page(schedule.getNumber() + 1)
                 .size(schedule.getSize())
                 .totalElements(schedule.getTotalElements())
                 .totalPages(schedule.getTotalPages())

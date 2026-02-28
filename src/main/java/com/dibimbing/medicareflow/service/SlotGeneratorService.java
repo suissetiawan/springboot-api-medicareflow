@@ -55,7 +55,7 @@ public class SlotGeneratorService {
         }
 
         LocalTime currentTime = schedule.getStartTime();
-        Set<LocalTime> existingStartTimes = timeSlotRepository.findByDoctorAndSlotDate(doctor.getId(), date)
+        Set<LocalTime> existingStartTimes = timeSlotRepository.findByDoctorIdAndSlotDate(doctor.getId(), date)
                 .stream()
                 .map(TimeSlot::getStartTime)
                 .collect(Collectors.toSet());

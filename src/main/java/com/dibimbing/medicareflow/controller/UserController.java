@@ -1,8 +1,9 @@
 package com.dibimbing.medicareflow.controller;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,8 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getAll(
             @RequestParam(defaultValue = "") String type,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable) {
             
         String userType = " users";
         switch (type.toLowerCase()) {
@@ -50,11 +51,10 @@ public class UserController {
                 break;
         }
 
-        Pageable pageable = PageRequest.of(page, size);
         Page<UserResponse> result = userService.getAll(type.toLowerCase(), pageable);
 
         PaginationMeta meta = PaginationMeta.builder()
-                .page(result.getNumber())
+                .page(result.getNumber() + 1)
                 .size(result.getSize())
                 .totalElements(result.getTotalElements())
                 .totalPages(result.getTotalPages())

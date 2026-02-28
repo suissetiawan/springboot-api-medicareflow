@@ -69,7 +69,7 @@ class SlotGeneratorServiceTest {
     @Test
     @SuppressWarnings("unchecked")
     void generateSlot_shouldGenerateSlots_whenNoExistingSlots() {
-        when(timeSlotRepository.findByDoctorAndSlotDate(doctor.getId(), date)).thenReturn(Collections.emptyList());
+        when(timeSlotRepository.findByDoctorIdAndSlotDate(doctor.getId(), date)).thenReturn(Collections.emptyList());
 
         slotGeneratorService.generateSlot(doctor, schedule, date);
 
@@ -89,7 +89,7 @@ class SlotGeneratorServiceTest {
     void generateSlot_shouldSkipExistingSlots() {
         TimeSlot existingSlot = new TimeSlot();
         existingSlot.setStartTime(LocalTime.of(9, 0));
-        when(timeSlotRepository.findByDoctorAndSlotDate(doctor.getId(), date)).thenReturn(List.of(existingSlot));
+        when(timeSlotRepository.findByDoctorIdAndSlotDate(doctor.getId(), date)).thenReturn(List.of(existingSlot));
 
         slotGeneratorService.generateSlot(doctor, schedule, date);
 
@@ -107,7 +107,7 @@ class SlotGeneratorServiceTest {
         slot1.setStartTime(LocalTime.of(9, 0));
         TimeSlot slot2 = new TimeSlot();
         slot2.setStartTime(LocalTime.of(9, 30));
-        when(timeSlotRepository.findByDoctorAndSlotDate(doctor.getId(), date)).thenReturn(List.of(slot1, slot2));
+        when(timeSlotRepository.findByDoctorIdAndSlotDate(doctor.getId(), date)).thenReturn(List.of(slot1, slot2));
 
         slotGeneratorService.generateSlot(doctor, schedule, date);
 
@@ -134,7 +134,7 @@ class SlotGeneratorServiceTest {
                 .thenReturn(List.of(schedule));
         
         // Mocking findAllByDoctorIdAndSlotDate to return empty list for all dates
-        when(timeSlotRepository.findByDoctorAndSlotDate(any(UUID.class), any(LocalDate.class)))
+        when(timeSlotRepository.findByDoctorIdAndSlotDate(any(UUID.class), any(LocalDate.class)))
                 .thenReturn(Collections.emptyList());
 
         // Act

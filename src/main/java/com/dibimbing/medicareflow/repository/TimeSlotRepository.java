@@ -28,15 +28,15 @@ public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
 
     List<TimeSlot> findByStatus(SlotStatus status);
 
-    List<TimeSlot> findByDoctorAndSlotDate(UUID doctorId, LocalDate slotDate);
+    List<TimeSlot> findByDoctorIdAndSlotDate(UUID doctorId, LocalDate slotDate);
 
-    List<TimeSlot> findByDoctorAndSlotDateAndStatus(
+    List<TimeSlot> findByDoctorIdAndSlotDateAndStatus(
         UUID doctorId,
         LocalDate slotDate,
         SlotStatus status
     );
 
-    List<TimeSlot> findByDoctorAndStatus(
+    List<TimeSlot> findByDoctorIdAndStatus(
         UUID doctorId,
         SlotStatus status
     );
