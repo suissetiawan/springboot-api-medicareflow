@@ -27,7 +27,7 @@ public class CustomAuthenticationHandler implements AuthenticationEntryPoint {
 
         BaseResponse<?> baseResponse = BaseResponse.builder()
                 .responseStatus(HttpServletResponse.SC_UNAUTHORIZED)
-                .message("Unauthorized")
+                .message("Unauthorized: Please login!!")
                 .build();
 
         response.getWriter().write(objectMapper.writeValueAsString(baseResponse));

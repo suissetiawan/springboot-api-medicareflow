@@ -1,0 +1,1062 @@
+nohup: ignoring input
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.dibimbing:medicareflow >---------------------
+[INFO] Building medicareflow 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.3:run (default-cli) > test-compile @ medicareflow >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ medicareflow ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ medicareflow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ medicareflow ---
+[INFO] skip non existing resourceDirectory /home/suis/Downloads/api-medicareflow/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ medicareflow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.3:run (default-cli) < test-compile @ medicareflow <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.3:run (default-cli) @ medicareflow ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:16:02.148+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:16:02.151+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:16:02.196+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-24T22:16:02.196+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-24T22:16:02.854+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:16:02.856+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:16:02.981+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 117 ms. Found 1 JPA repository interface.
+2026-02-24T22:16:03.023+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:16:03.025+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:16:03.037+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:16:03.037+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:16:03.584+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:16:03.597+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:16:03.597+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:16:03.627+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1431 ms
+2026-02-24T22:16:03.742+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:16:03.805+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-02-24T22:16:04.200+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:16:04.227+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-24T22:16:04.751+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2e409248
+2026-02-24T22:16:04.753+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-24T22:16:05.268+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:16:05.300+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:16:06.198+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:16:06.204+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:16:06.263+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-24T22:16:07.269+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:16:07.307+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:16:07.472+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:16:07.800+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:16:07.806+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 6.016 seconds (process running for 6.445)
+2026-02-24T22:16:25.967+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-24T22:16:25.968+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-24T22:16:25.969+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-24T22:16:25.978+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+Incoming request: POST /api/auth/login
+Auth header missing or invalid format: null
+2026-02-24T22:16:25.985+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:16:25.986+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:16:26.395+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:16:26.508+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+Incoming request: POST /api/auth/logout
+Extracted token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImlhdCI6MTc3MTk0NjE4NiwiZXhwIjoxNzcxOTQ5Nzg2fQ.BV439kfG5t85Jz3D45zyznJUb8E57hxg5vYRVUnAAWA'
+Extracted username: testuser
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+Authentication set for user: testuser
+2026-02-24T22:16:27.269+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/logout
+2026-02-24T22:16:47.216+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:16:47.220+07:00  INFO 53381 --- [medicareflow] [       Thread-1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:16:47.222+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:16:47.339+07:00  INFO 53381 --- [medicareflow] [       Thread-1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:16:47.341+07:00  INFO 53381 --- [medicareflow] [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-24T22:16:47.361+07:00  INFO 53381 --- [medicareflow] [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:16:47.436+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:16:47.437+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:16:47.629+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:16:47.629+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:16:47.637+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 1 JPA repository interface.
+2026-02-24T22:16:47.643+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:16:47.643+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:16:47.646+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:16:47.646+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:16:47.766+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:16:47.767+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:16:47.768+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:16:47.775+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 336 ms
+2026-02-24T22:16:47.804+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:16:47.832+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:16:47.833+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-02-24T22:16:47.944+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57a7b234
+2026-02-24T22:16:47.944+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-02-24T22:16:47.965+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:16:47.974+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:16:48.018+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:16:48.019+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:16:48.095+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:16:48.111+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:16:48.191+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:16:48.298+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:16:48.302+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 0.885 seconds (process running for 46.941)
+2026-02-24T22:16:48.303+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:18:39.824+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:18:39.825+07:00  INFO 53381 --- [medicareflow] [       Thread-5] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:18:39.826+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:18:39.933+07:00  INFO 53381 --- [medicareflow] [       Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:18:39.934+07:00  INFO 53381 --- [medicareflow] [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-02-24T22:18:40.367+07:00  INFO 53381 --- [medicareflow] [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:18:40.446+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:18:40.447+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:18:40.599+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:18:40.600+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:18:40.608+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 1 JPA repository interface.
+2026-02-24T22:18:40.613+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:18:40.613+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:18:40.616+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:18:40.616+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:18:40.710+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:18:40.712+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:18:40.712+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:18:40.720+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 271 ms
+2026-02-24T22:18:40.751+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:18:40.785+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:18:40.787+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-02-24T22:18:45.164+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5d79396f
+2026-02-24T22:18:45.165+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-02-24T22:18:46.169+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:18:46.782+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:18:46.854+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:18:46.855+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:18:46.990+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:18:47.020+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:18:47.111+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:18:47.235+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:18:47.238+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 6.817 seconds (process running for 165.877)
+2026-02-24T22:18:47.239+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:19:10.041+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-24T22:19:10.041+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-24T22:19:10.042+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-24T22:19:10.042+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-24T22:19:10.043+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:19:10.043+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:19:10.917+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:19:17.412+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+2026-02-24T22:19:17.413+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:19:34.675+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:19:34.677+07:00  INFO 53381 --- [medicareflow] [       Thread-9] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:19:34.677+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:19:34.783+07:00  INFO 53381 --- [medicareflow] [       Thread-9] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:19:34.784+07:00  INFO 53381 --- [medicareflow] [       Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-02-24T22:19:36.523+07:00  INFO 53381 --- [medicareflow] [       Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:19:36.613+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:19:36.613+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:19:36.770+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:19:36.770+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:19:36.777+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 1 JPA repository interface.
+2026-02-24T22:19:36.782+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:19:36.782+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:19:36.785+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:19:36.785+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:19:36.866+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:19:36.867+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:19:36.867+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:19:36.874+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 259 ms
+2026-02-24T22:19:36.900+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:19:36.928+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:19:36.929+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-02-24T22:19:39.616+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fdcb38f
+2026-02-24T22:19:39.617+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-02-24T22:19:39.631+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:19:39.675+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:19:39.720+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:19:39.721+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:19:39.804+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:19:39.818+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:19:39.914+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:19:40.018+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:19:40.021+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 3.432 seconds (process running for 218.66)
+2026-02-24T22:19:40.022+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:19:41.407+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:19:41.408+07:00  INFO 53381 --- [medicareflow] [      Thread-13] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:19:41.409+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:19:41.513+07:00  INFO 53381 --- [medicareflow] [      Thread-13] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:19:41.514+07:00  INFO 53381 --- [medicareflow] [      Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-02-24T22:19:43.064+07:00  INFO 53381 --- [medicareflow] [      Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:19:43.130+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:19:43.130+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:19:43.257+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:19:43.257+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:19:43.265+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 1 JPA repository interface.
+2026-02-24T22:19:43.270+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:19:43.270+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:19:43.273+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:19:43.273+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:19:43.380+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:19:43.381+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:19:43.382+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:19:43.389+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 258 ms
+2026-02-24T22:19:43.420+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:19:43.445+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:19:43.446+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-02-24T22:19:46.721+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1cfc9306
+2026-02-24T22:19:46.721+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-02-24T22:19:46.742+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:19:46.754+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:19:46.789+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:19:46.789+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:19:46.851+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:19:46.863+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:19:46.927+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:19:47.001+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:19:47.003+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 3.89 seconds (process running for 225.642)
+2026-02-24T22:19:47.004+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:19:48.391+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:19:48.392+07:00  INFO 53381 --- [medicareflow] [      Thread-17] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:19:48.394+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:19:48.498+07:00  INFO 53381 --- [medicareflow] [      Thread-17] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:19:48.499+07:00  INFO 53381 --- [medicareflow] [      Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2026-02-24T22:19:51.243+07:00  INFO 53381 --- [medicareflow] [      Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:19:51.322+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:19:51.322+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:19:51.482+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:19:51.482+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:19:51.489+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 1 JPA repository interface.
+2026-02-24T22:19:51.495+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:19:51.495+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:19:51.498+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:19:51.499+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:19:51.618+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:19:51.618+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:19:51.619+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:19:51.627+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 303 ms
+2026-02-24T22:19:51.669+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:19:51.696+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:19:51.697+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2026-02-24T22:19:58.384+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6b11ff94
+2026-02-24T22:19:58.384+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2026-02-24T22:19:58.515+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:19:59.214+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:19:59.254+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:19:59.255+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:19:59.322+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:19:59.334+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:19:59.404+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:19:59.491+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:19:59.493+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 8.193 seconds (process running for 238.132)
+2026-02-24T22:19:59.494+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:20:31.693+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-24T22:20:31.693+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-24T22:20:31.695+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-02-24T22:20:31.695+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+2026-02-24T22:20:31.696+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:20:35.771+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-24T22:20:35.772+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:20:35.772+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:20:36.359+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:21:46.792+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+2026-02-24T22:21:46.792+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:21:48.133+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+2026-02-24T22:21:48.134+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:23:29.432+07:00  WARN 53381 --- [medicareflow] [l-6:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-6 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@6b11ff94 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-02-24T22:25:19.793+07:00 DEBUG 53381 --- [medicareflow] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-24T22:25:19.793+07:00 DEBUG 53381 --- [medicareflow] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:25:19.793+07:00 DEBUG 53381 --- [medicareflow] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:25:20.597+07:00 DEBUG 53381 --- [medicareflow] [io-8080-exec-10] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:25:27.413+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:25:27.544+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/logout
+2026-02-24T22:26:12.978+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+2026-02-24T22:26:12.979+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:27:43.175+07:00  WARN 53381 --- [medicareflow] [l-6:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-6 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1a4af4df (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-02-24T22:27:59.426+07:00  WARN 53381 --- [medicareflow] [l-6:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-6 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@50b9f960 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-02-24T22:29:40.610+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:29:40.611+07:00  INFO 53381 --- [medicareflow] [      Thread-21] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:29:40.612+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:29:40.717+07:00  INFO 53381 --- [medicareflow] [      Thread-21] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:29:40.718+07:00  INFO 53381 --- [medicareflow] [      Thread-21] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2026-02-24T22:29:40.732+07:00  INFO 53381 --- [medicareflow] [      Thread-21] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:29:40.798+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:29:40.798+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:29:40.917+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:29:40.917+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:29:40.923+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 1 JPA repository interface.
+2026-02-24T22:29:40.929+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:29:40.929+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:29:40.932+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:29:40.932+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:29:41.025+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:29:41.027+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:29:41.027+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:29:41.035+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 235 ms
+2026-02-24T22:29:41.066+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:29:41.098+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:29:41.099+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2026-02-24T22:29:41.186+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4b116ae9
+2026-02-24T22:29:41.186+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2026-02-24T22:29:41.192+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:29:41.220+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:29:41.253+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:29:41.253+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:29:41.322+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:29:41.337+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:29:41.405+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:29:41.500+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:29:41.503+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 0.723 seconds (process running for 820.142)
+2026-02-24T22:29:41.504+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:30:21.588+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-24T22:30:21.596+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-24T22:30:21.622+07:00  INFO 53381 --- [medicareflow] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 25 ms
+2026-02-24T22:30:21.625+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+2026-02-24T22:30:21.690+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:30:25.656+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-24T22:30:25.656+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-24T22:30:25.656+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:30:25.899+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-3] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:30:29.845+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/logout
+Hibernate: 
+    select
+        ua1_0.id,
+        ua1_0.created_at,
+        ua1_0.deleted_at,
+        ua1_0.email,
+        ua1_0.password,
+        ua1_0.role,
+        ua1_0.updated_at,
+        ua1_0.username 
+    from
+        user_account ua1_0 
+    where
+        ua1_0.username=? 
+        and ua1_0.deleted_at is null
+2026-02-24T22:30:29.920+07:00 DEBUG 53381 --- [medicareflow] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/logout
+2026-02-24T22:30:47.014+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2026-02-24T22:30:47.023+07:00  INFO 53381 --- [medicareflow] [      Thread-25] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:30:47.025+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:30:47.136+07:00  INFO 53381 --- [medicareflow] [      Thread-25] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:30:47.138+07:00  INFO 53381 --- [medicareflow] [      Thread-25] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
+2026-02-24T22:30:47.159+07:00  INFO 53381 --- [medicareflow] [      Thread-25] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:30:47.342+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:30:47.342+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:30:47.480+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:30:47.481+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:30:47.492+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 1 JPA repository interface.
+2026-02-24T22:30:47.498+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:30:47.498+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:30:47.503+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:30:47.503+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:30:47.597+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:30:47.598+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:30:47.598+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:30:47.606+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 262 ms
+2026-02-24T22:30:47.634+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:30:47.676+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:30:47.678+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2026-02-24T22:30:47.897+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6079d88b
+2026-02-24T22:30:47.898+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2026-02-24T22:30:47.908+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:30:47.920+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:30:47.963+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:30:47.963+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:30:48.027+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:30:48.038+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:30:48.107+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:30:48.220+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:30:48.224+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 0.91 seconds (process running for 886.863)
+2026-02-24T22:30:48.226+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:31:00.619+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:31:00.620+07:00  INFO 53381 --- [medicareflow] [      Thread-29] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:31:00.621+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:31:00.736+07:00  INFO 53381 --- [medicareflow] [      Thread-29] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:31:00.737+07:00  INFO 53381 --- [medicareflow] [      Thread-29] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
+2026-02-24T22:31:00.752+07:00  INFO 53381 --- [medicareflow] [      Thread-29] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:31:00.831+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:31:00.831+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:31:00.945+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:31:00.946+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:31:00.951+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 1 JPA repository interface.
+2026-02-24T22:31:00.957+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:31:00.957+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:31:00.960+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:31:00.960+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:31:01.026+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:31:01.027+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:31:01.027+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:31:01.033+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 201 ms
+2026-02-24T22:31:01.056+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:31:01.082+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:31:01.083+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
+2026-02-24T22:31:01.679+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-9 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5de9ca7d
+2026-02-24T22:31:01.680+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
+2026-02-24T22:31:01.687+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:31:01.698+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:31:01.745+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:31:01.746+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:31:01.806+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:31:01.816+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:31:01.885+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:31:02.003+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:31:02.006+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 1.198 seconds (process running for 900.645)
+2026-02-24T22:31:02.007+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:31:03.393+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:31:03.394+07:00  INFO 53381 --- [medicareflow] [      Thread-33] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:31:03.395+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:31:03.499+07:00  INFO 53381 --- [medicareflow] [      Thread-33] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:31:03.500+07:00  INFO 53381 --- [medicareflow] [      Thread-33] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown initiated...
+2026-02-24T22:31:03.522+07:00  INFO 53381 --- [medicareflow] [      Thread-33] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:31:03.592+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:31:03.593+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:31:03.688+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:31:03.688+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:31:03.694+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 1 JPA repository interface.
+2026-02-24T22:31:03.699+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:31:03.699+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:31:03.701+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:31:03.701+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:31:03.770+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:31:03.770+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:31:03.770+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:31:03.777+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 183 ms
+2026-02-24T22:31:03.804+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:31:03.843+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:31:03.844+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Starting...
+2026-02-24T22:31:04.085+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-10 - Added connection com.mysql.cj.jdbc.ConnectionImpl@a6304ab
+2026-02-24T22:31:04.085+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Start completed.
+2026-02-24T22:31:04.100+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:31:04.131+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:31:04.165+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:31:04.165+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:31:04.225+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:31:04.236+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:31:04.302+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:31:04.383+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:31:04.385+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 0.809 seconds (process running for 903.024)
+2026-02-24T22:31:04.386+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:32:10.018+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:32:10.049+07:00  INFO 53381 --- [medicareflow] [      Thread-37] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:32:10.064+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:32:10.248+07:00  INFO 53381 --- [medicareflow] [      Thread-37] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:32:10.262+07:00  INFO 53381 --- [medicareflow] [      Thread-37] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown initiated...
+2026-02-24T22:32:10.287+07:00  INFO 53381 --- [medicareflow] [      Thread-37] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:32:10.867+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:32:10.868+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:32:11.010+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:32:11.010+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:32:11.016+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 1 JPA repository interface.
+2026-02-24T22:32:11.021+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:32:11.022+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:32:11.024+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:32:11.024+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:32:11.143+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:32:11.145+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:32:11.145+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:32:11.156+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 280 ms
+2026-02-24T22:32:11.188+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:32:11.225+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:32:11.226+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Starting...
+2026-02-24T22:32:11.482+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-11 - Added connection com.mysql.cj.jdbc.ConnectionImpl@406e1469
+2026-02-24T22:32:11.482+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Start completed.
+2026-02-24T22:32:11.490+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:32:11.499+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:32:11.542+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:32:11.542+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:32:11.632+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:32:11.658+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:32:11.732+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:32:11.867+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:32:11.871+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 1.132 seconds (process running for 970.51)
+2026-02-24T22:32:11.872+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:32:22.268+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:32:22.269+07:00  INFO 53381 --- [medicareflow] [      Thread-41] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:32:22.269+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:32:22.375+07:00  INFO 53381 --- [medicareflow] [      Thread-41] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:32:22.376+07:00  INFO 53381 --- [medicareflow] [      Thread-41] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown initiated...
+2026-02-24T22:32:22.392+07:00  INFO 53381 --- [medicareflow] [      Thread-41] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:32:22.458+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:32:22.458+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:32:22.557+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:32:22.557+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:32:22.562+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 1 JPA repository interface.
+2026-02-24T22:32:22.566+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:32:22.567+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:32:22.569+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:32:22.569+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:32:22.635+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:32:22.636+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:32:22.636+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:32:22.651+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 191 ms
+2026-02-24T22:32:22.673+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:32:22.700+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:32:22.701+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Starting...
+2026-02-24T22:32:22.889+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-12 - Added connection com.mysql.cj.jdbc.ConnectionImpl@16c18dbc
+2026-02-24T22:32:22.890+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Start completed.
+2026-02-24T22:32:22.899+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:32:22.904+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:32:22.934+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:32:22.934+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:32:22.993+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:32:23.002+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:32:23.065+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:32:23.138+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:32:23.140+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 0.696 seconds (process running for 981.779)
+2026-02-24T22:32:23.141+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:33:47.635+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:33:47.636+07:00  INFO 53381 --- [medicareflow] [      Thread-45] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:33:47.637+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:33:47.745+07:00  INFO 53381 --- [medicareflow] [      Thread-45] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:33:47.746+07:00  INFO 53381 --- [medicareflow] [      Thread-45] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown initiated...
+2026-02-24T22:33:47.748+07:00  INFO 53381 --- [medicareflow] [      Thread-45] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:33:47.830+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:33:47.830+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:33:47.961+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:33:47.961+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:33:47.969+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 1 JPA repository interface.
+2026-02-24T22:33:47.975+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:33:47.975+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:33:47.977+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:33:47.977+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:33:48.080+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:33:48.081+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:33:48.081+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:33:48.088+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 257 ms
+2026-02-24T22:33:48.119+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:33:48.163+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:33:48.164+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Starting...
+2026-02-24T22:33:48.374+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-13 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4e6a5d29
+2026-02-24T22:33:48.374+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Start completed.
+2026-02-24T22:33:48.391+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:33:48.402+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:33:48.452+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:33:48.452+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:33:48.559+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:33:48.583+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:33:48.672+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:33:48.780+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:33:48.782+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 0.977 seconds (process running for 1067.421)
+2026-02-24T22:33:48.783+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-24T22:33:51.168+07:00  INFO 53381 --- [medicareflow] [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-24T22:33:51.170+07:00  INFO 53381 --- [medicareflow] [      Thread-49] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-24T22:33:51.171+07:00  INFO 53381 --- [medicareflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-24T22:33:51.277+07:00  INFO 53381 --- [medicareflow] [      Thread-49] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:33:51.277+07:00  INFO 53381 --- [medicareflow] [      Thread-49] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Shutdown initiated...
+2026-02-24T22:33:53.936+07:00  INFO 53381 --- [medicareflow] [      Thread-49] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-02-24T22:33:54.014+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Starting MedicareflowApplication using Java 21.0.10 with PID 53381 (/home/suis/Downloads/api-medicareflow/target/classes started by suis in /home/suis/Downloads/api-medicareflow)
+2026-02-24T22:33:54.015+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : The following 1 profile is active: "dev"
+2026-02-24T22:33:54.116+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:33:54.116+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T22:33:54.122+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 1 JPA repository interface.
+2026-02-24T22:33:54.127+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-24T22:33:54.127+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-24T22:33:54.129+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dibimbing.medicareflow.repository.UserAccountRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-02-24T22:33:54.130+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-02-24T22:33:54.200+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-24T22:33:54.201+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T22:33:54.201+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-02-24T22:33:54.209+07:00  INFO 53381 --- [medicareflow] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 192 ms
+2026-02-24T22:33:54.233+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-24T22:33:54.260+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T22:33:54.261+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Starting...
+2026-02-24T22:33:54.387+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-14 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26d953df
+2026-02-24T22:33:54.388+07:00  INFO 53381 --- [medicareflow] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Start completed.
+2026-02-24T22:33:54.397+07:00  WARN 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24T22:33:54.406+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://100.76.201.104:3306/medicare_flow]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: medicare_flow/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T22:33:54.436+07:00  INFO 53381 --- [medicareflow] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T22:33:54.436+07:00  INFO 53381 --- [medicareflow] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T22:33:54.497+07:00  INFO 53381 --- [medicareflow] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-24T22:33:54.511+07:00  WARN 53381 --- [medicareflow] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T22:33:54.574+07:00 DEBUG 53381 --- [medicareflow] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-24T22:33:54.674+07:00  INFO 53381 --- [medicareflow] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T22:33:54.678+07:00  INFO 53381 --- [medicareflow] [  restartedMain] c.d.m.MedicareflowApplication            : Started MedicareflowApplication in 0.679 seconds (process running for 1073.317)
+2026-02-24T22:33:54.679+07:00  INFO 53381 --- [medicareflow] [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  18:28 min
+[INFO] Finished at: 2026-02-24T22:34:28+07:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.0.3:run (default-cli) on project medicareflow: Process terminated with exit code: 137 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

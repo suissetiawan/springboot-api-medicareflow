@@ -7,12 +7,13 @@ import com.dibimbing.medicareflow.dto.request.RegisterRequest;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.AuthService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @RestController
@@ -24,12 +25,21 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
-        return ResponseHelper.custom(authService.register(registerRequest), "Register successful", HttpStatus.CREATED);
+        return ResponseHelper.successCreated(authService.register(registerRequest), "Register successful");
     }
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        return ResponseHelper.success(authService.login(loginRequest), "Login successful");
+        return ResponseHelper.successOK(authService.login(loginRequest), "Login successful");
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        return ResponseHelper.successOK(authService.logout(request), "Logout successful");
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> me() {
+        return ResponseHelper.successOK(authService.me(), "Success get data me");
+    }
 }

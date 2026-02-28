@@ -1,5 +1,6 @@
 package com.dibimbing.medicareflow.exception;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,5 +30,10 @@ public class GlobalExceptionHandler {
      @ExceptionHandler(Exception.class)
      public <T> ResponseEntity<BaseResponse<T>> handleException(Exception ex) {
           return ResponseHelper.error(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+     }
+
+     @ExceptionHandler(BadRequestException.class)
+     public <T> ResponseEntity<BaseResponse<T>> handleBadRequestException(BadRequestException ex) {
+          return ResponseHelper.error(ex.getMessage(), HttpStatus.BAD_REQUEST);
      }
 }
