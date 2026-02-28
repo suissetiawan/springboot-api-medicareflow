@@ -9,6 +9,7 @@ import com.dibimbing.medicareflow.dto.response.DoctorDetailResponse;
 import com.dibimbing.medicareflow.entity.Doctor;
 import com.dibimbing.medicareflow.entity.UserAccount;
 import com.dibimbing.medicareflow.exception.NotFoundException;
+import com.dibimbing.medicareflow.helper.DateHelper;
 import com.dibimbing.medicareflow.repository.DoctorRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
@@ -37,8 +38,8 @@ public class DoctorService {
         res.setEmail(doctor.getUserAccount().getEmail());
         res.setSpecialization(doctor.getSpecialization());
         res.setRole(doctor.getUserAccount().getRole().toString());
-        res.setCreatedAt(doctor.getCreatedAt().toString());
-        res.setUpdatedAt(doctor.getUpdatedAt().toString());
+        res.setCreatedAt(DateHelper.format(doctor.getCreatedAt()));
+        res.setUpdatedAt(DateHelper.format(doctor.getUpdatedAt()));
         
         return res;
     }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.dibimbing.medicareflow.dto.response.UserResponse;
 import com.dibimbing.medicareflow.entity.UserAccount;
 import com.dibimbing.medicareflow.enums.Role;
+import com.dibimbing.medicareflow.helper.DateHelper;
 import com.dibimbing.medicareflow.repository.DoctorRepository;
 import com.dibimbing.medicareflow.repository.PatientRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
@@ -57,8 +58,8 @@ public class UserService {
         res.setId(displayId);
         res.setUsername(user.getUsername());
         res.setRole(user.getRole().name());
-        res.setCreatedAt(user.getCreatedAt().toString());
-        res.setUpdatedAt(user.getUpdatedAt().toString());
+        res.setCreatedAt(DateHelper.format(user.getCreatedAt()));
+        res.setUpdatedAt(DateHelper.format(user.getUpdatedAt()));
         return res;
     }
 }
