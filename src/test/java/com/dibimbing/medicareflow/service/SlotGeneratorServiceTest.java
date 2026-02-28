@@ -28,6 +28,7 @@ import com.dibimbing.medicareflow.entity.Doctor;
 import com.dibimbing.medicareflow.entity.TimeSlot;
 import com.dibimbing.medicareflow.entity.WorkSchedule;
 import com.dibimbing.medicareflow.enums.DayOfWeek;
+import com.dibimbing.medicareflow.enums.DoctorStatus;
 import com.dibimbing.medicareflow.repository.TimeSlotRepository;
 import com.dibimbing.medicareflow.repository.WorkScheduleRepository;
 
@@ -52,6 +53,7 @@ class SlotGeneratorServiceTest {
     void setUp() {
         doctor = new Doctor();
         doctor.setId(UUID.randomUUID());
+        doctor.setStatus(DoctorStatus.ACTIVE);
         
         type = new ConsultationType();
         type.setDurationMinutes(30);
@@ -67,7 +69,7 @@ class SlotGeneratorServiceTest {
     @Test
     @SuppressWarnings("unchecked")
     void generateSlot_shouldGenerateSlots_whenNoExistingSlots() {
-        when(timeSlotRepository.findAllByDoctorIdAndSlotDate(doctor.getId(), date)).thenReturn(Collections.emptyList());
+        when(timeSlotRepository.findByDoctorAndSlotDate(doctor.getId(), date)).thenReturn(Collections.emptyList());
 
         slotGeneratorService.generateSlot(doctor, schedule, date);
 
@@ -87,7 +89,7 @@ class SlotGeneratorServiceTest {
     void generateSlot_shouldSkipExistingSlots() {
         TimeSlot existingSlot = new TimeSlot();
         existingSlot.setStartTime(LocalTime.of(9, 0));
-        when(timeSlotRepository.findAllByDoctorIdAndSlotDate(doctor.getId(), date)).thenReturn(List.of(existingSlot));
+        when(timeSlotRepository.findByDoctorAndSlotDate(doctor.getId(), date)).thenReturn(List.of(existingSlot));
 
         slotGeneratorService.generateSlot(doctor, schedule, date);
 
@@ -105,7 +107,7 @@ class SlotGeneratorServiceTest {
         slot1.setStartTime(LocalTime.of(9, 0));
         TimeSlot slot2 = new TimeSlot();
         slot2.setStartTime(LocalTime.of(9, 30));
-        when(timeSlotRepository.findAllByDoctorIdAndSlotDate(doctor.getId(), date)).thenReturn(List.of(slot1, slot2));
+        when(timeSlotRepository.findByDoctorAndSlotDate(doctor.getId(), date)).thenReturn(List.of(slot1, slot2));
 
         slotGeneratorService.generateSlot(doctor, schedule, date);
 
@@ -132,7 +134,7 @@ class SlotGeneratorServiceTest {
                 .thenReturn(List.of(schedule));
         
         // Mocking findAllByDoctorIdAndSlotDate to return empty list for all dates
-        when(timeSlotRepository.findAllByDoctorIdAndSlotDate(any(UUID.class), any(LocalDate.class)))
+        when(timeSlotRepository.findByDoctorAndSlotDate(any(UUID.class), any(LocalDate.class)))
                 .thenReturn(Collections.emptyList());
 
         // Act

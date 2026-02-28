@@ -1,8 +1,7 @@
 package com.dibimbing.medicareflow.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dibimbing.medicareflow.dto.request.WorkScheduleRequest;
@@ -27,28 +26,9 @@ public class WorkScheduleService {
     private final UserAccountRepository userAccountRepository;
 
 
-    public List<WorkScheduleResponse> getAllWorkSchedule(String username, DayOfWeek dayofweek) {
-
-        UserAccount user = (username == null || username.isBlank()) ? null : 
-            userAccountRepository.findByUsername(username).orElse(null);
-
-        if (user == null) {
-            if (dayofweek == null) {
-                return workScheduleRepository.findAll().stream().map(this::mapToWorkScheduleResponse).collect(Collectors.toList());
-            } else {
-                return workScheduleRepository.findByDayOfWeek(dayofweek).stream().map(this::mapToWorkScheduleResponse).collect(Collectors.toList());
-            }
-        }
-
-        if (user.getDoctor() == null) {
-            throw new NotFoundException("User is not a doctor");
-        }
-
-        if (dayofweek == null) {
-            return workScheduleRepository.findByDoctorId(user.getDoctor().getId()).stream().map(this::mapToWorkScheduleResponse).collect(Collectors.toList());
-        } else {
-            return workScheduleRepository.findByDoctorIdAndDayOfWeek(user.getDoctor().getId(), dayofweek).stream().map(this::mapToWorkScheduleResponse).collect(Collectors.toList());
-        }
+    public Page<WorkScheduleResponse> getAllWorkSchedule(String username, DayOfWeek dayofweek, Pageable pageable) {
+        Page<WorkSchedule> result = workScheduleRepository.findAllByFilter(username, dayofweek, pageable);
+        return result.map(this::mapToWorkScheduleResponse);
     }
 
     @Transactional

@@ -1,7 +1,8 @@
 package com.dibimbing.medicareflow.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.WorkScheduleRequest;
 import com.dibimbing.medicareflow.dto.response.WorkScheduleResponse;
 import com.dibimbing.medicareflow.enums.DayOfWeek;
@@ -39,7 +41,9 @@ public class WorkScheduleController {
     @GetMapping
     public ResponseEntity<?> getAllWorkSchedule(
         @RequestParam(required = false) String username, 
-        @RequestParam(required = false) String dayofweek) {
+        @RequestParam(required = false) String dayofweek,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size) {
         
         DayOfWeek day = null;
         if (dayofweek != null && !dayofweek.isBlank()) {
@@ -50,8 +54,17 @@ public class WorkScheduleController {
             }
         }
 
-        List<WorkScheduleResponse> schedule = workScheduleService.getAllWorkSchedule(username, day);
-        return ResponseHelper.successOK(schedule, "Success get all work schedule");
+        Pageable pageable = PageRequest.of(page, size);
+        Page<WorkScheduleResponse> schedule = workScheduleService.getAllWorkSchedule(username, day, pageable);
+        
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(schedule.getNumber())
+                .size(schedule.getSize())
+                .totalElements(schedule.getTotalElements())
+                .totalPages(schedule.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(schedule.getContent(), "Success get all work schedule", meta);
     }
 
     @PutMapping("/{id}")

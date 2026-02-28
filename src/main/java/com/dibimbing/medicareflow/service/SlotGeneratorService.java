@@ -32,7 +32,6 @@ public class SlotGeneratorService {
     private final TimeSlotRepository timeSlotRepository;
     private final WorkScheduleRepository workingScheduleRepository;
 
-
     @Transactional
     public void generateSlot(
             Doctor doctor,
@@ -56,7 +55,7 @@ public class SlotGeneratorService {
         }
 
         LocalTime currentTime = schedule.getStartTime();
-        Set<LocalTime> existingStartTimes = timeSlotRepository.findAllByDoctorIdAndSlotDate(doctor.getId(), date)
+        Set<LocalTime> existingStartTimes = timeSlotRepository.findByDoctorAndSlotDate(doctor.getId(), date)
                 .stream()
                 .map(TimeSlot::getStartTime)
                 .collect(Collectors.toSet());

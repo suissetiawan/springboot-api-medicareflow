@@ -1,8 +1,7 @@
 package com.dibimbing.medicareflow.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dibimbing.medicareflow.dto.response.UserResponse;
@@ -21,22 +20,16 @@ public class UserService {
 
     private final UserAccountRepository userAccountRepository;
 
-    public List<UserResponse> getAll(String type) {
-        List<UserAccount> users;
+    public Page<UserResponse> getAll(String type, Pageable pageable) {
+        Page<UserAccount> users;
 
         if (type == null || type.isBlank() || type.equalsIgnoreCase("all")) {
-            users = userAccountRepository.findAll();
+            users = userAccountRepository.findAll(pageable);
         } else {
-            try {
-                Role role = Role.valueOf(type.toUpperCase());
-                users = userAccountRepository.findByRole(role);
-            } catch (IllegalArgumentException e) {
-                log.warn("Invalid role type requested: {}", type);
-                users = new ArrayList<>();
-            }
+            Role role = Role.valueOf(type.toUpperCase());
+            users = userAccountRepository.findByRole(role, pageable);
         }
-
-        return users.stream().map(this::mapToResponse).toList();
+        return users.map(this::mapToResponse);
     }
 
     private UserResponse mapToResponse(UserAccount user) {

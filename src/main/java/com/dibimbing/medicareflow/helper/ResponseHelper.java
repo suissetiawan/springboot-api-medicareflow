@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.dibimbing.medicareflow.dto.BaseResponse;
+import com.dibimbing.medicareflow.dto.PaginationMeta;
 
 public class ResponseHelper {
     public static <T> ResponseEntity<BaseResponse<T>> successOK(T data, String message) {
@@ -22,6 +23,17 @@ public class ResponseHelper {
                         .responseStatus(HttpStatus.CREATED.value())
                         .message(message)
                         .data(data)
+                        .build()
+        );
+    }
+
+    public static <T> ResponseEntity<BaseResponse<T>> successOK(T data, String message, PaginationMeta metadata) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                BaseResponse.<T>builder()
+                        .responseStatus(HttpStatus.OK.value())
+                        .message(message)
+                        .data(data)
+                        .metadata(metadata)
                         .build()
         );
     }

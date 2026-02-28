@@ -1,0 +1,50 @@
+package com.dibimbing.medicareflow.controller;
+
+import java.time.LocalDate;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.dibimbing.medicareflow.dto.PaginationMeta;
+import com.dibimbing.medicareflow.dto.response.TimeSlotResponse;
+import com.dibimbing.medicareflow.enums.SlotStatus;
+import com.dibimbing.medicareflow.helper.ResponseHelper;
+import com.dibimbing.medicareflow.service.SlotTimeService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/slot-time")
+@RequiredArgsConstructor
+public class SlotTimeController {
+
+    private final SlotTimeService slotTimeService;
+
+    @GetMapping
+    public ResponseEntity<?> getAllTimeSlot(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate slotDate,
+            @RequestParam(required = false) SlotStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TimeSlotResponse> result = slotTimeService.getAllTimeSlot(username, slotDate, status, pageable);
+
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(result.getNumber())
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(result.getContent(), "Successfully retrieved time slots", meta);
+    }
+}

@@ -1,8 +1,7 @@
 package com.dibimbing.medicareflow.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dibimbing.medicareflow.dto.request.ConsultationTypeRequest;
@@ -22,9 +21,9 @@ public class ConsultationTypeService {
 
     private ConsultationTypeRepository consultationTypeRepository;
 
-    public List<ConsultationTypeResponse> getAllConsultationTypes() {
-        List<ConsultationType> type = consultationTypeRepository.findAll();
-        return type.stream().map(this::mapToConsultationTypeResponse).collect(Collectors.toList());
+    public Page<ConsultationTypeResponse> getAllConsultationTypes(Pageable pageable) {
+        Page<ConsultationType> type = consultationTypeRepository.findAll(pageable);
+        return type.map(this::mapToConsultationTypeResponse);
     }
 
     public ConsultationTypeResponse getConsultationTypeById(Long id) {
