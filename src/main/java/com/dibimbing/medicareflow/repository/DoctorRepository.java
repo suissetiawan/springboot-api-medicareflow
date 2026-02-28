@@ -3,14 +3,12 @@ package com.dibimbing.medicareflow.repository;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.dibimbing.medicareflow.entity.Doctor;
-import com.dibimbing.medicareflow.repository.base.BaseRepository;
 
-public interface DoctorRepository extends BaseRepository<Doctor, UUID> {
+public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
 
-    @Query("SELECT d FROM Doctor d JOIN FETCH d.userAccount WHERE d.id = :id")
-    Optional<Doctor> findById(UUID id);
+    Optional<Doctor> findByUserAccountId(UUID userAccountId);
 
 }

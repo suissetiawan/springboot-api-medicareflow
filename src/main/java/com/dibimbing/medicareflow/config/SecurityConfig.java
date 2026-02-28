@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 // .requestMatchers("/api/doctor/**").hasRole("DOCTOR")
-                // .requestMatchers("/api/patient/**").hasRole("PATIENT")
+                .requestMatchers("/api/patient/**").hasAnyRole("PATIENT", "ADMIN")
                 .anyRequest().authenticated())
             .exceptionHandling(exception -> exception
                 .authenticationEntryPoint(customAuthenticationHandler)

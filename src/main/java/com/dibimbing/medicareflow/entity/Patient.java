@@ -2,6 +2,7 @@ package com.dibimbing.medicareflow.entity;
 
 import com.dibimbing.medicareflow.entity.base.BaseUuidEntity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;

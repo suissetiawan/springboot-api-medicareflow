@@ -14,6 +14,7 @@ import com.dibimbing.medicareflow.entity.Doctor;
 import com.dibimbing.medicareflow.entity.TimeSlot;
 import com.dibimbing.medicareflow.entity.WorkingSchedule;
 import com.dibimbing.medicareflow.enums.DayofWeek;
+import com.dibimbing.medicareflow.enums.DoctorStatus;
 import com.dibimbing.medicareflow.enums.SlotStatus;
 import com.dibimbing.medicareflow.repository.TimeSlotRepository;
 import com.dibimbing.medicareflow.repository.WorkingScheduleRepository;
@@ -91,7 +92,7 @@ public class SlotGeneratorService {
             for (WorkingSchedule schedule : schedules) {
                 Doctor doctor = schedule.getDoctor();
                 ConsultationType type = schedule.getConsultationType();
-                if (type != null) {
+                if (type != null && doctor.getStatus().equals(DoctorStatus.ACTIVE)) {
                     generateSlot(doctor, schedule, type, targetDate);
                 }
             }

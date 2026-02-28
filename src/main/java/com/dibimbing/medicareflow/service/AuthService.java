@@ -70,6 +70,7 @@ public class AuthService {
             
         } else if(registerRequest.getRole() == Role.PATIENT) {
             Patient patient = new Patient();
+            patient.setId(userAccount.getId());
             patient.setName(registerRequest.getName());
             patient.setPhone(registerRequest.getPhone());
             patient.setUserAccount(userAccount);
@@ -97,7 +98,13 @@ public class AuthService {
 
         String token = jwtHelper.generateToken(userAccount.get());
 
-        return new LoginResponse(userAccount.get().getUsername(), userAccount.get().getRole().toString(), token);
+        LoginResponse res = new LoginResponse();
+        res.setId(userAccount.get().getId().toString());
+        res.setUsername(userAccount.get().getUsername());
+        res.setRole(userAccount.get().getRole().toString());
+        res.setToken(token);
+
+        return res;
     }
 
     public String logout(HttpServletRequest request) {

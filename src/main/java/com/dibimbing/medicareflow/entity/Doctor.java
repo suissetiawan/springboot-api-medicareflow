@@ -5,6 +5,7 @@ import java.util.List;
 import com.dibimbing.medicareflow.entity.base.BaseUuidEntity;
 import com.dibimbing.medicareflow.enums.DoctorStatus;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
