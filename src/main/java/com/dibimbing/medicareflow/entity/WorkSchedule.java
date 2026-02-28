@@ -3,7 +3,7 @@ package com.dibimbing.medicareflow.entity;
 import java.time.LocalTime;
 
 import com.dibimbing.medicareflow.entity.base.BaseLongEntity;
-import com.dibimbing.medicareflow.enums.DayofWeek;
+import com.dibimbing.medicareflow.enums.DayOfWeek;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,22 +19,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "working_schedule")
-public class WorkingSchedule extends BaseLongEntity {
+public class WorkSchedule extends BaseLongEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
-    private ConsultationType consultationType;
-
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "day_of_week", nullable = false)
-    private DayofWeek dayOfWeek;
-
+    private DayOfWeek dayOfWeek;
+    
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
-
+    
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
-
+    
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;

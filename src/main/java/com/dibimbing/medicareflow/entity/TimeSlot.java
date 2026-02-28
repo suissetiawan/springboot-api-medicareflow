@@ -25,10 +25,6 @@ import lombok.Setter;
 })
 public class TimeSlot extends BaseLongEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
-    private ConsultationType consultationType;
-
     @Column(name = "slot_date", nullable = false)
     private LocalDate slotDate;
 

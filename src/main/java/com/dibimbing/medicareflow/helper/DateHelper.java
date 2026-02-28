@@ -12,4 +12,8 @@ public class DateHelper {
         }
         return dateTime.format(formatter);
     }
+
+    public static LocalDateTime now() {
+        return LocalDateTime.parse(format(LocalDateTime.now()), formatter);
+    }
 }

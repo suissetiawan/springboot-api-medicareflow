@@ -31,7 +31,7 @@ public class PatientController {
     public ResponseEntity<?> deletePatient(@PathVariable UUID id) {
         Boolean isDeleted = patientService.deletePatient(id);
         if (isDeleted) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            return ResponseEntity.noContent().build();
         }
 
         return ResponseHelper.error("Data has been deleted", HttpStatus.BAD_REQUEST);

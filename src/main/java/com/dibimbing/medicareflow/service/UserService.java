@@ -9,8 +9,6 @@ import com.dibimbing.medicareflow.dto.response.UserResponse;
 import com.dibimbing.medicareflow.entity.UserAccount;
 import com.dibimbing.medicareflow.enums.Role;
 import com.dibimbing.medicareflow.helper.DateHelper;
-import com.dibimbing.medicareflow.repository.DoctorRepository;
-import com.dibimbing.medicareflow.repository.PatientRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,8 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 
     private final UserAccountRepository userAccountRepository;
-    private final PatientRepository patientRepository;
-    private final DoctorRepository doctorRepository;
 
     public List<UserResponse> getAll(String type) {
         List<UserAccount> users;
@@ -48,11 +44,9 @@ public class UserService {
         
         String displayId = user.getId().toString();
         if (user.getRole() == Role.PATIENT) {
-            displayId = patientRepository.findByUserAccountId(user.getId())
-                    .map(p -> p.getId().toString()).orElse(null);
+            displayId = user.getPatient() != null ? user.getPatient().getId().toString() : null;
         } else if (user.getRole() == Role.DOCTOR) {
-            displayId = doctorRepository.findByUserAccountId(user.getId())
-                    .map(d -> d.getId().toString()).orElse(null);
+            displayId = user.getDoctor() != null ? user.getDoctor().getId().toString() : null;
         }
 
         res.setId(displayId);

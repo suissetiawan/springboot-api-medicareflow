@@ -36,7 +36,7 @@ public class Appointment extends BaseUuidEntity {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
+    @JoinColumn(name = "consultation_type_id", nullable = false)
     private ConsultationType service;
 
     @ManyToOne

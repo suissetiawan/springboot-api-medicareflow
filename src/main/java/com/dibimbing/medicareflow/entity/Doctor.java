@@ -37,6 +37,6 @@ public class Doctor extends BaseUuidEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "doctor_service",
             joinColumns = @JoinColumn(name = "doctor_id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id"))
+            inverseJoinColumns = @JoinColumn(name = "consultation_type_id"))
     private List<ConsultationType> services;
 }

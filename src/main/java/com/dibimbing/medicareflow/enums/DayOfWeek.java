@@ -1,6 +1,6 @@
 package com.dibimbing.medicareflow.enums;
 
-public enum DayofWeek {
+public enum DayOfWeek {
     MONDAY,
     TUESDAY,
     WEDNESDAY,

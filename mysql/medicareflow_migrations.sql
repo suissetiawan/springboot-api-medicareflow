@@ -87,15 +87,15 @@ CREATE TABLE consultation_type (
 -- =====================================
 CREATE TABLE doctor_service (
   doctor_id BINARY(16) NOT NULL,
-  service_id BIGINT NOT NULL,
+  consultation_type_id BIGINT NOT NULL,
 
-  PRIMARY KEY (doctor_id, service_id),
+  PRIMARY KEY (doctor_id, consultation_type_id),
 
   CONSTRAINT fk_ds_doctor
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
 
-  CONSTRAINT fk_ds_service
-    FOREIGN KEY (service_id) REFERENCES consultation_type(id)
+  CONSTRAINT fk_ds_consultation_type
+    FOREIGN KEY (consultation_type_id) REFERENCES consultation_type(id)
 ) ENGINE=InnoDB;
 
 -- =====================================
@@ -104,7 +104,6 @@ CREATE TABLE doctor_service (
 CREATE TABLE working_schedule (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   doctor_id BINARY(16) NOT NULL,
-  service_id BIGINT NOT NULL,
   day_of_week ENUM(
     'MONDAY','TUESDAY','WEDNESDAY',
     'THURSDAY','FRIDAY','SATURDAY','SUNDAY'
@@ -118,9 +117,6 @@ CREATE TABLE working_schedule (
   CONSTRAINT fk_ws_doctor
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
   
-  CONSTRAINT fk_ws_service
-    FOREIGN KEY (service_id) REFERENCES consultation_type(id),
-
   INDEX idx_ws_doctor_day (doctor_id, day_of_week)
 ) ENGINE=InnoDB;
 
@@ -130,7 +126,6 @@ CREATE TABLE working_schedule (
 CREATE TABLE time_slot (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   doctor_id BINARY(16) NOT NULL,
-  service_id BIGINT NOT NULL,
   slot_date DATE NOT NULL,
   start_time TIME NOT NULL,
   end_time TIME NOT NULL,
@@ -141,9 +136,6 @@ CREATE TABLE time_slot (
 
   CONSTRAINT fk_slot_doctor
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
-
-  CONSTRAINT fk_slot_service
-    FOREIGN KEY (service_id) REFERENCES consultation_type(id),
 
   CONSTRAINT UNIQUE idx_doctor_date_time (doctor_id, slot_date, start_time),
   INDEX idx_slot_doctor_date (doctor_id, slot_date),
@@ -159,7 +151,7 @@ CREATE TABLE appointment (
   id BINARY(16) PRIMARY KEY,
   patient_id BINARY(16) NOT NULL,
   doctor_id BINARY(16) NOT NULL,
-  service_id BIGINT NOT NULL,
+  consultation_type_id BIGINT NOT NULL,
   time_slot_id BIGINT UNIQUE NOT NULL,
   status ENUM(
     'PENDING','CONFIRMED','COMPLETED',
@@ -176,8 +168,8 @@ CREATE TABLE appointment (
   CONSTRAINT fk_appt_doctor
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
 
-  CONSTRAINT fk_appt_service
-    FOREIGN KEY (service_id) REFERENCES consultation_type(id),
+  CONSTRAINT fk_appt_consultation_type
+    FOREIGN KEY (consultation_type_id) REFERENCES consultation_type(id),
 
   CONSTRAINT fk_appt_slot
     FOREIGN KEY (time_slot_id) REFERENCES time_slot(id),

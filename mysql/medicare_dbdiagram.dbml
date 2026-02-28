@@ -99,17 +99,16 @@ deleted_at
 
 Table doctor_service {
 doctor_id uuid [ref: > doctor.id]
-service_id bigint [ref: > consultation_type.id]
+consultation_type_id bigint [ref: > consultation_type.id]
 
 Indexes {
-(doctor_id, service_id) [unique]
+(doctor_id, consultation_type_id) [unique]
 }
 }
 
 Table working_schedule {
 id bigint [pk, increment]
 doctor_id uuid [ref: > doctor.id]
-service_id bigint [ref: > consultation_type.id]
 day_of_week day_of_week
 start_time time
 end_time time
@@ -127,7 +126,6 @@ deleted_at
 Table time_slot {
 id bigint [pk, increment]
 doctor_id uuid [ref: > doctor.id]
-service_id bigint [ref: > consultation_type.id]
 slot_date date
 start_time time
 end_time time
@@ -149,7 +147,7 @@ Table appointment {
 id uuid [pk]
 patient_id uuid [ref: > patient.id]
 doctor_id uuid [ref: > doctor.id]
-service_id bigint [ref: > consultation_type.id]
+consultation_type_id bigint [ref: > consultation_type.id]
 time_slot_id bigint [unique, ref: > time_slot.id]
 status appointment_status
 booked_at timestamp
