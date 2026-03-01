@@ -58,7 +58,7 @@ jobs:
       # DEPLOY TO VPS
       # =========================
       - name: Connect to Tailscale
-        if: github.ref == 'refs/heads/${{ env.BRANCH_TEST }}'
+        if: github.ref == env.BRANCH_TEST
         uses: tailscale/github-action@v4
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
@@ -66,19 +66,19 @@ jobs:
           tags: tag:github-action
 
       - name: Set up SSH
-        if: github.ref == 'refs/heads/${{ env.BRANCH_TEST }}'
+        if: github.ref == env.BRANCH_TEST
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
 
       - name: Create directory and copy docker-compose.yml
-        if: github.ref == 'refs/heads/${{ env.BRANCH_TEST }}'
+        if: github.ref == env.BRANCH_TEST
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p ${{ env.APP_DIR }}"
           scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.APP_DIR }}/docker-compose.yml
 
       - name: Deploy on VPS
-        if: github.ref == 'refs/heads/${{ env.BRANCH_TEST }}'
+        if: github.ref == env.BRANCH_TEST
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF > /dev/null 2>&1
               set -e
