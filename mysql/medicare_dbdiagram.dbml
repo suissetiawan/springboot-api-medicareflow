@@ -149,6 +149,7 @@ patient_id uuid [ref: > patient.id]
 doctor_id uuid [ref: > doctor.id]
 consultation_type_id bigint [ref: > consultation_type.id]
 time_slot_id bigint [unique, ref: > time_slot.id]
+reference_number varchar [unique]
 status appointment_status
 booked_at timestamp
 deleted_at timestamp

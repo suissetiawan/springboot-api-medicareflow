@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConsultationTypeRequest {
-    private String name;
-    private String fee;
-    private String durationMinutes;
+public class ConsultationStatusRequest {
     private String isActive;
 }

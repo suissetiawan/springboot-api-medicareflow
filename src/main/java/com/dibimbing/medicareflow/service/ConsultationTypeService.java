@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.dibimbing.medicareflow.dto.request.ConsultationTypeRequest;
+import com.dibimbing.medicareflow.dto.request.ConsultationStatusRequest;
 import com.dibimbing.medicareflow.dto.response.ConsultationTypeResponse;
 import com.dibimbing.medicareflow.entity.ConsultationType;
 import com.dibimbing.medicareflow.exception.NotFoundException;
@@ -36,7 +36,7 @@ public class ConsultationTypeService {
         return mapToConsultationTypeResponse(type);
     }
 
-    public ConsultationTypeResponse updateStatus(Long id, ConsultationTypeRequest request) {
+    public ConsultationTypeResponse updateStatus(Long id, ConsultationStatusRequest request) {
         ConsultationType type = consultationTypeRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Consultation type not found");

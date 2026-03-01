@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
-import com.dibimbing.medicareflow.dto.request.ConsultationTypeRequest;
+import com.dibimbing.medicareflow.dto.request.ConsultationStatusRequest;
 import com.dibimbing.medicareflow.dto.response.ConsultationTypeResponse;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.ConsultationTypeService;
@@ -53,7 +53,7 @@ public class ConsultationTypeController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody ConsultationTypeRequest request) {
+    public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody ConsultationStatusRequest request) {
         ConsultationTypeResponse consultationType = consultationTypeService.updateStatus(id, request);
         return ResponseHelper.successOK(consultationType, "Data berhasil diupdate");
     }
