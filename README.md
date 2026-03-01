@@ -22,6 +22,22 @@ This project serves as a robust backend portfolio, demonstrating the application
 
 ---
 
+## 🏗️ System Architecture Overview
+
+MediCareFlow is designed with a modern, secure, and automated infrastructure. Our architecture spans from code-to-cloud, incorporating:
+
+- **Layered Code Structure:** Controllers, Services, and Repositories for clear separation of concerns.
+- **Automated CI/CD:** GitHub Actions and Docker for seamless containerized delivery.
+- **Secure Infrastructure:** Private networking via Tailscale and public exposure through Cloudflare Tunnels (no open inbound ports).
+- **High Performance:** MySQL persistence with Redis caching for scale and speed.
+
+> [!TIP]
+> **For a full technical breakdown** including our end-to-end flow diagram and infrastructure details, please visit our **[Detailed Architecture Guide](docs/ARCHITECTURE.md)**.
+
+---
+
+---
+
 ## 📚 Detailed Documentation
 
 For an in-depth look at how the system was built and how to operate it, please explore the detailed guides below:
@@ -29,7 +45,7 @@ For an in-depth look at how the system was built and how to operate it, please e
 1. ⚙️ **[Features & Application Flow](docs/FEATURES_AND_FLOW.md)**: Explore the core functionalities and step-by-step booking flow.
 2. 🏗️ **[System Architecture](docs/ARCHITECTURE.md)**: Understand the technical design, including the Slot Generator logic and Redis token blacklisting.
 3. 🗄️ **[Database Design](docs/DATABASE.md)**: Overview of the database schema and a link to the complete ERD.
-4. 📖 **[API Documentation](docs/API_DOCUMENTATION.md)**: Instructions on accessing the Swagger UI and examples of key endpoints.
+4. 📖 **[API Documentation](https://demo1.suissetiawan.my.id/docs/swagger-ui/index.html)**: Explore the interactive Swagger UI for a complete list of endpoints and live testing.
 5. 🚀 **[Getting Started & Deployment](docs/GETTING_STARTED.md)**: Step-by-step guide to running the project locally and configuring environment variables.
 6. 🛠️ **[Tech Stack & Structure](docs/TECH_STACK.md)**: Details on the technologies used and folder organization.
 7. 🗺️ **[Roadmap](docs/ROADMAP.md)**: Future development plans.
