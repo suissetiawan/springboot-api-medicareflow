@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    image: medicare-flow-api:latest
+    image: ${DOCKERHUB_USERNAME}/medicareflow-api:latest
     container_name: medicare-flow-api
     ports:
       - "8081:8080"
