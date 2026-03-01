@@ -1,23 +1,64 @@
-# 🏗️ System Architecture
+# 🏗️ Detailed System Architecture
 
-## Authentication & Security
+This document provides a comprehensive breakdown of the **MediCareFlow** system architecture, covering the development lifecycle, deployment infrastructure, and secure access strategy.
 
-The system secures endpoints using **JSON Web Tokens (JWT)**.
+## 🔄 End-to-End System Flow
 
-- **Login/Registration:** Users receive a short-lived access token.
-- **Logout (Invalidation):** Instead of just deleting the token on the client side, the server adds the token signature to a **Redis Blacklist** until it expires, preventing stolen tokens from being reused.
+The following diagram illustrates the complete flow from code commitment to public delivery.
 
-## Scheduling Engine: Working Schedule ➔ Slot Generator
+```mermaid
+graph TD
+    subgraph "Development & CI/CD"
+        Dev[Developer] -->|Git Push| Repo[GitHub Repository]
+        Repo -->|Trigger| GHA[GitHub Actions]
+        GHA -->|Build JAR & Image| DockerHub[Docker Hub]
+    end
 
-The core complexity of MediCareFlow lies in its automated slot generation:
+    subgraph "Private Infrastructure (Tailscale)"
+        TS[Tailscale Network] -->|Secure Pull/SSH| Server
+        DockerHub -.->|Image Registry| Server
+    end
 
-1. **Working Schedule:** Admins or Doctors define recurring weekly schedules (e.g., "Mondays, 09:00 - 15:00").
-2. **Consultation Type:** Defines the duration of an appointment (e.g., "General Checkup - 30 mins").
-3. **Slot Generator:** A background service (or triggered API) reads the schedules and divides the continuous working hours into discrete, bookable `TimeSlot` entities based on the consultation duration.
+    subgraph "Mini Server (Docker Compose)"
+        Server[Docker Host]
+        subgraph "Containers"
+            App[MediCareFlow API]
+            DB[(MySQL DB)]
+            Cache[(Redis Cache)]
+            Tunnel[Cloudflare Tunnel]
+        end
+        App --> DB
+        App --> Cache
+    end
 
-## Redis Cache Usage
+    subgraph "Edge & Public Access"
+        Client[Client: Web/Mobile] -->|HTTPS| CF[Cloudflare Edge]
+        CF <-->|Secure Tunnel| Tunnel
+    end
+```
 
-Redis is utilized for two primary functions:
+---
 
-1. **Token Blacklisting:** Tracking invalidated JWTs during user logout.
-2. **Performance Optimization:** Caching frequently accessed, infrequently changed data (like Consultation Types or public schedules) to reduce MySQL database load.
+## 🚀 1. CI/CD Pipeline
+
+We utilize **GitHub Actions** to automate our delivery pipeline, ensuring that every change is tested and containerized.
+
+- **Source Control:** GitHub acts as the single source of truth.
+- **Automated Build:** On every push to the main branch, GitHub Actions builds the bootable JAR file.
+- **Containerization:** A Docker image is built from the JAR and pushed to **Docker Hub**.
+
+## 🛡️ 2. Deployment & Infrastructure
+
+The application is hosted on a **Mini Server** using `docker-compose` for orchestration.
+
+- **Network Security:** The server is part of a **Tailscale Private Network**, allowing for secure administrative access (SSH) and image pulling without exposing management ports to the public internet.
+- **Data Persistence:** **MySQL** handles relational data with strict constraints.
+- **Performance:** **Redis** is used for JWT blacklisting and general caching.
+
+## 🔒 3. Secure Public Access
+
+Instead of traditional port forwarding, we use **Cloudflare Tunnels**.
+
+- **No Inbound Ports:** The server runs a `cloudflared` instance that creates an outbound connection to the Cloudflare Edge.
+- **Encrypted Traffic:** All public traffic is forced over HTTPS and protected by Cloudflare’s security suite.
+- **Origin Shield:** The physical location and IP of our server remain hidden from the public.
