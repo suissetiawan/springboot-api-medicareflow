@@ -16,11 +16,13 @@ import com.dibimbing.medicareflow.dto.response.UserResponse;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("api/users")
 @RequiredArgsConstructor
+@Tag(name = "User Management", description = "Endpoints for managing users, including administrators, doctors, and patients.")
 public class UserController {
 
     private final UserService userService;

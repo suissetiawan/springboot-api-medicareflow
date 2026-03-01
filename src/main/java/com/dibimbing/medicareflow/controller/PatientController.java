@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.PatientService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/patients")
+@Tag(name = "Patient Management", description = "Endpoints for managing patient-specific profiles and operations.")
 public class PatientController {
 
     private final PatientService patientService;

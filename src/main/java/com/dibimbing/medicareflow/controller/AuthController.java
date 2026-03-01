@@ -7,6 +7,7 @@ import com.dibimbing.medicareflow.dto.request.RegisterRequest;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.AuthService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication", description = "Endpoints for user registration, login, logout, and profile retrieval.")
 public class AuthController {
 
     private final AuthService authService;
@@ -36,10 +38,5 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         return ResponseHelper.successOK(authService.logout(request), "Logout successful");
-    }
-
-    @GetMapping("/me")
-    public ResponseEntity<?> me() {
-        return ResponseHelper.successOK(authService.me(), "Success get data me");
     }
 }

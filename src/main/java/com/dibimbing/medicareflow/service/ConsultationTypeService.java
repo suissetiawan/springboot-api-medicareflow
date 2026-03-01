@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ConsultationTypeService {
 
-    private ConsultationTypeRepository consultationTypeRepository;
+    private final ConsultationTypeRepository consultationTypeRepository;
 
     public Page<ConsultationTypeResponse> getAllConsultationTypes(Pageable pageable) {
         Page<ConsultationType> type = consultationTypeRepository.findAll(pageable);

@@ -15,11 +15,13 @@ import com.dibimbing.medicareflow.dto.response.ConsultationRecordResponse;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.ConsultationRecordService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/appointments/{appointmentId}/records")
 @RequiredArgsConstructor
+@Tag(name = "Consultation Record Management", description = "Endpoints for creating and retrieving medical consultation records.")
 public class ConsultationRecordController {
 
     private final ConsultationRecordService consultationRecordService;

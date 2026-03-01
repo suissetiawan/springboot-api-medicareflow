@@ -18,11 +18,13 @@ import com.dibimbing.medicareflow.dto.response.ConsultationTypeResponse;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.ConsultationTypeService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/consultationtypes")
+@Tag(name = "Consultation Type Management", description = "Endpoints for managing various types of medical consultations.")
 public class ConsultationTypeController {
 
     private final ConsultationTypeService consultationTypeService;

@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.DoctorService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/doctors")
+@Tag(name = "Doctor Management", description = "Endpoints for managing doctor-specific profiles and operations.")
 public class DoctorController {
 
     private final DoctorService doctorService;

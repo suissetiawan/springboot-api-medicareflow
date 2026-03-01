@@ -23,11 +23,13 @@ import com.dibimbing.medicareflow.enums.DayOfWeek;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.WorkScheduleService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/work-schedule")
 @RequiredArgsConstructor
+@Tag(name = "Work Schedule Management", description = "Endpoints for managing doctor work schedules and availability.")
 public class WorkScheduleController {
 
     private final WorkScheduleService workScheduleService;

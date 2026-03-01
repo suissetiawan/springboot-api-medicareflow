@@ -23,11 +23,13 @@ import com.dibimbing.medicareflow.enums.AppointmentStatus;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.AppointmentService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/appointments")
 @RequiredArgsConstructor
+@Tag(name = "Appointment Management", description = "Endpoints for booking, viewing, and updating medical appointments.")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;

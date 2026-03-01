@@ -21,11 +21,13 @@ import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.SlotGeneratorService;
 import com.dibimbing.medicareflow.service.SlotTimeService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/slot-time")
 @RequiredArgsConstructor
+@Tag(name = "Slot Time Management", description = "Endpoints for managing and generating individual time slots based on work schedules.")
 public class SlotTimeController {
 
     private final SlotTimeService slotTimeService;

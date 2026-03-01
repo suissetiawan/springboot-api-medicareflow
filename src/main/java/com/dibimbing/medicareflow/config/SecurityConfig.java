@@ -34,13 +34,12 @@ public class SecurityConfig {
 
                 // ADMIN
                 .requestMatchers("/api/work-schedule/**").hasRole("ADMIN")
-                .requestMatchers("/api/slot-time/generate").hasRole("ADMIN")
+                .requestMatchers("/api/slot-time/*").hasRole("ADMIN")
                 .requestMatchers("/api/users/**").hasRole("ADMIN")
                 .requestMatchers("/api/consultationtypes/**").hasRole("ADMIN")
                 .requestMatchers("/api/doctors/*").hasRole("ADMIN")
                 .requestMatchers("/api/patients/*").hasRole("ADMIN")
                 .requestMatchers("/api/appointments").hasRole("ADMIN")
-                .requestMatchers("/api/slot-time").hasRole("ADMIN")
 
                 // DOCTOR
                 .requestMatchers("/api/appointments/*/records").hasRole("DOCTOR")
