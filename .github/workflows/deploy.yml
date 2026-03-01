@@ -1,0 +1,92 @@
+name: CI/CD - Build & Deploy (VPS)
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: medicareflow-api
+      APP_DIR: /home/deploy/apps/medicareflow-api
+
+    steps:
+      # =========================
+      # CHECKOUT CODE
+      # =========================
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # =========================
+      # BUILD JAR (OPTIONAL VALIDATION)
+      # =========================
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Build application with Maven
+        run: mvn clean package -DskipTests
+
+      # =========================
+      # DOCKER BUILD & PUSH
+      # =========================
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+          cache-to: type=inline
+
+      # =========================
+      # DEPLOY TO VPS
+      # =========================
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:github-action
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Create directory and copy docker-compose.yml
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p ${{ env.APP_DIR }}"
+          scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.APP_DIR }}/docker-compose.yml
+
+      - name: Deploy on VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << EOF > /dev/null 2>&1
+              set -e
+              echo "🚀 Deploying to VPS Dir..."
+              cd ${{ env.APP_DIR }}
+
+              echo "📥 Pulling latest image..."
+              export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+              docker compose pull
+
+              echo "🔄 Restarting containers..."
+              docker compose up -d
+
+              echo "✅ Deployment finished"
+              docker compose ps
+          EOF
