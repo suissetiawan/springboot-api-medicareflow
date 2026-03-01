@@ -1,7 +1,5 @@
 package com.dibimbing.medicareflow.controller;
 
-import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -74,7 +72,7 @@ public class AppointmentController {
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<?> updateAppointmentStatus(
-            @PathVariable UUID id,
+            @PathVariable Long id,
             @RequestParam AppointmentStatus status) {
         AppointmentResponse response = appointmentService.updateAppointmentStatus(id, status);
         return ResponseHelper.successOK(response, "Successfully updated appointment status");

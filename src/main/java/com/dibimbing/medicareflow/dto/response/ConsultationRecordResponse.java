@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConsultationRecordResponse {
-    private String id;
-    private String appointmentId;
+    private Long id;
+    private Long appointmentId;
     private String summary;
     private String recommendation;
     private String followUpDate;

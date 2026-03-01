@@ -1,7 +1,5 @@
 package com.dibimbing.medicareflow.service;
 
-import java.util.UUID;
-
 import org.springframework.stereotype.Service;
 
 import com.dibimbing.medicareflow.dto.request.ConsultationRecordRequest;
@@ -31,7 +29,7 @@ public class ConsultationRecordService {
     private final UserAccountRepository userAccountRepository;
 
     @Transactional
-    public ConsultationRecordResponse createRecord(UUID appointmentId, ConsultationRecordRequest request) {
+    public ConsultationRecordResponse createRecord(Long appointmentId, ConsultationRecordRequest request) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Appointment not found"));
 
@@ -72,7 +70,7 @@ public class ConsultationRecordService {
         return mapToResponse(record);
     }
 
-    public ConsultationRecordResponse getRecordByAppointmentId(UUID appointmentId) {
+    public ConsultationRecordResponse getRecordByAppointmentId(Long appointmentId) {
         ConsultationRecord record = consultationRecordRepository.findByAppointmentId(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Consultation record not found"));
 
@@ -97,8 +95,8 @@ public class ConsultationRecordService {
 
     private ConsultationRecordResponse mapToResponse(ConsultationRecord record) {
         return ConsultationRecordResponse.builder()
-                .id(record.getId().toString())
-                .appointmentId(record.getAppointment().getId().toString())
+                .id(record.getId())
+                .appointmentId(record.getAppointment().getId())
                 .summary(record.getSummary())
                 .recommendation(record.getRecommendation())
                 .followUpDate(record.getFollowUpDate() != null ? record.getFollowUpDate().toString() : null)

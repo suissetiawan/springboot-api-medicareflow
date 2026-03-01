@@ -2,7 +2,7 @@ package com.dibimbing.medicareflow.entity;
 
 import java.time.LocalDateTime;
 
-import com.dibimbing.medicareflow.entity.base.BaseUuidEntity;
+import com.dibimbing.medicareflow.entity.base.BaseLongEntity;
 import com.dibimbing.medicareflow.enums.AppointmentStatus;
 
 import jakarta.persistence.Column;
@@ -19,13 +19,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "appointment")
-public class Appointment extends BaseUuidEntity {
+public class Appointment extends BaseLongEntity {
 
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
     @Column(name = "booked_at", nullable = false)
     private LocalDateTime bookedAt;
+
+    @Column(name = "reference_number", unique = true, nullable = false)
+    private String referenceNumber;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)

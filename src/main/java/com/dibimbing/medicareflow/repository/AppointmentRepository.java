@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.dibimbing.medicareflow.entity.Appointment;
 
 @Repository
-public interface AppointmentRepository extends JpaRepository<Appointment, UUID> {
+public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     Page<Appointment> findByPatientId(UUID patientId, Pageable pageable);
     Page<Appointment> findByDoctorId(UUID doctorId, Pageable pageable);
 }

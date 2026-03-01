@@ -2,7 +2,7 @@ package com.dibimbing.medicareflow.entity;
 
 import java.time.LocalDate;
 
-import com.dibimbing.medicareflow.entity.base.BaseUuidEntity;
+import com.dibimbing.medicareflow.entity.base.BaseLongEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "consultation_record")
-public class ConsultationRecord extends BaseUuidEntity {
+public class ConsultationRecord extends BaseLongEntity {
 
     private String summary;
     private String recommendation;

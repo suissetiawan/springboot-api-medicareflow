@@ -1,7 +1,5 @@
 package com.dibimbing.medicareflow.controller;
 
-import java.util.UUID;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,14 +26,14 @@ public class ConsultationRecordController {
 
     @PostMapping
     public ResponseEntity<?> createRecord(
-            @PathVariable UUID appointmentId,
+            @PathVariable Long appointmentId,
             @RequestBody ConsultationRecordRequest request) {
         ConsultationRecordResponse response = consultationRecordService.createRecord(appointmentId, request);
         return ResponseHelper.successCreated(response, "Successfully created consultation record");
     }
 
     @GetMapping
-    public ResponseEntity<?> getRecordByAppointmentId(@PathVariable UUID appointmentId) {
+    public ResponseEntity<?> getRecordByAppointmentId(@PathVariable Long appointmentId) {
         ConsultationRecordResponse response = consultationRecordService.getRecordByAppointmentId(appointmentId);
         return ResponseHelper.successOK(response, "Successfully retrieved consultation record", null);
     }

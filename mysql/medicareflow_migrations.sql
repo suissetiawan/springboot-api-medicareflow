@@ -148,11 +148,12 @@ CREATE TABLE time_slot (
 -- APPOINTMENT
 -- =====================================
 CREATE TABLE appointment (
-  id BINARY(16) PRIMARY KEY,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
   patient_id BINARY(16) NOT NULL,
   doctor_id BINARY(16) NOT NULL,
   consultation_type_id BIGINT NOT NULL,
   time_slot_id BIGINT UNIQUE NOT NULL,
+  reference_number VARCHAR(100) UNIQUE NOT NULL,
   status ENUM(
     'PENDING','CONFIRMED','COMPLETED',
     'CANCELLED','NO_SHOW'
@@ -185,8 +186,8 @@ CREATE TABLE appointment (
 -- CONSULTATION RECORD
 -- =====================================
 CREATE TABLE consultation_record (
-  id BINARY(16) PRIMARY KEY,
-  appointment_id BINARY(16) UNIQUE NOT NULL,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  appointment_id BIGINT UNIQUE NOT NULL,
   summary TEXT,
   recommendation TEXT,
   follow_up_date DATE,

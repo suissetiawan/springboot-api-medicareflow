@@ -1,7 +1,6 @@
 package com.dibimbing.medicareflow.service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -79,6 +78,7 @@ public class AppointmentService {
         appointment.setTimeSlot(timeSlot);
         appointment.setBookedAt(LocalDateTime.now());
         appointment.setStatus(AppointmentStatus.PENDING);
+        appointment.setReferenceNumber(generateReferenceNumber());
 
         appointment = appointmentRepository.save(appointment);
 
@@ -111,7 +111,7 @@ public class AppointmentService {
     }
 
     @Transactional
-    public AppointmentResponse updateAppointmentStatus(UUID appointmentId, AppointmentStatus newStatus) {
+    public AppointmentResponse updateAppointmentStatus(Long appointmentId, AppointmentStatus newStatus) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Appointment not found"));
                 
@@ -150,9 +150,14 @@ public class AppointmentService {
         return mapToResponse(appointment);
     }
 
+    private String generateReferenceNumber() {
+        return "APT-" + System.currentTimeMillis();
+    }
+
     private AppointmentResponse mapToResponse(Appointment appointment) {
         return AppointmentResponse.builder()
-                .id(appointment.getId().toString())
+                .id(appointment.getId())
+                .referenceNumber(appointment.getReferenceNumber())
                 .doctorName(appointment.getDoctor().getName())
                 .patientName(appointment.getPatient().getName())
                 .consultationType(appointment.getService().getName())

@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentResponse {
-    private String id;
+    private Long id;
+    private String referenceNumber;
     private String doctorName;
     private String patientName;
     private String consultationType;

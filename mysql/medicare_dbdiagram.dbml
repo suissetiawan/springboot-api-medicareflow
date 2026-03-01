@@ -144,7 +144,7 @@ deleted_at
 }
 
 Table appointment {
-id uuid [pk]
+  id bigint [pk, increment]
 patient_id uuid [ref: > patient.id]
 doctor_id uuid [ref: > doctor.id]
 consultation_type_id bigint [ref: > consultation_type.id]
@@ -166,8 +166,8 @@ created_at
 }
 
 Table consultation_record {
-id uuid [pk]
-appointment_id uuid [unique, ref: > appointment.id]
+  id bigint [pk, increment]
+  appointment_id bigint [unique, ref: > appointment.id]
 summary text
 recommendation text
 follow_up_date date
