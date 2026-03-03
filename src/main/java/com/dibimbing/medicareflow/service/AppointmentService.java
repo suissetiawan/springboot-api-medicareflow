@@ -150,6 +150,20 @@ public class AppointmentService {
         return mapToResponse(appointment);
     }
 
+    public Page<AppointmentResponse> getAllDeleted(Pageable pageable) {
+        return appointmentRepository.findAllDeleted(pageable).map(this::mapToResponse);
+    }
+
+    @Transactional
+    public Boolean restore(Long id) {
+        Appointment appointment = appointmentRepository.findByDeletedId(id)
+                .orElseThrow(() -> new NotFoundException("Deleted appointment not found"));
+
+        appointment.setDeletedAt(null);
+        appointmentRepository.save(appointment);
+        return true;
+    }
+
     private String generateReferenceNumber() {
         return "APT-" + System.currentTimeMillis();
     }

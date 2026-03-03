@@ -95,6 +95,20 @@ public class WorkScheduleService {
         workScheduleRepository.save(workSchedule);
     }
 
+    public Page<WorkScheduleResponse> getAllDeleted(Pageable pageable) {
+        return workScheduleRepository.findAllDeleted(pageable).map(this::mapToWorkScheduleResponse);
+    }
+
+    @Transactional
+    public Boolean restore(Long id) {
+        WorkSchedule workSchedule = workScheduleRepository.findByDeletedId(id)
+                .orElseThrow(() -> new NotFoundException("Deleted work schedule not found"));
+
+        workSchedule.setDeletedAt(null);
+        workScheduleRepository.save(workSchedule);
+        return true;
+    }
+
 
     private WorkScheduleResponse mapToWorkScheduleResponse(WorkSchedule workSchedule) {
         WorkScheduleResponse response = new WorkScheduleResponse();

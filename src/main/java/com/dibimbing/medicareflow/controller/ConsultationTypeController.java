@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,5 +57,30 @@ public class ConsultationTypeController {
     public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody ConsultationStatusRequest request) {
         ConsultationTypeResponse consultationType = consultationTypeService.updateStatus(id, request);
         return ResponseHelper.successOK(consultationType, "Data berhasil diupdate");
+    }
+
+    @GetMapping("/deleted")
+    public ResponseEntity<?> getAllDeletedConsultationTypes(
+            @PageableDefault(sort = "deleted_at", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<ConsultationTypeResponse> result = consultationTypeService.getAllDeleted(pageable);
+        
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(result.getNumber() + 1)
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(result.getContent(), "Successfully retrieved deleted consultation types", meta);
+    }
+
+    @PutMapping("/{id}/restore")
+    public ResponseEntity<?> restore(@PathVariable Long id) {
+        Boolean isRestored = consultationTypeService.restore(id);
+        if (isRestored) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseHelper.error("Consultation type not found or already restored", org.springframework.http.HttpStatus.NOT_FOUND);
     }
 }

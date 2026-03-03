@@ -96,4 +96,29 @@ public class UserController {
         }
         return ResponseHelper.error("User not found or already deleted", HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/deleted")
+    public ResponseEntity<?> getAllDeletedUser(
+            @PageableDefault(sort = "deleted_at", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<UserResponse> result = userService.getAllDeletedUser(pageable);
+
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(result.getNumber() + 1)
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(result.getContent(), "Success get all deleted users", meta);
+    }
+
+    @PutMapping("/{id}/restore")
+    public ResponseEntity<?> restore(@PathVariable UUID id) {
+        Boolean isRestored = userService.restoreUser(id);
+        if (isRestored) {
+            return ResponseHelper.successOK(null, "Success restore user");
+        }
+        return ResponseHelper.error("User not found or already restored", HttpStatus.NOT_FOUND);
+    }
 }

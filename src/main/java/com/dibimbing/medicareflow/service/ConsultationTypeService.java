@@ -11,6 +11,7 @@ import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.helper.DateHelper;
 import com.dibimbing.medicareflow.repository.ConsultationTypeRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +34,7 @@ public class ConsultationTypeService {
         return mapToConsultationTypeResponse(type);
     }
 
+    @Transactional
     public ConsultationTypeResponse updateStatus(Long id, ConsultationStatusRequest request) {
         ConsultationType type = consultationTypeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Consultation type not found"));
@@ -40,6 +42,20 @@ public class ConsultationTypeService {
         type.setIsActive(Boolean.parseBoolean(request.getIsActive()));
         consultationTypeRepository.save(type);
         return mapToConsultationTypeResponse(type);
+    }
+
+    public Page<ConsultationTypeResponse> getAllDeleted(Pageable pageable) {
+        return consultationTypeRepository.findAllDeleted(pageable).map(this::mapToConsultationTypeResponse);
+    }
+
+    @Transactional
+    public Boolean restore(Long id) {
+        ConsultationType type = consultationTypeRepository.findByDeletedId(id)
+                .orElseThrow(() -> new NotFoundException("Deleted consultation type not found"));
+
+        type.setDeletedAt(null);
+        consultationTypeRepository.save(type);
+        return true;
     }
 
     public ConsultationTypeResponse mapToConsultationTypeResponse(ConsultationType consultationType) {

@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class UserUpdateRequest {
     private String name;
+
+    private String username;
     
     @Email(message = "Email should be valid")
     private String email;

@@ -69,20 +69,27 @@ public class UserService {
             return new NotFoundException("User not found");
         });
 
-        if (req.getEmail() != null) {
-            user.setEmail(req.getEmail());
-        }
+        if (req.getEmail() != null) user.setEmail(req.getEmail());
+        else user.setEmail(user.getEmail());
+
+        if (req.getUsername() != null) user.setUsername(req.getUsername());
+        else user.setUsername(user.getUsername());
+
         userAccountRepository.save(user);
 
         if (user.getRole() == Role.PATIENT && user.getPatient() != null) {
             Patient patient = user.getPatient();
             if (req.getName() != null) patient.setName(req.getName());
+            else patient.setName(patient.getName());
             if (req.getPhone() != null) patient.setPhone(req.getPhone());
+            else patient.setPhone(patient.getPhone());
             patientRepository.save(patient);
         } else if (user.getRole() == Role.DOCTOR && user.getDoctor() != null) {
             Doctor doctor = user.getDoctor();
             if (req.getName() != null) doctor.setName(req.getName());
+            else doctor.setName(doctor.getName());
             if (req.getSpecialization() != null) doctor.setSpecialization(req.getSpecialization());
+            else doctor.setSpecialization(doctor.getSpecialization());
             doctorRepository.save(doctor);
         }
 
@@ -111,6 +118,37 @@ public class UserService {
         } else if (user.getRole() == Role.DOCTOR && user.getDoctor() != null) {
             Doctor doctor = user.getDoctor();
             doctor.setDeletedAt(now);
+            doctorRepository.save(doctor);
+        }
+
+        return true;
+    }
+
+    public Page<UserResponse> getAllDeletedUser(Pageable pageable) {
+        Page<UserAccount> users = userAccountRepository.findAllDeletedUser(pageable);
+        return users.map(this::mapToResponse);
+    }
+
+    public Boolean restoreUser(UUID id) {
+        UserAccount user = userAccountRepository.findByDeletedId(id).orElseThrow(() -> {
+            return new NotFoundException("User not found");
+        });
+
+        if (user.getDeletedAt() == null) {
+            return false;
+        }
+
+        user.setDeletedAt(null);
+        userAccountRepository.save(user);
+
+        // Restore associated profiles
+        if (user.getRole() == Role.PATIENT && user.getPatient() != null) {
+            Patient patient = user.getPatient();
+            patient.setDeletedAt(null);
+            patientRepository.save(patient);
+        } else if (user.getRole() == Role.DOCTOR && user.getDoctor() != null) {
+            Doctor doctor = user.getDoctor();
+            doctor.setDeletedAt(null);
             doctorRepository.save(doctor);
         }
 

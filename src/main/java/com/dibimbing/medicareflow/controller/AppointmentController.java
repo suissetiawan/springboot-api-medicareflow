@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,5 +77,30 @@ public class AppointmentController {
             @RequestParam AppointmentStatus status) {
         AppointmentResponse response = appointmentService.updateAppointmentStatus(id, status);
         return ResponseHelper.successOK(response, "Successfully updated appointment status");
+    }
+
+    @GetMapping("/deleted")
+    public ResponseEntity<?> getAllDeletedAppointments(
+            @PageableDefault(sort = "deleted_at", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<AppointmentResponse> result = appointmentService.getAllDeleted(pageable);
+        
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(result.getNumber() + 1)
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(result.getContent(), "Successfully retrieved deleted appointments", meta);
+    }
+
+    @PutMapping("/{id}/restore")
+    public ResponseEntity<?> restore(@PathVariable Long id) {
+        Boolean isRestored = appointmentService.restore(id);
+        if (isRestored) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseHelper.error("Appointment not found or already restored", org.springframework.http.HttpStatus.NOT_FOUND);
     }
 }

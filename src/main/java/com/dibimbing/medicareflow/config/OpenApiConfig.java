@@ -24,6 +24,14 @@ public class OpenApiConfig {
                         .scheme("bearer").bearerFormat("JWT")));
     }
 
+    @Bean
+    public GroupedOpenApi allApi() {
+        return GroupedOpenApi.builder()
+                .group("all-api-endpoint")
+                .pathsToMatch("/api/**")
+                .build();
+    }
+
     // --- ROLE-BASED GROUPS ---
 
     @Bean

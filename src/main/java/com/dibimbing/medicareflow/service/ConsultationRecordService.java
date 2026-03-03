@@ -1,5 +1,7 @@
 package com.dibimbing.medicareflow.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dibimbing.medicareflow.dto.request.ConsultationRecordRequest;
@@ -91,6 +93,20 @@ public class ConsultationRecordService {
         }
 
         return mapToResponse(record);
+    }
+
+    public Page<ConsultationRecordResponse> getAllDeleted(Pageable pageable) {
+        return consultationRecordRepository.findAllDeleted(pageable).map(this::mapToResponse);
+    }
+
+    @Transactional
+    public Boolean restore(Long id) {
+        ConsultationRecord record = consultationRecordRepository.findByDeletedId(id)
+                .orElseThrow(() -> new NotFoundException("Deleted consultation record not found"));
+
+        record.setDeletedAt(null);
+        consultationRecordRepository.save(record);
+        return true;
     }
 
     private ConsultationRecordResponse mapToResponse(ConsultationRecord record) {

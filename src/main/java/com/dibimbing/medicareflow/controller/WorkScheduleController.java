@@ -80,4 +80,29 @@ public class WorkScheduleController {
         workScheduleService.deleteWorkSchedule(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/deleted")
+    public ResponseEntity<?> getAllDeletedWorkSchedules(
+            @PageableDefault(sort = "deleted_at", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<WorkScheduleResponse> result = workScheduleService.getAllDeleted(pageable);
+        
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(result.getNumber() + 1)
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(result.getContent(), "Successfully retrieved deleted work schedules", meta);
+    }
+
+    @PutMapping("/{id}/restore")
+    public ResponseEntity<?> restore(@PathVariable Long id) {
+        Boolean isRestored = workScheduleService.restore(id);
+        if (isRestored) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseHelper.error("Work schedule not found or already restored", HttpStatus.NOT_FOUND);
+    }
 }
