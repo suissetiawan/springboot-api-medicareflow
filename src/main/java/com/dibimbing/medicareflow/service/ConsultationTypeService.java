@@ -28,20 +28,14 @@ public class ConsultationTypeService {
 
     public ConsultationTypeResponse getConsultationTypeById(Long id) {
         ConsultationType type = consultationTypeRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Consultation type not found");
-                    throw new NotFoundException("Consultation type not found");
-                });
+                .orElseThrow(() -> new NotFoundException("Consultation type not found"));
 
         return mapToConsultationTypeResponse(type);
     }
 
     public ConsultationTypeResponse updateStatus(Long id, ConsultationStatusRequest request) {
         ConsultationType type = consultationTypeRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Consultation type not found");
-                    throw new NotFoundException("Consultation type not found");
-                });
+                .orElseThrow(() -> new NotFoundException("Consultation type not found"));
 
         type.setIsActive(Boolean.parseBoolean(request.getIsActive()));
         consultationTypeRepository.save(type);

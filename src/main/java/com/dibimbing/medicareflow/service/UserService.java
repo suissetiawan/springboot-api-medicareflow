@@ -47,7 +47,6 @@ public class UserService {
 
     public UserResponse updateRole(UUID id, RoleUpdateRequest req) {
         UserAccount user = userAccountRepository.findById(id).orElseThrow(() -> {
-            log.warn("User not found");
             return new NotFoundException("User not found");
         });
 
@@ -59,7 +58,6 @@ public class UserService {
 
     public UserResponse getUserById(UUID id) {
         UserAccount user = userAccountRepository.findById(id).orElseThrow(() -> {
-            log.warn("User not found");
             return new NotFoundException("User not found");
         });
         return mapToResponse(user);
@@ -68,7 +66,6 @@ public class UserService {
     @Transactional
     public UserResponse updateUser(UUID id, UserUpdateRequest req) {
         UserAccount user = userAccountRepository.findById(id).orElseThrow(() -> {
-            log.warn("User not found");
             return new NotFoundException("User not found");
         });
 
@@ -95,7 +92,6 @@ public class UserService {
     @Transactional
     public Boolean deleteUser(UUID id) {
         UserAccount user = userAccountRepository.findById(id).orElseThrow(() -> {
-            log.warn("User already deleted or not found");
             return new NotFoundException("User not found");
         });
 
