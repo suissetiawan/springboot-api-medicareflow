@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import com.dibimbing.medicareflow.dto.response.TimeSlotResponse;
 import com.dibimbing.medicareflow.entity.TimeSlot;
 import com.dibimbing.medicareflow.enums.SlotStatus;
-import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.repository.TimeSlotRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -36,19 +34,4 @@ public class SlotTimeService {
         response.setStatus(timeSlot.getStatus().name());
         return response;
     }
-
-    public Page<TimeSlotResponse> getAllDeleted(Pageable pageable) {
-        return timeSlotRepository.findAllDeleted(pageable).map(this::mapToTimeSlotResponse);
-    }
-
-    @Transactional
-    public Boolean restore(Long id) {
-        TimeSlot slot = timeSlotRepository.findByDeletedId(id)
-                .orElseThrow(() -> new NotFoundException("Deleted time slot not found"));
-
-        slot.setDeletedAt(null);
-        timeSlotRepository.save(slot);
-        return true;
-    }
-
 }

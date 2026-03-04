@@ -44,20 +44,6 @@ public class ConsultationTypeService {
         return mapToConsultationTypeResponse(type);
     }
 
-    public Page<ConsultationTypeResponse> getAllDeleted(Pageable pageable) {
-        return consultationTypeRepository.findAllDeleted(pageable).map(this::mapToConsultationTypeResponse);
-    }
-
-    @Transactional
-    public Boolean restore(Long id) {
-        ConsultationType type = consultationTypeRepository.findByDeletedId(id)
-                .orElseThrow(() -> new NotFoundException("Deleted consultation type not found"));
-
-        type.setDeletedAt(null);
-        consultationTypeRepository.save(type);
-        return true;
-    }
-
     public ConsultationTypeResponse mapToConsultationTypeResponse(ConsultationType consultationType) {
         ConsultationTypeResponse consultationTypeResponse = new ConsultationTypeResponse();
         consultationTypeResponse.setId(consultationType.getId().toString());
