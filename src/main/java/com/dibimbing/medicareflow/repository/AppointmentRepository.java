@@ -15,6 +15,7 @@ import com.dibimbing.medicareflow.entity.Appointment;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     Page<Appointment> findByPatientId(UUID patientId, Pageable pageable);
     Page<Appointment> findByDoctorId(UUID doctorId, Pageable pageable);
+    Optional<Appointment> findByTimeSlotId(Long timeSlotId);
 
     @Query(value = "SELECT * FROM appointment WHERE id = :id AND deleted_at IS NOT NULL", nativeQuery = true)
     Optional<Appointment> findByDeletedId(Long id);
