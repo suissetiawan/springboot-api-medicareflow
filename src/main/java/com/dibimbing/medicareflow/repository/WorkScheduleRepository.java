@@ -1,6 +1,7 @@
 package com.dibimbing.medicareflow.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -29,6 +30,11 @@ public interface WorkScheduleRepository extends JpaRepository<WorkSchedule, Long
     @Query("SELECT ws FROM WorkSchedule ws WHERE ws.doctor.id = :doctorId AND ws.dayOfWeek = :dayOfWeek")
     List<WorkSchedule> findByDoctorIdAndDayOfWeek(UUID doctorId, DayOfWeek dayOfWeek);
 
-    
+    @Query(value = "SELECT * FROM working_schedule WHERE id = :id AND deleted_at IS NOT NULL", nativeQuery = true)
+    Optional<WorkSchedule> findByDeletedId(Long id);
 
+    @Query(value = "SELECT * FROM working_schedule WHERE deleted_at IS NOT NULL", 
+           countQuery = "SELECT count(*) FROM working_schedule WHERE deleted_at IS NOT NULL", 
+           nativeQuery = true)
+    Page<WorkSchedule> findAllDeleted(Pageable pageable);
 }

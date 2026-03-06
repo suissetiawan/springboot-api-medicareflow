@@ -31,7 +31,8 @@ public class Doctor extends BaseUuidEntity {
     private DoctorStatus status;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
     private UserAccount userAccount;
 
     @ManyToMany(fetch = FetchType.LAZY)

@@ -11,6 +11,7 @@ import com.dibimbing.medicareflow.dto.request.LoginRequest;
 import com.dibimbing.medicareflow.dto.request.RegisterRequest;
 import com.dibimbing.medicareflow.dto.response.LoginResponse;
 import com.dibimbing.medicareflow.dto.response.RegisterResponse;
+import com.dibimbing.medicareflow.dto.response.UserResponse;
 import com.dibimbing.medicareflow.entity.Doctor;
 import com.dibimbing.medicareflow.entity.Patient;
 import com.dibimbing.medicareflow.entity.UserAccount;
@@ -18,6 +19,7 @@ import com.dibimbing.medicareflow.enums.DoctorStatus;
 import com.dibimbing.medicareflow.enums.Role;
 import com.dibimbing.medicareflow.exception.ConflictException;
 import com.dibimbing.medicareflow.exception.NotFoundException;
+import com.dibimbing.medicareflow.helper.DateHelper;
 import com.dibimbing.medicareflow.helper.JwtHelper;
 import com.dibimbing.medicareflow.helper.SecurityHelper;
 import com.dibimbing.medicareflow.repository.DoctorRepository;
@@ -70,7 +72,6 @@ public class AuthService {
             
         } else if(registerRequest.getRole() == Role.PATIENT) {
             Patient patient = new Patient();
-            patient.setId(userAccount.getId());
             patient.setName(registerRequest.getName());
             patient.setPhone(registerRequest.getPhone());
             patient.setUserAccount(userAccount);
@@ -85,12 +86,7 @@ public class AuthService {
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
 
-        Optional<UserAccount> userAccount;
-        if(req.getUsername().contains("@")) {
-            userAccount = userAccountRepository.findByEmail(req.getUsername());
-        } else {
-            userAccount = userAccountRepository.findByUsername(req.getUsername());
-        }
+        Optional<UserAccount> userAccount = userAccountRepository.findByUsername(req.getUsername());
 
         if(userAccount.isEmpty()) {
             throw new NotFoundException("User not found");
@@ -129,8 +125,28 @@ public class AuthService {
         return "Logout as " + username + " successful";
     }
 
-    public String me() {
-        return SecurityHelper.getCurrentUsername();
+    public UserResponse me() {
+        String username = SecurityHelper.getCurrentUsername();
+        UserAccount user = userAccountRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        UserResponse res = new UserResponse();
+        res.setId(user.getId().toString());
+        res.setUsername(user.getUsername());
+        res.setEmail(user.getEmail());
+        res.setRole(user.getRole().name());
+        res.setCreatedAt(DateHelper.format(user.getCreatedAt()));
+        res.setUpdatedAt(DateHelper.format(user.getUpdatedAt()));
+
+        if (user.getRole() == Role.PATIENT && user.getPatient() != null) {
+            res.setName(user.getPatient().getName());
+            res.setPhone(user.getPatient().getPhone());
+        } else if (user.getRole() == Role.DOCTOR && user.getDoctor() != null) {
+            res.setName(user.getDoctor().getName());
+            res.setSpecialization(user.getDoctor().getSpecialization());
+        }
+
+        return res;
     }
 
 }

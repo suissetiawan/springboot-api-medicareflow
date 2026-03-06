@@ -12,11 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Configuration
 @RequiredArgsConstructor
-@Slf4j
 public class ApplicationConfig {
 
     private final UserAccountRepository userAccountRepository;
@@ -25,10 +22,7 @@ public class ApplicationConfig {
     public UserDetailsService userDetailsService() {
         return username -> SecurityHelper.convertToUserDetails(
             userAccountRepository.findByUsername(username)
-                .orElseThrow(() -> {
-                    log.error("User not found: {}", username);
-                    return new NotFoundException("User not found");
-                })
+                .orElseThrow(() -> new NotFoundException("User not found"))
         );
     }
 

@@ -22,7 +22,6 @@ import com.dibimbing.medicareflow.repository.WorkScheduleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 
 @Service
 @RequiredArgsConstructor
@@ -82,7 +81,6 @@ public class SlotGeneratorService {
         }
     }
 
-    @Scheduled(cron = "${app.slot.generation-cron}")
     @Transactional
     public void autoGenerateSlots() {
         log.info("Starting automated slot generation for the next 7 days");

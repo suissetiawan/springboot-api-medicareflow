@@ -1,7 +1,5 @@
 package com.dibimbing.medicareflow.controller;
 
-import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,11 +21,13 @@ import com.dibimbing.medicareflow.enums.AppointmentStatus;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.AppointmentService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/appointments")
 @RequiredArgsConstructor
+@Tag(name = "Appointment Management", description = "Endpoints for booking, viewing, and updating medical appointments.")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
@@ -72,7 +72,7 @@ public class AppointmentController {
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<?> updateAppointmentStatus(
-            @PathVariable UUID id,
+            @PathVariable Long id,
             @RequestParam AppointmentStatus status) {
         AppointmentResponse response = appointmentService.updateAppointmentStatus(id, status);
         return ResponseHelper.successOK(response, "Successfully updated appointment status");

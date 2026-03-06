@@ -2,8 +2,10 @@ package com.dibimbing.medicareflow.entity;
 
 import java.time.LocalDateTime;
 
-import com.dibimbing.medicareflow.entity.base.BaseUuidEntity;
+import com.dibimbing.medicareflow.entity.base.BaseLongEntity;
 import com.dibimbing.medicareflow.enums.AppointmentStatus;
+
+import static org.hibernate.annotations.NotFoundAction.IGNORE;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "appointment")
-public class Appointment extends BaseUuidEntity {
+public class Appointment extends BaseLongEntity {
 
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
@@ -27,12 +29,17 @@ public class Appointment extends BaseUuidEntity {
     @Column(name = "booked_at", nullable = false)
     private LocalDateTime bookedAt;
 
+    @Column(name = "reference_number", unique = true, nullable = false)
+    private String referenceNumber;
+
     @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @JoinColumn(name = "doctor_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = IGNORE)
     private Doctor doctor;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = IGNORE)
     private Patient patient;
 
     @ManyToOne

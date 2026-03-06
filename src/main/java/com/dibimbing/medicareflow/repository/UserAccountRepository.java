@@ -14,6 +14,14 @@ import com.dibimbing.medicareflow.enums.Role;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> {
 
+    @Query(value = "SELECT * FROM user_account WHERE id = :id AND deleted_at IS NOT NULL", nativeQuery = true)
+    Optional<UserAccount> findByDeletedId(UUID id);
+
+    @Query(value = "SELECT * FROM user_account WHERE deleted_at IS NOT NULL", 
+           countQuery = "SELECT count(*) FROM user_account WHERE deleted_at IS NOT NULL", 
+           nativeQuery = true)
+    Page<UserAccount> findAllDeletedUser(Pageable pageable);
+
     @Query("SELECT u FROM UserAccount u WHERE u.role = :role")
     Page<UserAccount> findByRole(Role role, Pageable pageable);
 

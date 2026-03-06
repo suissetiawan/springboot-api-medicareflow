@@ -2,7 +2,7 @@ package com.dibimbing.medicareflow.entity;
 
 import java.time.LocalDate;
 
-import com.dibimbing.medicareflow.entity.base.BaseUuidEntity;
+import com.dibimbing.medicareflow.entity.base.BaseLongEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "consultation_record")
-public class ConsultationRecord extends BaseUuidEntity {
+public class ConsultationRecord extends BaseLongEntity {
 
     private String summary;
     private String recommendation;
@@ -25,6 +25,7 @@ public class ConsultationRecord extends BaseUuidEntity {
     private LocalDate followUpDate;
 
     @OneToOne
-    @JoinColumn(name = "appointment_id", nullable = false)
+    @JoinColumn(name = "appointment_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
     private Appointment appointment;
 }

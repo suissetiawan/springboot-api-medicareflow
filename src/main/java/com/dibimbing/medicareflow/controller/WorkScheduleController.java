@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +22,13 @@ import com.dibimbing.medicareflow.enums.DayOfWeek;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.WorkScheduleService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/work-schedule")
 @RequiredArgsConstructor
+@Tag(name = "Work Schedule Management", description = "Endpoints for managing doctor work schedules and availability.")
 public class WorkScheduleController {
 
     private final WorkScheduleService workScheduleService;
@@ -42,20 +43,11 @@ public class WorkScheduleController {
     @GetMapping
     public ResponseEntity<?> getAllWorkSchedule(
         @RequestParam(required = false) String username, 
-        @RequestParam(required = false) String dayofweek,
+        @RequestParam(required = false) DayOfWeek dayofweek,
         @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
         Pageable pageable) {
         
-        DayOfWeek day = null;
-        if (dayofweek != null && !dayofweek.isBlank()) {
-            try {
-                day = DayOfWeek.valueOf(dayofweek.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                return ResponseHelper.error("Invalid day of week: " + dayofweek, HttpStatus.BAD_REQUEST);
-            }
-        }
-
-        Page<WorkScheduleResponse> schedule = workScheduleService.getAllWorkSchedule(username, day, pageable);
+        Page<WorkScheduleResponse> schedule = workScheduleService.getAllWorkSchedule(username, dayofweek, pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
                 .page(schedule.getNumber() + 1)
@@ -77,5 +69,27 @@ public class WorkScheduleController {
     public ResponseEntity<?> deleteWorkSchedule(@PathVariable Long id) {
         workScheduleService.deleteWorkSchedule(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/deleted")
+    public ResponseEntity<?> getAllDeletedWorkSchedules(
+            @PageableDefault(sort = "deleted_at", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<WorkScheduleResponse> result = workScheduleService.getAllDeleted(pageable);
+        
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(result.getNumber() + 1)
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(result.getContent(), "Successfully retrieved deleted work schedules", meta);
+    }
+
+    @PutMapping("/{id}/restore")
+    public ResponseEntity<?> restore(@PathVariable Long id) {
+        workScheduleService.restore(id);
+        return ResponseHelper.successOK(null, "Success restore work schedule");
     }
 }

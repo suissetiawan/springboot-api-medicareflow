@@ -33,6 +33,7 @@ public class WorkSchedule extends BaseLongEntity {
     private LocalTime endTime;
     
     @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @JoinColumn(name = "doctor_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
     private Doctor doctor;
 }

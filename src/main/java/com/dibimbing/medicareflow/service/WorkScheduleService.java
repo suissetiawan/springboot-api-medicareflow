@@ -37,14 +37,14 @@ public class WorkScheduleService {
         UserAccount user = userAccountRepository.findByUsername(request.getUsernameDoctor())
         .orElseThrow(() -> new NotFoundException("Doctor not found"));
 
+        if (user.getDoctor() == null) {
+            throw new NotFoundException("User is not a doctor");
+        }
+
         Boolean isScheduleEmpty = workScheduleRepository.findByDoctorIdAndDayOfWeek(user.getDoctor().getId(), request.getDayOfWeek()).isEmpty();
         
         if (!isScheduleEmpty) {
             throw new ConflictException("Work schedule already exists");
-        }
-        
-        if (user.getDoctor() == null) {
-            throw new NotFoundException("User is not a doctor");
         }
         
         WorkSchedule workSchedule = new WorkSchedule();
@@ -95,11 +95,31 @@ public class WorkScheduleService {
         workScheduleRepository.save(workSchedule);
     }
 
+    public Page<WorkScheduleResponse> getAllDeleted(Pageable pageable) {
+        return workScheduleRepository.findAllDeleted(pageable).map(this::mapToWorkScheduleResponse);
+    }
+
+    @Transactional
+    public Boolean restore(Long id) {
+        WorkSchedule workSchedule = workScheduleRepository.findByDeletedId(id)
+                .orElseThrow(() -> new NotFoundException("Deleted work schedule not found"));
+
+        workSchedule.setDeletedAt(null);
+        workScheduleRepository.save(workSchedule);
+        return true;
+    }
+
 
     private WorkScheduleResponse mapToWorkScheduleResponse(WorkSchedule workSchedule) {
         WorkScheduleResponse response = new WorkScheduleResponse();
         response.setId(workSchedule.getId().toString());
-        response.setDoctorUsername(workSchedule.getDoctor().getUserAccount().getUsername());
+        
+        String doctorUsername = "Deleted Doctor";
+        if (workSchedule.getDoctor() != null && workSchedule.getDoctor().getUserAccount() != null) {
+            doctorUsername = workSchedule.getDoctor().getUserAccount().getUsername();
+        }
+        
+        response.setDoctorUsername(doctorUsername);
         response.setDayOfWeek(workSchedule.getDayOfWeek().toString());
         response.setStartTime(workSchedule.getStartTime().toString());
         response.setEndTime(workSchedule.getEndTime().toString());

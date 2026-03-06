@@ -2,6 +2,7 @@ package com.dibimbing.medicareflow.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -19,8 +20,10 @@ public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
     @Query("SELECT ts FROM TimeSlot ts WHERE " +
            "(:username IS NULL OR ts.doctor.userAccount.username LIKE %:username%) AND " +
            "(:slotDate IS NULL OR ts.slotDate = :slotDate) AND " +
-           "(:status IS NULL OR ts.status = :status)")
-    Page<TimeSlot> findAllByFilter(String username, LocalDate slotDate, SlotStatus status, Pageable pageable);
+           "(:status IS NULL OR ts.status = :status) AND " +
+           "(:dayOfWeek IS NULL OR UPPER(FUNCTION('DAYNAME', ts.slotDate)) = :dayOfWeek) AND " +
+           "(ts.slotDate >= :today)")
+    Page<TimeSlot> findAllByFilter(String username, LocalDate slotDate, SlotStatus status, String dayOfWeek, LocalDate today, Pageable pageable);
 
     List<TimeSlot> findByDoctorId(UUID doctorId);
 
@@ -45,4 +48,12 @@ public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
         LocalDate slotDate,
         SlotStatus status
     );
+
+    @Query(value = "SELECT * FROM time_slot WHERE id = :id AND deleted_at IS NOT NULL", nativeQuery = true)
+    Optional<TimeSlot> findByDeletedId(Long id);
+
+    @Query(value = "SELECT * FROM time_slot WHERE deleted_at IS NOT NULL", 
+           countQuery = "SELECT count(*) FROM time_slot WHERE deleted_at IS NOT NULL", 
+           nativeQuery = true)
+    Page<TimeSlot> findAllDeleted(Pageable pageable);
 }

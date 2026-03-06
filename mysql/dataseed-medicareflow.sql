@@ -117,15 +117,15 @@ SELECT id, CURDATE(), '11:00', '11:30', 'AVAILABLE', NOW(), NOW() FROM doctor;
 -- APPOINTMENT (3 BOOKING SAJA)
 -- =====================================
 INSERT INTO appointment (
-  id, patient_id, doctor_id, consultation_type_id, time_slot_id,
+  patient_id, doctor_id, consultation_type_id, time_slot_id, reference_number,
   status, booked_at, created_at, updated_at
 )
 SELECT
-  UUID_TO_BIN(UUID()),
   p.id,
   d.id,
   s.id,
   ts.id,
+  CONCAT('APT-', DATE_FORMAT(NOW(), '%Y%m%d'), '-', LPAD(ts.id, 4, '0')),
   'CONFIRMED',
   NOW(), NOW(), NOW()
 FROM patient p
@@ -145,7 +145,6 @@ SET ts.status='BOOKED';
 -- CONSULTATION RECORD (2 DATA)
 -- =====================================
 INSERT INTO consultation_record (
-  id,
   appointment_id,
   summary,
   recommendation,
@@ -154,7 +153,6 @@ INSERT INTO consultation_record (
   updated_at
 )
 SELECT
-  UUID_TO_BIN(UUID()),
   id,
   'Pasien stabil',
   'Kontrol 2 minggu',
