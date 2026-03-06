@@ -1,18 +1,113 @@
-# 📖 API Documentation & Key Endpoints
+# 📖 API Documentation
 
-Once the application is running, the interactive API documentation is automatically generated and beautifully presented via Swagger UI.
+Once the application is running, the interactive API documentation is automatically generated and served via **Swagger UI** (powered by SpringDoc OpenAPI 3).
 
 - **Swagger UI:** `http://localhost:8080/docs/swagger-ui.html`
 - **OpenAPI JSON:** `http://localhost:8080/docs/api-docs`
 
+> All endpoints (except public auth routes) require a valid **Bearer JWT token** in the `Authorization` header.
+
 ---
 
-## 📌 Key Endpoints Example
+## 🔐 Authentication — `/api/auth`
 
-Below are some essential endpoints used in the standard flow:
+| Method | Endpoint             | Access    | Description                                         |
+| ------ | -------------------- | --------- | --------------------------------------------------- |
+| `POST` | `/api/auth/register` | Public    | Register a new user (default role: `PATIENT`)       |
+| `POST` | `/api/auth/login`    | Public    | Authenticate and receive a JWT token                |
+| `POST` | `/api/auth/logout`   | All roles | Invalidate current JWT (token blacklisted in Redis) |
+| `GET`  | `/api/auth/my`       | All roles | Retrieve the currently authenticated user's profile |
 
-- `POST /api/auth/login` - Authenticate and receive JWT.
-- `GET /api/slot-time?username=dr_smith&slotDate=2026-03-05` - Retrieve generated time slots for a specific doctor and date.
-- `POST /api/appointments` - Book a specific time slot using the slot's ID.
-- `GET /api/appointments/my` - Get the logged-in user's appointments (Patient viewing their own).
-- `PATCH /api/appointments/{id}/status` - Doctor/Admin updates an appointment status (e.g., to `COMPLETED`).
+---
+
+## 👥 User Management — `/api/users`
+
+> 🔒 **ADMIN only**
+
+| Method   | Endpoint                                 | Description                                 |
+| -------- | ---------------------------------------- | ------------------------------------------- |
+| `GET`    | `/api/users?type=admin\|doctor\|patient` | List all users, optionally filtered by type |
+| `GET`    | `/api/users/{id}`                        | Get a specific user's details               |
+| `PUT`    | `/api/users/{id}`                        | Update user profile data                    |
+| `PUT`    | `/api/users/{id}/role`                   | Change a user's role                        |
+| `DELETE` | `/api/users/{id}`                        | Soft-delete a user                          |
+| `GET`    | `/api/users/deleted`                     | List all soft-deleted users                 |
+| `PUT`    | `/api/users/{id}/restore`                | Restore a soft-deleted user                 |
+
+---
+
+## 🩺 Consultation Types — `/api/consultationtypes`
+
+| Method  | Endpoint                                   | Access                 | Description                                         |
+| ------- | ------------------------------------------ | ---------------------- | --------------------------------------------------- |
+| `GET`   | `/api/consultationtypes`                   | ADMIN                  | List all consultation types (paginated)             |
+| `GET`   | `/api/consultationtypes/{id}`              | ADMIN                  | Get a specific consultation type                    |
+| `GET`   | `/api/consultationtypes/doctor/{username}` | ADMIN, DOCTOR, PATIENT | Get consultation types offered by a specific doctor |
+| `POST`  | `/api/consultationtypes`                   | ADMIN                  | Create a new consultation type                      |
+| `PUT`   | `/api/consultationtypes/{id}`              | ADMIN                  | Update a consultation type                          |
+| `PATCH` | `/api/consultationtypes/{id}/status`       | ADMIN                  | Activate or deactivate a consultation type          |
+
+---
+
+## 📅 Work Schedule — `/api/work-schedule`
+
+> 🔒 **ADMIN only**
+
+| Method   | Endpoint                                  | Description                             |
+| -------- | ----------------------------------------- | --------------------------------------- |
+| `POST`   | `/api/work-schedule`                      | Create a new work schedule for a doctor |
+| `GET`    | `/api/work-schedule?username=&dayofweek=` | List all work schedules (filterable)    |
+| `PUT`    | `/api/work-schedule/{id}`                 | Update a work schedule                  |
+| `DELETE` | `/api/work-schedule/{id}`                 | Soft-delete a work schedule             |
+| `GET`    | `/api/work-schedule/deleted`              | List all soft-deleted work schedules    |
+| `PUT`    | `/api/work-schedule/{id}/restore`         | Restore a soft-deleted work schedule    |
+
+---
+
+## 🕐 Time Slots — `/api/slot-time`
+
+> 🔒 **ADMIN only**
+
+| Method  | Endpoint                                                | Description                                          |
+| ------- | ------------------------------------------------------- | ---------------------------------------------------- |
+| `GET`   | `/api/slot-time?username=&slotDate=&status=&dayOfWeek=` | List time slots with optional filters                |
+| `POST`  | `/api/slot-time/generate`                               | Manually trigger slot generation for the next 7 days |
+| `PATCH` | `/api/slot-time/{id}/block`                             | Block a specific time slot                           |
+
+**Slot Status Values:** `AVAILABLE`, `BOOKED`, `BLOCKED`
+
+---
+
+## 📋 Appointments — `/api/appointments`
+
+| Method  | Endpoint                        | Access                 | Description                                    |
+| ------- | ------------------------------- | ---------------------- | ---------------------------------------------- |
+| `POST`  | `/api/appointments`             | PATIENT                | Book a new appointment using a slot ID         |
+| `GET`   | `/api/appointments`             | ADMIN                  | List all appointments (paginated)              |
+| `GET`   | `/api/appointments/my`          | PATIENT, DOCTOR        | List the authenticated user's own appointments |
+| `PATCH` | `/api/appointments/{id}/status` | ADMIN, DOCTOR, PATIENT | Update the status of an appointment            |
+
+**Appointment Status Values:** `PENDING`, `CONFIRMED`, `COMPLETED`, `CANCELLED`, `NO_SHOW`
+
+---
+
+## 📝 Consultation Records — `/api/appointments`
+
+| Method | Endpoint                                    | Access                 | Description                                                     |
+| ------ | ------------------------------------------- | ---------------------- | --------------------------------------------------------------- |
+| `POST` | `/api/appointments/{appointmentId}/records` | ADMIN, DOCTOR          | Create a consultation record for a completed appointment        |
+| `GET`  | `/api/appointments/{appointmentId}/records` | ADMIN, DOCTOR, PATIENT | Retrieve the consultation record for a specific appointment     |
+| `GET`  | `/api/appointments/records/my`              | DOCTOR, PATIENT        | Retrieve all consultation records belonging to the current user |
+
+---
+
+## 📌 Typical Usage Flow
+
+```
+1. POST /api/auth/login                              → Obtain JWT token
+2. GET  /api/slot-time?username=dr_john&slotDate=2026-03-10  → Browse available slots
+3. POST /api/appointments                            → Book a slot (Patient)
+4. PATCH /api/appointments/{id}/status?status=CONFIRMED      → Doctor confirms
+5. POST /api/appointments/{id}/records               → Doctor creates consultation record
+6. GET  /api/appointments/records/my                 → Patient reviews their record
+```
