@@ -21,8 +21,9 @@ public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
            "(:username IS NULL OR ts.doctor.userAccount.username LIKE %:username%) AND " +
            "(:slotDate IS NULL OR ts.slotDate = :slotDate) AND " +
            "(:status IS NULL OR ts.status = :status) AND " +
-           "(:dayOfWeek IS NULL OR UPPER(FUNCTION('DAYNAME', ts.slotDate)) = :dayOfWeek)")
-    Page<TimeSlot> findAllByFilter(String username, LocalDate slotDate, SlotStatus status, String dayOfWeek, Pageable pageable);
+           "(:dayOfWeek IS NULL OR UPPER(FUNCTION('DAYNAME', ts.slotDate)) = :dayOfWeek) AND " +
+           "(ts.slotDate >= :today)")
+    Page<TimeSlot> findAllByFilter(String username, LocalDate slotDate, SlotStatus status, String dayOfWeek, LocalDate today, Pageable pageable);
 
     List<TimeSlot> findByDoctorId(UUID doctorId);
 

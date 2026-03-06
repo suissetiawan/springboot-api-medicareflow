@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,20 +43,11 @@ public class WorkScheduleController {
     @GetMapping
     public ResponseEntity<?> getAllWorkSchedule(
         @RequestParam(required = false) String username, 
-        @RequestParam(required = false) String dayofweek,
+        @RequestParam(required = false) DayOfWeek dayofweek,
         @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
         Pageable pageable) {
         
-        DayOfWeek day = null;
-        if (dayofweek != null && !dayofweek.isBlank()) {
-            try {
-                day = DayOfWeek.valueOf(dayofweek.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                return ResponseHelper.error("Invalid day of week: " + dayofweek, HttpStatus.BAD_REQUEST);
-            }
-        }
-
-        Page<WorkScheduleResponse> schedule = workScheduleService.getAllWorkSchedule(username, day, pageable);
+        Page<WorkScheduleResponse> schedule = workScheduleService.getAllWorkSchedule(username, dayofweek, pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
                 .page(schedule.getNumber() + 1)
@@ -99,10 +89,7 @@ public class WorkScheduleController {
 
     @PutMapping("/{id}/restore")
     public ResponseEntity<?> restore(@PathVariable Long id) {
-        Boolean isRestored = workScheduleService.restore(id);
-        if (isRestored) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseHelper.error("Work schedule not found or already restored", HttpStatus.NOT_FOUND);
+        workScheduleService.restore(id);
+        return ResponseHelper.successOK(null, "Success restore work schedule");
     }
 }

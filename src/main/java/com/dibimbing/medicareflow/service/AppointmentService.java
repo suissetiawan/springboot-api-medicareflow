@@ -14,6 +14,7 @@ import com.dibimbing.medicareflow.entity.Doctor;
 import com.dibimbing.medicareflow.entity.Patient;
 import com.dibimbing.medicareflow.entity.TimeSlot;
 import com.dibimbing.medicareflow.enums.AppointmentStatus;
+import com.dibimbing.medicareflow.enums.Role;
 import com.dibimbing.medicareflow.enums.SlotStatus;
 import com.dibimbing.medicareflow.exception.ConflictException;
 import com.dibimbing.medicareflow.exception.NotFoundException;
@@ -49,12 +50,13 @@ public class AppointmentService {
         }
         
         var userAccount = userOpt.get();
-        if(!userAccount.getRole().name().equals("PATIENT")) {
+        if(userAccount.getRole() != Role.PATIENT) {
             throw new ConflictException("Only patients can book appointments");
         }
 
         Patient patient = patientRepository.findByUserAccountId(userAccount.getId())
-                .orElseThrow(() -> new NotFoundException("Patient profile not found"));
+                .or(() -> patientRepository.findById(userAccount.getId()))
+                .orElseThrow(() -> new NotFoundException("Patient profile not found for user: " + currentUsername + " (ID: " + userAccount.getId() + ")"));
 
         TimeSlot timeSlot = timeSlotRepository.findById(request.getTimeSlotId())
                 .orElseThrow(() -> new NotFoundException("Time slot not found"));
@@ -93,11 +95,11 @@ public class AppointmentService {
         var userAccount = userAccountRepository.findByUsername(currentUsername)
                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        if (userAccount.getRole().name().equals("PATIENT")) {
+        if (userAccount.getRole() == Role.PATIENT) {
             Patient patient = patientRepository.findByUserAccountId(userAccount.getId())
                     .orElseThrow(() -> new NotFoundException("Patient profile not found"));
             return appointmentRepository.findByPatientId(patient.getId(), pageable).map(this::mapToResponse);
-        } else if (userAccount.getRole().name().equals("DOCTOR")) {
+        } else if (userAccount.getRole() == Role.DOCTOR) {
             Doctor doctor = doctorRepository.findByUserAccountId(userAccount.getId())
                     .orElseThrow(() -> new NotFoundException("Doctor profile not found"));
             return appointmentRepository.findByDoctorId(doctor.getId(), pageable).map(this::mapToResponse);
@@ -119,23 +121,23 @@ public class AppointmentService {
         var userAccount = userAccountRepository.findByUsername(currentUsername)
                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        String role = userAccount.getRole().name();
-
-        if (role.equals("PATIENT")) {
-            Patient patient = patientRepository.findByUserAccountId(userAccount.getId()).get();
-            if(!appointment.getPatient().getId().equals(patient.getId())) {
+        if (userAccount.getRole() == Role.PATIENT) {
+            Patient patient = patientRepository.findByUserAccountId(userAccount.getId())
+                    .orElseThrow(() -> new NotFoundException("Patient profile not found"));
+            if (!appointment.getPatient().getId().equals(patient.getId())) {
                 throw new ConflictException("You are not authorized to update this appointment");
             }
-            if(newStatus != AppointmentStatus.CANCELLED) {
+            if (newStatus != AppointmentStatus.CANCELLED) {
                 throw new ConflictException("Patients can only cancel their appointments");
             }
-        } 
-        
-        if (role.equals("DOCTOR")) {
-           Doctor doctor = doctorRepository.findByUserAccountId(userAccount.getId()).get();
-           if(!appointment.getDoctor().getId().equals(doctor.getId())) {
-               throw new ConflictException("You are not authorized to update this appointment");
-           }
+        }
+
+        if (userAccount.getRole() == Role.DOCTOR) {
+            Doctor doctor = doctorRepository.findByUserAccountId(userAccount.getId())
+                    .orElseThrow(() -> new NotFoundException("Doctor profile not found"));
+            if (!appointment.getDoctor().getId().equals(doctor.getId())) {
+                throw new ConflictException("You are not authorized to update this appointment");
+            }
         }
 
         appointment.setStatus(newStatus);
@@ -155,11 +157,14 @@ public class AppointmentService {
     }
 
     private AppointmentResponse mapToResponse(Appointment appointment) {
+        String doctorName = appointment.getDoctor() != null ? appointment.getDoctor().getName() : "Deleted Doctor";
+        String patientName = appointment.getPatient() != null ? appointment.getPatient().getName() : "Deleted Patient";
+
         return AppointmentResponse.builder()
                 .id(appointment.getId())
                 .referenceNumber(appointment.getReferenceNumber())
-                .doctorName(appointment.getDoctor().getName())
-                .patientName(appointment.getPatient().getName())
+                .doctorName(doctorName)
+                .patientName(patientName)
                 .consultationType(appointment.getService().getName())
                 .status(appointment.getStatus().name())
                 .appointmentDate(appointment.getTimeSlot().getSlotDate().toString())

@@ -10,11 +10,16 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import com.dibimbing.medicareflow.dto.BaseResponse;
+import lombok.RequiredArgsConstructor;
 import tools.jackson.databind.ObjectMapper;
 
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {

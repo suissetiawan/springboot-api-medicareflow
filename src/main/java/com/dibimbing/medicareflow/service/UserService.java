@@ -70,26 +70,19 @@ public class UserService {
         });
 
         if (req.getEmail() != null) user.setEmail(req.getEmail());
-        else user.setEmail(user.getEmail());
-
         if (req.getUsername() != null) user.setUsername(req.getUsername());
-        else user.setUsername(user.getUsername());
 
         userAccountRepository.save(user);
 
         if (user.getRole() == Role.PATIENT && user.getPatient() != null) {
             Patient patient = user.getPatient();
             if (req.getName() != null) patient.setName(req.getName());
-            else patient.setName(patient.getName());
             if (req.getPhone() != null) patient.setPhone(req.getPhone());
-            else patient.setPhone(patient.getPhone());
             patientRepository.save(patient);
         } else if (user.getRole() == Role.DOCTOR && user.getDoctor() != null) {
             Doctor doctor = user.getDoctor();
             if (req.getName() != null) doctor.setName(req.getName());
-            else doctor.setName(doctor.getName());
             if (req.getSpecialization() != null) doctor.setSpecialization(req.getSpecialization());
-            else doctor.setSpecialization(doctor.getSpecialization());
             doctorRepository.save(doctor);
         }
 

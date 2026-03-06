@@ -9,13 +9,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.dibimbing.medicareflow.dto.BaseResponse;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
+import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.ObjectNotFoundException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
 
-     @ExceptionHandler(NotFoundException.class)
-     public <T> ResponseEntity<BaseResponse<T>> handleNotFoundException(NotFoundException ex) {
+     @ExceptionHandler({
+          NotFoundException.class, 
+          EntityNotFoundException.class, 
+          JpaObjectRetrievalFailureException.class,
+          ObjectNotFoundException.class
+     })
+     public <T> ResponseEntity<BaseResponse<T>> handleNotFoundException(Exception ex) {
           log.error("Resource not found: {}", ex.getMessage());
           return ResponseHelper.error(ex.getMessage(), HttpStatus.NOT_FOUND);
      }

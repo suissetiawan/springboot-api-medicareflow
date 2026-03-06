@@ -19,6 +19,7 @@ public class Patient extends BaseUuidEntity {
     private String phone;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
     private UserAccount userAccount;
 }

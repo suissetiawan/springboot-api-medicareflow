@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import com.dibimbing.medicareflow.entity.base.BaseLongEntity;
 import com.dibimbing.medicareflow.enums.AppointmentStatus;
 
+import static org.hibernate.annotations.NotFoundAction.IGNORE;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,11 +33,13 @@ public class Appointment extends BaseLongEntity {
     private String referenceNumber;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @JoinColumn(name = "doctor_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = IGNORE)
     private Doctor doctor;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = IGNORE)
     private Patient patient;
 
     @ManyToOne

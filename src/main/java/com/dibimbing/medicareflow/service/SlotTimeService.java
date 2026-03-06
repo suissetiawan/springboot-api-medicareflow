@@ -32,17 +32,18 @@ public class SlotTimeService {
 
     public Page<TimeSlotResponse> getAllTimeSlot(String username, LocalDate slotDate, SlotStatus status, DayOfWeek dayOfWeek, Pageable pageable) {
         String dayOfWeekStr = dayOfWeek != null ? dayOfWeek.name() : null;
-        Page<TimeSlot> slots = timeSlotRepository.findAllByFilter(username, slotDate, status, dayOfWeekStr, pageable);
+        LocalDate today = LocalDate.now();
+        Page<TimeSlot> slots = timeSlotRepository.findAllByFilter(username, slotDate, status, dayOfWeekStr, today, pageable);
         return slots.map(this::mapToTimeSlotResponse);
     }
 
     @Transactional
-    public void cancelTimeSlot(Long slotId) {
+    public void blockTimeSlot(Long slotId) {
         TimeSlot timeSlot = timeSlotRepository.findById(slotId)
                 .orElseThrow(() -> new NotFoundException("Time slot not found"));
 
-        if (timeSlot.getStatus() == SlotStatus.CANCELLED) {
-            throw new ConflictException("Time slot is already cancelled");
+        if (timeSlot.getStatus() == SlotStatus.BLOCKED) {
+            throw new ConflictException("Time slot is already blocked");
         }
 
         String currentUsername = SecurityHelper.getCurrentUsername();
@@ -66,7 +67,7 @@ public class SlotTimeService {
             });
         }
 
-        timeSlot.setStatus(SlotStatus.CANCELLED);
+        timeSlot.setStatus(SlotStatus.BLOCKED);
         timeSlotRepository.save(timeSlot);
     }
 

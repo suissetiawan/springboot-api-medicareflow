@@ -24,69 +24,20 @@ public class OpenApiConfig {
                         .scheme("bearer").bearerFormat("JWT")));
     }
 
+    // --- 1. ALL ENDPOINTS ---
     @Bean
     public GroupedOpenApi allApi() {
         return GroupedOpenApi.builder()
-                .group("all-api-endpoint")
+                .group("0. ALL ENDPOINTS")
                 .pathsToMatch("/api/**")
                 .build();
     }
 
-    // --- ROLE-BASED GROUPS ---
-
-    @Bean
-    public GroupedOpenApi publicApi() {
-        return GroupedOpenApi.builder()
-                .group("role-public")
-                .pathsToMatch("/api/auth/**")
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi adminApi() {
-        return GroupedOpenApi.builder()
-                .group("role-admin")
-                .pathsToMatch(
-                        "/api/users/**",
-                        "/api/work-schedule/**",
-                        "/api/slot-time/**",
-                        "/api/consultationtypes/**",
-                        "/api/doctors/**",
-                        "/api/patients/**",
-                        "/api/appointments"
-                )
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi doctorApi() {
-        return GroupedOpenApi.builder()
-                .group("role-doctor")
-                .pathsToMatch(
-                        "/api/appointments/*/records",
-                        "/api/appointments/*/status",
-                        "/api/appointments/my"
-                )
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi patientApi() {
-        return GroupedOpenApi.builder()
-                .group("role-patient")
-                .pathsToMatch(
-                        "/api/appointments",
-                        "/api/appointments/my"
-                )
-                .build();
-    }
-
-    // --- BUSINESS FLOW GROUPS ---
-
+    // --- 2. FLOW BASED GROUPS (Bussiness Process) ---
     @Bean
     public GroupedOpenApi iamFlow() {
         return GroupedOpenApi.builder()
-                .group("flow-user-management")
+                .group("flow-1. Identity & Access Management")
                 .pathsToMatch("/api/auth/**", "/api/users/**")
                 .build();
     }
@@ -94,15 +45,15 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi masterDataFlow() {
         return GroupedOpenApi.builder()
-                .group("master-data")
-                .pathsToMatch("/api/doctors/**", "/api/patients/**", "/api/consultationtypes/**", "/api/users")
+                .group("flow-2. Master Data Management")
+                .pathsToMatch("/api/doctors/**", "/api/patients/**", "/api/consultationtypes/**")
                 .build();
     }
 
     @Bean
     public GroupedOpenApi schedulingFlow() {
         return GroupedOpenApi.builder()
-                .group("flow-scheduling-appointment")
+                .group("flow-3. Scheduling & Appointment")
                 .pathsToMatch("/api/work-schedule/**", "/api/slot-time/**", "/api/appointments/**")
                 .build();
     }
@@ -110,8 +61,60 @@ public class OpenApiConfig {
     @Bean
     public GroupedOpenApi consultationFlow() {
         return GroupedOpenApi.builder()
-                .group("flow-consultation")
-                .pathsToMatch("/api/appointments/*/records")
+                .group("flow-4. Consultation & Records")
+                .pathsToMatch("/api/appointments/*/records", "/api/appointments/records/**")
+                .build();
+    }
+
+    // --- 3. USER ACCESS GROUPS (Role Based) ---
+    @Bean
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("role-1. PUBLIC (No Auth)")
+                .pathsToMatch("/api/auth/register", "/api/auth/login")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi adminApi() {
+        return GroupedOpenApi.builder()
+                .group("role-2. ADMIN ACCESS")
+                .pathsToMatch(
+                        "/api/users/**",
+                        "/api/work-schedule/**",
+                        "/api/slot-time/**",
+                        "/api/consultationtypes/**",
+                        "/api/doctors/**",
+                        "/api/patients/**",
+                        "/api/appointments",
+                        "/api/appointments/**"
+                )
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi doctorApi() {
+        return GroupedOpenApi.builder()
+                .group("role-3. DOCTOR ACCESS")
+                .pathsToMatch(
+                        "/api/appointments/*/records",
+                        "/api/appointments/*/status",
+                        "/api/appointments/my",
+                        "/api/appointments/records/my"
+                )
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi patientApi() {
+        return GroupedOpenApi.builder()
+                .group("role-4. PATIENT ACCESS")
+                .pathsToMatch(
+                        "/api/appointments",
+                        "/api/appointments/my",
+                        "/api/appointments/records/my",
+                        "/api/consultationtypes/doctor/**"
+                )
                 .build();
     }
 }

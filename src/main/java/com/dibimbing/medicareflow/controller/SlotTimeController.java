@@ -63,9 +63,9 @@ public class SlotTimeController {
         return ResponseHelper.successOK(null, "Successfully triggered manual slot generation for the next 7 days");
     }
 
-    @PatchMapping("/{id}/cancel")
-    public ResponseEntity<?> cancelTimeSlot(@PathVariable Long id) {
-        slotTimeService.cancelTimeSlot(id);
-        return ResponseHelper.successOK(null, "Successfully cancelled time slot");
+    @PatchMapping("/{id}/block")
+    public ResponseEntity<?> blockTimeSlot(@PathVariable Long id) {
+        slotTimeService.blockTimeSlot(id);
+        return ResponseHelper.successOK(null, "Successfully blocked time slot");
     }
 }

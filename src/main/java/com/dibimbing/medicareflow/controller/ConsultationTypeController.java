@@ -8,12 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.ConsultationStatusRequest;
+import com.dibimbing.medicareflow.dto.request.ConsultationTypeRequest;
 import com.dibimbing.medicareflow.dto.response.ConsultationTypeResponse;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.ConsultationTypeService;
@@ -50,6 +53,23 @@ public class ConsultationTypeController {
     public ResponseEntity<?> getConsultationTypeById(@PathVariable Long id) {
         ConsultationTypeResponse data = consultationTypeService.getConsultationTypeById(id);
         return ResponseHelper.successOK(data, "Data berhasil diambil");
+    }
+
+    @GetMapping("/doctor/{username}")
+    public ResponseEntity<?> getConsultationTypesByDoctorUsername(@PathVariable String username) {
+        return ResponseHelper.successOK(consultationTypeService.getConsultationTypesByDoctorUsername(username), "Data berhasil diambil");
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createConsultationType(@RequestBody ConsultationTypeRequest request) {
+        ConsultationTypeResponse data = consultationTypeService.createConsultationType(request);
+        return ResponseHelper.successOK(data, "Data berhasil dibuat");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateConsultationType(@PathVariable Long id, @RequestBody ConsultationTypeRequest request) {
+        ConsultationTypeResponse data = consultationTypeService.updateConsultationType(id, request);
+        return ResponseHelper.successOK(data, "Data berhasil diupdate");
     }
 
     @PatchMapping("/{id}/status")

@@ -1,5 +1,7 @@
 package com.dibimbing.medicareflow.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dibimbing.medicareflow.dto.request.ConsultationRecordRequest;
@@ -8,6 +10,7 @@ import com.dibimbing.medicareflow.entity.Appointment;
 import com.dibimbing.medicareflow.entity.ConsultationRecord;
 import com.dibimbing.medicareflow.entity.Doctor;
 import com.dibimbing.medicareflow.enums.AppointmentStatus;
+import com.dibimbing.medicareflow.enums.Role;
 import com.dibimbing.medicareflow.exception.ConflictException;
 import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.helper.SecurityHelper;
@@ -41,7 +44,7 @@ public class ConsultationRecordService {
         var userAccount = userAccountRepository.findByUsername(currentUsername)
                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        if (!userAccount.getRole().name().equals("DOCTOR")) {
+        if (userAccount.getRole() != Role.DOCTOR) {
             throw new ConflictException("Only doctors can create consultation records");
         }
 
@@ -78,13 +81,12 @@ public class ConsultationRecordService {
         var userAccount = userAccountRepository.findByUsername(currentUsername)
                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        // Basic authorization: Only the patient or the doctor of the appointment can view it. Admin could be added.
         Appointment appointment = record.getAppointment();
-        if (userAccount.getRole().name().equals("PATIENT")) {
+        if (userAccount.getRole() == Role.PATIENT) {
             if (!appointment.getPatient().getUserAccount().getId().equals(userAccount.getId())) {
                 throw new ConflictException("You are not authorized to view this record");
             }
-        } else if (userAccount.getRole().name().equals("DOCTOR")) {
+        } else if (userAccount.getRole() == Role.DOCTOR) {
             if (!appointment.getDoctor().getUserAccount().getId().equals(userAccount.getId())) {
                 throw new ConflictException("You are not authorized to view this record");
             }
@@ -93,10 +95,21 @@ public class ConsultationRecordService {
         return mapToResponse(record);
     }
 
+    public Page<ConsultationRecordResponse> getMyRecords(Pageable pageable) {
+        String currentUsername = SecurityHelper.getCurrentUsername();
+        var userAccount = userAccountRepository.findByUsername(currentUsername)
+               .orElseThrow(() -> new NotFoundException("User not found"));
+
+        return consultationRecordRepository.findByAppointmentPatientUserAccountId(userAccount.getId(), pageable)
+                .map(this::mapToResponse);
+    }
+
     private ConsultationRecordResponse mapToResponse(ConsultationRecord record) {
+        Long appointmentId = record.getAppointment() != null ? record.getAppointment().getId() : null;
+
         return ConsultationRecordResponse.builder()
                 .id(record.getId())
-                .appointmentId(record.getAppointment().getId())
+                .appointmentId(appointmentId)
                 .summary(record.getSummary())
                 .recommendation(record.getRecommendation())
                 .followUpDate(record.getFollowUpDate() != null ? record.getFollowUpDate().toString() : null)

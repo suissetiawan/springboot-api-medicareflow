@@ -25,6 +25,7 @@ public class ConsultationRecord extends BaseLongEntity {
     private LocalDate followUpDate;
 
     @OneToOne
-    @JoinColumn(name = "appointment_id", nullable = false)
+    @JoinColumn(name = "appointment_id", nullable = true)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
     private Appointment appointment;
 }
