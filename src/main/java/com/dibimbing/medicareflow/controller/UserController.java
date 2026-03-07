@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.RoleUpdateRequest;
@@ -62,12 +63,12 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody UserUpdateRequest req) {
+    public ResponseEntity<?> update(@PathVariable UUID id, @Valid @RequestBody UserUpdateRequest req) {
         return ResponseHelper.successOK(userService.updateUser(id, req), "Success update user profile");
     }
 
     @PutMapping("/{id}/role")
-    public ResponseEntity<?> updateRole(@PathVariable UUID id, @RequestBody RoleUpdateRequest req) {
+    public ResponseEntity<?> updateRole(@PathVariable UUID id, @Valid @RequestBody RoleUpdateRequest req) {
         return ResponseHelper.successOK(userService.updateRole(id, req), "Success update user role");
     }
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
+import jakarta.validation.Valid;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.ConsultationRecordRequest;
@@ -33,7 +34,7 @@ public class ConsultationRecordController {
     @PostMapping("/appointments/{appointmentId}/records")
     public ResponseEntity<?> createRecord(
             @PathVariable Long appointmentId,
-            @RequestBody ConsultationRecordRequest request) {
+            @Valid @RequestBody ConsultationRecordRequest request) {
         ConsultationRecordResponse response = consultationRecordService.createRecord(appointmentId, request);
         return ResponseHelper.successCreated(response, "Successfully created consultation record");
     }

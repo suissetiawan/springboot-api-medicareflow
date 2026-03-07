@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
+import jakarta.validation.Valid;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.AppointmentRequest;
@@ -34,7 +35,7 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @PostMapping
-    public ResponseEntity<?> createAppointment(@RequestBody AppointmentRequest request) {
+    public ResponseEntity<?> createAppointment(@Valid @RequestBody AppointmentRequest request) {
         AppointmentResponse response = appointmentService.createAppointment(request);
         return ResponseHelper.successCreated(response, "Successfully created appointment");
     }

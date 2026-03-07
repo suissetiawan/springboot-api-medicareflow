@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.WorkScheduleRequest;
@@ -34,7 +35,7 @@ public class WorkScheduleController {
     private final WorkScheduleService workScheduleService;
 
     @PostMapping
-    public ResponseEntity<?> createWorkSchedule(@RequestBody WorkScheduleRequest request) {
+    public ResponseEntity<?> createWorkSchedule(@Valid @RequestBody WorkScheduleRequest request) {
         WorkScheduleResponse response = workScheduleService.createWorkSchedule(request);
 
         return ResponseHelper.successOK(response, "Success create work schedule");
@@ -60,7 +61,7 @@ public class WorkScheduleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateWorkSchedule(@PathVariable Long id, @RequestBody WorkScheduleRequest request) {
+    public ResponseEntity<?> updateWorkSchedule(@PathVariable Long id, @Valid @RequestBody WorkScheduleRequest request) {
         WorkScheduleResponse response = workScheduleService.updateWorkSchedule(id, request);
         return ResponseHelper.successOK(response, "Success update work schedule");
     }

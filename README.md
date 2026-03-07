@@ -18,6 +18,7 @@ The core motivation behind this project is to create an automated scheduling eng
 - **Global Redis Caching:** Data retrieval across all core services (appointments, schedules, doctors, records) is accelerated using Spring Cache and Redis, mitigating database load for heavily read endpoints.
 - **Concurrency Safety:** Enforces strict unique constraints (`doctor_id`, `slot_date`, `start_time`) to unequivocally prevent double-booking scenarios.
 - **Data Integrity & Security:** Utilizes `UUID` for non-sequential, secure primary keys, implements widespread `Soft Deletion` to maintain historical data without clutter, and uses **Redis** for stateful, immediate JWT token invalidation (Blacklisting).
+- **Robust Validation & Error Handling:** Global request payload validation using `jakarta.validation` constraints (`@NotBlank`, `@NotNull`, `@Size`, `@Email`), coupled with a centralized generic exception handler to return clean, standardized error messages.
 
 This project serves as a robust backend portfolio, demonstrating the application of enterprise architecture patterns, RESTful principles, and modern security practices within the Spring ecosystem.
 

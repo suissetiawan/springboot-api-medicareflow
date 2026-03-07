@@ -7,6 +7,18 @@ Once the application is running, the interactive API documentation is automatica
 
 > All endpoints (except public auth routes) require a valid **Bearer JWT token** in the `Authorization` header.
 
+## 🛑 Generic Error Responses & Validation
+
+All endpoints enforce strict input validation (`@Valid`). If a request body contains invalid data (e.g., missing required fields, invalid email format, negative durations), the API returns a structured `400 Bad Request` response.
+
+Example Validation Error Response:
+
+```json
+{
+  "errors": "Username is required, Email format is invalid"
+}
+```
+
 ---
 
 ## 🔐 Authentication — `/api/auth`

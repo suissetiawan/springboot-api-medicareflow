@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.ConsultationStatusRequest;
@@ -61,19 +62,19 @@ public class ConsultationTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createConsultationType(@RequestBody ConsultationTypeRequest request) {
+    public ResponseEntity<?> createConsultationType(@Valid @RequestBody ConsultationTypeRequest request) {
         ConsultationTypeResponse data = consultationTypeService.createConsultationType(request);
         return ResponseHelper.successOK(data, "Data berhasil dibuat");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateConsultationType(@PathVariable Long id, @RequestBody ConsultationTypeRequest request) {
+    public ResponseEntity<?> updateConsultationType(@PathVariable Long id, @Valid @RequestBody ConsultationTypeRequest request) {
         ConsultationTypeResponse data = consultationTypeService.updateConsultationType(id, request);
         return ResponseHelper.successOK(data, "Data berhasil diupdate");
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody ConsultationStatusRequest request) {
+    public ResponseEntity<?> updateStatus(@PathVariable Long id, @Valid @RequestBody ConsultationStatusRequest request) {
         ConsultationTypeResponse consultationType = consultationTypeService.updateStatus(id, request);
         return ResponseHelper.successOK(consultationType, "Data berhasil diupdate");
     }

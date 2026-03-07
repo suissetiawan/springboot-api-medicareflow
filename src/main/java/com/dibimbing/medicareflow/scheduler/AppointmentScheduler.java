@@ -26,7 +26,7 @@ public class AppointmentScheduler {
      * ubah status appointment menjadi NO_SHOW jika sudah lewat waktu.
      * berjalan setiap 15 menit.
      */
-    @Scheduled(cron = "0 0/15 * * * *")
+    @Scheduled(cron = "${app.update.appointment.cron}")
     @Transactional
     public void autoMarkNoShow() {
         log.info("Running automatic NO_SHOW check...");

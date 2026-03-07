@@ -9,6 +9,7 @@
 - **Concurrency Protection:** Unique database constraints prevent double-booking.
 - **Appointment State Machine:** Strict status transitions enforced by a state machine (`PENDING` → `CONFIRMED` → `COMPLETED` / `CANCELLED` / `NO_SHOW`). `NO_SHOW` status is automatically handled by a background scheduler.
 - **Data Integrity:** UUIDs for account IDs and soft deletion implemented across all core entities.
+- **Input Validation:** Comprehensive request generic validation enforcing constraints (size, blanks, nulls, emails) natively handled via Spring Validation with clean user-friendly messages.
 - **Unique Reference Numbers:** Automatic generation of unique `referenceNumber` for every appointment.
 
 ---

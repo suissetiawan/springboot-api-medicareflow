@@ -1,9 +1,13 @@
 package com.dibimbing.medicareflow.exception;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.stream.Collectors;
+
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -56,5 +60,14 @@ public class GlobalExceptionHandler {
      public <T> ResponseEntity<BaseResponse<T>> handleBadRequestException(BadRequestException ex) {
           log.error("Bad request exception: {}", ex.getMessage());
           return ResponseHelper.error(ex.getMessage(), HttpStatus.BAD_REQUEST);
+     }
+
+     @ExceptionHandler(MethodArgumentNotValidException.class)
+     public <T> ResponseEntity<BaseResponse<T>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+          String errorMessage = ex.getBindingResult().getFieldErrors().stream()
+                  .map(error -> error.getDefaultMessage())
+                  .collect(Collectors.joining(", "));
+          log.error("Validation error: {}", errorMessage);
+          return ResponseHelper.error(errorMessage, HttpStatus.BAD_REQUEST);
      }
 }
