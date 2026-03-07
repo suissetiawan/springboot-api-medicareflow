@@ -18,10 +18,12 @@ import com.dibimbing.medicareflow.entity.UserAccount;
 import com.dibimbing.medicareflow.enums.DoctorStatus;
 import com.dibimbing.medicareflow.enums.Role;
 import com.dibimbing.medicareflow.exception.ConflictException;
+import com.dibimbing.medicareflow.exception.ForbiddenException;
 import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.helper.DateHelper;
 import com.dibimbing.medicareflow.helper.JwtHelper;
 import com.dibimbing.medicareflow.helper.SecurityHelper;
+import com.dibimbing.medicareflow.repository.ConsultationTypeRepository;
 import com.dibimbing.medicareflow.repository.DoctorRepository;
 import com.dibimbing.medicareflow.repository.PatientRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
@@ -38,6 +40,7 @@ public class AuthService {
     private final UserAccountRepository userAccountRepository;
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
+    private final ConsultationTypeRepository consultationTypeRepository;
     private final AuthenticationManager authenticationManager;
     private final TokenBlacklistService blacklistService;
     private final PasswordEncoder passwordEncoder;
@@ -45,6 +48,15 @@ public class AuthService {
 
     @Transactional
     public RegisterResponse register(RegisterRequest registerRequest) {
+        Role requestedRole = registerRequest.getRole();
+
+        // --- REGISTRATION RESTRICTION ---
+        // hanya admin yang bisa register doctor dan admin
+        if (requestedRole == Role.DOCTOR || requestedRole == Role.ADMIN) {
+            if (!SecurityHelper.isAuthenticated() || !SecurityHelper.hasRole(Role.ADMIN)) {
+                throw new ForbiddenException("Only administrators can register " + requestedRole + " accounts");
+            }
+        }
 
         if(userAccountRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
             throw new ConflictException("Email already exists");
@@ -68,6 +80,22 @@ public class AuthService {
             doctor.setSpecialization(registerRequest.getSpecialization());
             doctor.setStatus(DoctorStatus.ACTIVE);
             doctor.setUserAccount(userAccount);
+
+            // Assign default consultation types based on specialization
+            // id 1 = Konsultasi Umum, id 2 = Konsultasi Spesialis, id 3 = Kontrol Rutin
+            java.util.List<Long> serviceIds = new java.util.ArrayList<>();
+            if ("Umum".equalsIgnoreCase(registerRequest.getSpecialization())) {
+                serviceIds.add(1L);
+                serviceIds.add(3L);
+            } else {
+                serviceIds.add(2L);
+                serviceIds.add(3L);
+            }
+
+            java.util.List<com.dibimbing.medicareflow.entity.ConsultationType> services = 
+                consultationTypeRepository.findAllById(serviceIds);
+            
+            doctor.setServices(services);
             doctorRepository.save(doctor);
             
         } else if(registerRequest.getRole() == Role.PATIENT) {

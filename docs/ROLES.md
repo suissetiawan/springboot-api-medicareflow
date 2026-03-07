@@ -37,15 +37,17 @@ The `ADMIN` role is the highest-level manager in the system. Admins are responsi
 
 #### 👥 User Management (`/api/users`)
 
-| Action                          | Endpoint                                     | Method   |
-| ------------------------------- | -------------------------------------------- | -------- |
-| List all users (filter by type) | `GET /api/users?type=admin\|doctor\|patient` | `GET`    |
-| Get user details                | `GET /api/users/{id}`                        | `GET`    |
-| Update user profile             | `PUT /api/users/{id}`                        | `PUT`    |
-| Update user role                | `PUT /api/users/{id}/role`                   | `PUT`    |
-| Soft-delete a user              | `DELETE /api/users/{id}`                     | `DELETE` |
-| List all soft-deleted users     | `GET /api/users/deleted`                     | `GET`    |
-| Restore a deleted user          | `PUT /api/users/{id}/restore`                | `PUT`    |
+| Action                          | Endpoint                                              | Method   |
+| ------------------------------- | ----------------------------------------------------- | -------- |
+| List all users (filter by type) | `GET /api/users?type=admin\|doctor\|patient`          | `GET`    |
+| Get user details                | `GET /api/users/{id}`                                 | `GET`    |
+| Update user profile             | `PUT /api/users/{id}`                                 | `PUT`    |
+| Update user role                | `PUT /api/users/{id}/role`                            | `PUT`    |
+| Soft-delete a user              | `DELETE /api/users/{id}`                              | `DELETE` |
+| List all soft-deleted users     | `GET /api/users/deleted`                              | `GET`    |
+| Restore a deleted user          | `PUT /api/users/{id}/restore`                         | `PUT`    |
+| Assign a service to doctor      | `POST /api/doctors/{username}/services/{serviceId}`   | `POST`   |
+| Remove a service from doctor    | `DELETE /api/doctors/{username}/services/{serviceId}` | `DELETE` |
 
 > ⚠️ Endpoints under `/api/users/**`, `/api/doctors/**`, and `/api/patients/**` are **ADMIN only**.
 
@@ -100,6 +102,14 @@ The `ADMIN` role is the highest-level manager in the system. Admins are responsi
 
 ---
 
+#### 👤 Auth & User Management (Special Actions)
+
+| Action                           | Endpoint                  | Access     |
+| -------------------------------- | ------------------------- | ---------- |
+| Register DOCTOR or ADMIN account | `POST /api/auth/register` | ADMIN only |
+
+---
+
 ## 2. DOCTOR
 
 ### Description
@@ -120,20 +130,19 @@ The `DOCTOR` role represents medical professionals providing consultation servic
 
 #### 📋 Appointment Management (`/api/appointments`)
 
-| Action                                      | Endpoint                              | Method  |
-| ------------------------------------------- | ------------------------------------- | ------- |
-| View my own appointments                    | `GET /api/appointments/my`            | `GET`   |
-| Update appointment status                   | `PATCH /api/appointments/{id}/status` | `PATCH` |
-| View consultation record for an appointment | `GET /api/appointments/{id}/records`  | `GET`   |
-| Create a consultation record                | `POST /api/appointments/{id}/records` | `POST`  |
+| Action                                 | Endpoint                              | Method |
+| -------------------------------------- | ------------------------------------- | ------ |
+| View my own appointments               | `GET /api/appointments/my`            | `GET`  |
+| Create a consultation record           | `POST /api/appointments/{id}/records` | `POST` |
+| View record for a specific appointment | `GET /api/appointments/{id}/records`  | `GET`  |
 
 **Available appointment status values:**
 
-- `PENDING` — awaiting confirmation
-- `CONFIRMED` — appointment confirmed
-- `COMPLETED` — consultation has been completed
-- `CANCELLED` — appointment was cancelled
-- `NO_SHOW` — patient did not attend
+- `PENDING` — initial state. Can transition to `CONFIRMED` or `CANCELLED`.
+- `CONFIRMED` — appointment confirmed. Can transition to `COMPLETED`, `CANCELLED`, or `NO_SHOW`.
+- `COMPLETED` — terminal state (consultation finished).
+- `CANCELLED` — terminal state (cancelled by patient/admin).
+- `NO_SHOW` — terminal state (automatically marked by system if time passed).
 
 ---
 
@@ -180,12 +189,11 @@ The `PATIENT` role represents users who utilize the medical consultation service
 
 #### 📋 Appointment Management (`/api/appointments`)
 
-| Action                                      | Endpoint                              | Method  |
-| ------------------------------------------- | ------------------------------------- | ------- |
-| Book a new appointment                      | `POST /api/appointments`              | `POST`  |
-| View my own appointments                    | `GET /api/appointments/my`            | `GET`   |
-| Update appointment status                   | `PATCH /api/appointments/{id}/status` | `PATCH` |
-| View consultation record for an appointment | `GET /api/appointments/{id}/records`  | `GET`   |
+| Action                                      | Endpoint                             | Method |
+| ------------------------------------------- | ------------------------------------ | ------ |
+| Book a new appointment                      | `POST /api/appointments`             | `POST` |
+| View my own appointments                    | `GET /api/appointments/my`           | `GET`  |
+| View consultation record for an appointment | `GET /api/appointments/{id}/records` | `GET`  |
 
 > ℹ️ Patients may update appointment status (e.g., cancel via `CANCELLED`), but setting statuses such as `COMPLETED` or `NO_SHOW` is logically reserved for doctors and admins.
 
@@ -217,13 +225,14 @@ The `PATIENT` role represents users who utilize the medical consultation service
 | Feature / Action                  | ADMIN | DOCTOR | PATIENT |
 | --------------------------------- | :---: | :----: | :-----: |
 | Register & Login                  |  ✅   |   ✅   |   ✅    |
+| Register DOCTOR/ADMIN             |  ✅   |   ❌   |   ❌    |
 | View own profile                  |  ✅   |   ✅   |   ✅    |
 | Manage all users (CRUD)           |  ✅   |   ❌   |   ❌    |
 | Update user roles                 |  ✅   |   ❌   |   ❌    |
 | Book an appointment               |  ❌   |   ❌   |   ✅    |
 | View all appointments             |  ✅   |   ❌   |   ❌    |
 | View own appointments             |  ❌   |   ✅   |   ✅    |
-| Update appointment status         |  ✅   |   ✅   |   ✅    |
+| Update appointment status         |  ✅   |   ❌   |  ❌\*   |
 | Create consultation records       |  ✅   |   ✅   |   ❌    |
 | View consultation records         |  ✅   |   ✅   |   ✅    |
 | Manage consultation types (CRUD)  |  ✅   |   ❌   |   ❌    |
@@ -232,6 +241,8 @@ The `PATIENT` role represents users who utilize the medical consultation service
 | Manage time slots                 |  ✅   |   ❌   |   ❌    |
 | Generate time slots               |  ✅   |   ❌   |   ❌    |
 | Block time slots                  |  ✅   |   ❌   |   ❌    |
+
+> \* Patients can only cancel their own appointments if the status is still suitable. Manual status updates for DOCTOR/ADMIN must be performed by ADMIN.
 
 ---
 

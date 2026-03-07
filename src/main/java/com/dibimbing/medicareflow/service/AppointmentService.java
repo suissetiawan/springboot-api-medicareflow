@@ -113,36 +113,39 @@ public class AppointmentService {
     }
 
     @Transactional
-    public AppointmentResponse updateAppointmentStatus(Long appointmentId, AppointmentStatus newStatus) {
+    public AppointmentResponse updateAppointmentStatus(Long appointmentId, AppointmentStatus nextStatus) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Appointment not found"));
                 
-        String currentUsername = SecurityHelper.getCurrentUsername();
-        var userAccount = userAccountRepository.findByUsername(currentUsername)
-               .orElseThrow(() -> new NotFoundException("User not found"));
+        AppointmentStatus currentStatus = appointment.getStatus();
 
-        if (userAccount.getRole() == Role.PATIENT) {
-            Patient patient = patientRepository.findByUserAccountId(userAccount.getId())
-                    .orElseThrow(() -> new NotFoundException("Patient profile not found"));
-            if (!appointment.getPatient().getId().equals(patient.getId())) {
-                throw new ConflictException("You are not authorized to update this appointment");
-            }
-            if (newStatus != AppointmentStatus.CANCELLED) {
-                throw new ConflictException("Patients can only cancel their appointments");
-            }
+        if (currentStatus == nextStatus) {
+            return mapToResponse(appointment);
         }
 
-        if (userAccount.getRole() == Role.DOCTOR) {
-            Doctor doctor = doctorRepository.findByUserAccountId(userAccount.getId())
-                    .orElseThrow(() -> new NotFoundException("Doctor profile not found"));
-            if (!appointment.getDoctor().getId().equals(doctor.getId())) {
-                throw new ConflictException("You are not authorized to update this appointment");
-            }
+        // --- STRICT STATE MACHINE ---
+        // 1. Final States (CANCELLED, COMPLETED, NO_SHOW)
+        if (currentStatus == AppointmentStatus.CANCELLED || 
+            currentStatus == AppointmentStatus.COMPLETED || 
+            currentStatus == AppointmentStatus.NO_SHOW) {
+            throw new ConflictException("Appointment is in a final state (" + currentStatus + ") and cannot be changed");
         }
 
-        appointment.setStatus(newStatus);
+        // 2. Transition Rules
+        if (currentStatus == AppointmentStatus.PENDING) {
+            if (nextStatus != AppointmentStatus.CONFIRMED && nextStatus != AppointmentStatus.CANCELLED) {
+                throw new ConflictException("PENDING appointments can only transition to CONFIRMED or CANCELLED");
+            }
+        } else if (currentStatus == AppointmentStatus.CONFIRMED) {
+            if (nextStatus == AppointmentStatus.PENDING) {
+                throw new ConflictException("CONFIRMED appointments cannot transition back to PENDING");
+            }
+            // Allowed: CONFIRMED -> COMPLETED, NO_SHOW, CANCELLED
+        }
+
+        appointment.setStatus(nextStatus);
         
-        if (newStatus == AppointmentStatus.CANCELLED) {
+        if (nextStatus == AppointmentStatus.CANCELLED) {
             TimeSlot timeSlot = appointment.getTimeSlot();
             timeSlot.setStatus(SlotStatus.AVAILABLE);
             timeSlotRepository.save(timeSlot);

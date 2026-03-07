@@ -21,6 +21,7 @@ import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.RoleUpdateRequest;
 import com.dibimbing.medicareflow.dto.request.UserUpdateRequest;
 import com.dibimbing.medicareflow.dto.response.UserResponse;
+import com.dibimbing.medicareflow.enums.Role;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
 import com.dibimbing.medicareflow.service.UserService;
 
@@ -37,31 +38,13 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getAll(
-            @RequestParam(defaultValue = "") String type,
+            @RequestParam(defaultValue = "") Role role,
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable) {
-            
-        String userType = " users";
-        switch (type.toLowerCase()) {
-            case "admin":
-                userType = " admins";
-                break;
-            case "doctor":
-                userType = " doctors";
-                break;
-            case "patient":
-                userType = " patients";
-                break;
-            default:
-                if (type.isEmpty()) {
-                    userType = " users";
-                } else {
-                    return ResponseHelper.error("Invalid type", HttpStatus.BAD_REQUEST);
-                }
-                break;
-        }
+                
+        String userType = role == null ? " users" : role == Role.ADMIN ? " admins" : role == Role.DOCTOR ? " doctors" : " patients";
 
-        Page<UserResponse> result = userService.getAll(type.toLowerCase(), pageable);
+        Page<UserResponse> result = userService.getAll(role, pageable);
 
         PaginationMeta meta = PaginationMeta.builder()
                 .page(result.getNumber() + 1)

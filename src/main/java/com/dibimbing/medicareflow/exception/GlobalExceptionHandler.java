@@ -40,6 +40,12 @@ public class GlobalExceptionHandler {
           return ResponseHelper.error(ex.getMessage(), HttpStatus.CONFLICT);
      }
 
+     @ExceptionHandler(ForbiddenException.class)
+     public <T> ResponseEntity<BaseResponse<T>> handleForbiddenException(ForbiddenException ex) {
+          log.error("Forbidden exception: {}", ex.getMessage());
+          return ResponseHelper.error(ex.getMessage(), HttpStatus.FORBIDDEN);
+     }
+
      @ExceptionHandler(Exception.class)
      public <T> ResponseEntity<BaseResponse<T>> handleException(Exception ex) {
           log.error("Internal server error: ", ex);

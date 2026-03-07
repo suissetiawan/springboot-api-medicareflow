@@ -11,12 +11,12 @@ Once the application is running, the interactive API documentation is automatica
 
 ## 🔐 Authentication — `/api/auth`
 
-| Method | Endpoint             | Access    | Description                                         |
-| ------ | -------------------- | --------- | --------------------------------------------------- |
-| `POST` | `/api/auth/register` | Public    | Register a new user (default role: `PATIENT`)       |
-| `POST` | `/api/auth/login`    | Public    | Authenticate and receive a JWT token                |
-| `POST` | `/api/auth/logout`   | All roles | Invalidate current JWT (token blacklisted in Redis) |
-| `GET`  | `/api/auth/my`       | All roles | Retrieve the currently authenticated user's profile |
+| Method | Endpoint             | Access    | Description                                                            |
+| ------ | -------------------- | --------- | ---------------------------------------------------------------------- |
+| `POST` | `/api/auth/register` | Public\*  | Register a new PATIENT account. \*Admin only can register DOCTOR/ADMIN |
+| `POST` | `/api/auth/login`    | Public    | Authenticate and receive a JWT token                                   |
+| `POST` | `/api/auth/logout`   | All roles | Invalidate current JWT (token blacklisted in Redis)                    |
+| `GET`  | `/api/auth/my`       | All roles | Retrieve the currently authenticated user's profile                    |
 
 ---
 
@@ -24,15 +24,17 @@ Once the application is running, the interactive API documentation is automatica
 
 > 🔒 **ADMIN only**
 
-| Method   | Endpoint                                 | Description                                 |
-| -------- | ---------------------------------------- | ------------------------------------------- |
-| `GET`    | `/api/users?type=admin\|doctor\|patient` | List all users, optionally filtered by type |
-| `GET`    | `/api/users/{id}`                        | Get a specific user's details               |
-| `PUT`    | `/api/users/{id}`                        | Update user profile data                    |
-| `PUT`    | `/api/users/{id}/role`                   | Change a user's role                        |
-| `DELETE` | `/api/users/{id}`                        | Soft-delete a user                          |
-| `GET`    | `/api/users/deleted`                     | List all soft-deleted users                 |
-| `PUT`    | `/api/users/{id}/restore`                | Restore a soft-deleted user                 |
+| Method   | Endpoint                                       | Description                              |
+| -------- | ---------------------------------------------- | ---------------------------------------- |
+| `GET`    | `/api/users?role=ADMIN\|DOCTOR\|PATIENT`       | List all users, filtered by role enum    |
+| `GET`    | `/api/users/{id}`                              | Get a specific user's details            |
+| `PUT`    | `/api/users/{id}`                              | Update user profile data                 |
+| `PUT`    | `/api/users/{id}/role`                         | Change a user's role                     |
+| `DELETE` | `/api/users/{id}`                              | Soft-delete a user                       |
+| `GET`    | `/api/users/deleted`                           | List all soft-deleted users              |
+| `PUT`    | `/api/users/{id}/restore`                      | Restore a soft-deleted user              |
+| `POST`   | `/api/doctors/{username}/services/{serviceId}` | Assign a consultation type to a doctor   |
+| `DELETE` | `/api/doctors/{username}/services/{serviceId}` | Remove a consultation type from a doctor |
 
 ---
 
@@ -80,14 +82,18 @@ Once the application is running, the interactive API documentation is automatica
 
 ## 📋 Appointments — `/api/appointments`
 
-| Method  | Endpoint                        | Access                 | Description                                    |
-| ------- | ------------------------------- | ---------------------- | ---------------------------------------------- |
-| `POST`  | `/api/appointments`             | PATIENT                | Book a new appointment using a slot ID         |
-| `GET`   | `/api/appointments`             | ADMIN                  | List all appointments (paginated)              |
-| `GET`   | `/api/appointments/my`          | PATIENT, DOCTOR        | List the authenticated user's own appointments |
-| `PATCH` | `/api/appointments/{id}/status` | ADMIN, DOCTOR, PATIENT | Update the status of an appointment            |
+| Method  | Endpoint                        | Access          | Description                                    |
+| ------- | ------------------------------- | --------------- | ---------------------------------------------- |
+| `POST`  | `/api/appointments`             | PATIENT         | Book a new appointment using a slot ID         |
+| `GET`   | `/api/appointments`             | ADMIN           | List all appointments (paginated)              |
+| `GET`   | `/api/appointments/my`          | PATIENT, DOCTOR | List the authenticated user's own appointments |
+| `PATCH` | `/api/appointments/{id}/status` | ADMIN           | Update status (follows state machine rules)    |
 
-**Appointment Status Values:** `PENDING`, `CONFIRMED`, `COMPLETED`, `CANCELLED`, `NO_SHOW`
+**Appointment Status & Transitions:**
+
+- `PENDING` → `CONFIRMED` or `CANCELLED`.
+- `CONFIRMED` → `COMPLETED` (via Record), `CANCELLED`, or `NO_SHOW` (System).
+- **Terminal States:** `COMPLETED`, `CANCELLED`, `NO_SHOW` cannot be changed.
 
 ---
 

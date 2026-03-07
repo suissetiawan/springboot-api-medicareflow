@@ -1,4 +1,4 @@
-package com.dibimbing.medicareflow.service;
+package com.dibimbing.medicareflow.scheduler;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.dibimbing.medicareflow.entity.ConsultationType;
 import com.dibimbing.medicareflow.entity.Doctor;
@@ -23,13 +24,18 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Service
+@Component
 @RequiredArgsConstructor
 @Slf4j
-public class SlotGeneratorService {
+public class SlotGeneratorScheduler {
 
     private final TimeSlotRepository timeSlotRepository;
     private final WorkScheduleRepository workingScheduleRepository;
+
+    @Scheduled(cron = "${app.slot.generation-cron:0 0 1 * * *}")
+    public void scheduleSlotGeneration() {
+        autoGenerateSlots();
+    }
 
     @Transactional
     public void generateSlot(

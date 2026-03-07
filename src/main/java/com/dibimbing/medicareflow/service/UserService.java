@@ -33,13 +33,12 @@ public class UserService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
 
-    public Page<UserResponse> getAll(String type, Pageable pageable) {
+    public Page<UserResponse> getAll(Role role, Pageable pageable) {
         Page<UserAccount> users;
 
-        if (type == null || type.isBlank() || type.equalsIgnoreCase("all")) {
+        if (role == null) {
             users = userAccountRepository.findAll(pageable);
         } else {
-            Role role = Role.valueOf(type.toUpperCase());
             users = userAccountRepository.findByRole(role, pageable);
         }
         return users.map(this::mapToResponse);
