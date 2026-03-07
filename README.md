@@ -44,15 +44,12 @@ MediCareFlow is designed with a modern, secure, and automated infrastructure. Ou
 
 To help you navigate the codebase and understand the business logic, we provide a comprehensive set of guides in the `docs/` directory:
 
-- 📊 **[System Flow Chart](docs/SYSTEM_FLOW.md)**: Visual representation of the entire system lifecycle, from user registration to automated status updates.
-- ✨ **[Features & Flow](docs/FEATURES_AND_FLOW.md)**: A high-level overview of our **Role-Based Access Control** (RBAC), the **Smart Scheduling Engine** logic, and a step-by-step breakdown of the appointment booking lifecycle.
-
-* 🏗️ **[System Architecture](docs/ARCHITECTURE.md)**: Deep dive into the technical design, covering our **layered project structure**, CI/CD pipelines via GitHub Actions, and our secure, tunnel-based deployment infrastructure.
-* 🔐 **[Roles & Permissions](docs/ROLES.md)**: Detailed mapping of available roles (`ADMIN`, `DOCTOR`, `PATIENT`) to specific API endpoints and restricted actions.
-* 🗄️ **[Database Design](docs/DATABASE.md)**: Comprehensive overview of our schema, including core entities like `UserAccount`, `Doctor`, and `Appointment`, plus a link to our full Mermaid ERD.
-* 📖 **[API Documentation](docs/API_DOCUMENTATION.md)**: Quick reference for the most important REST endpoints, including base paths, authentication requirements, and common status codes.
-* 🚀 **[Getting Started](docs/GETTING_STARTED.md)**: Everything you need to get the project running locally, from cloning the repo and setting up **MySQL/Redis** to configuring environment variables.
-* 🛠️ **[Tech Stack](docs/TECH_STACK.md)**: A detailed look at our primary tools (Java 21, Spring Boot 3.2, JPA, JWT, Redis) and the rationale behind choosing them.
+- ✨ **[Features & System Flow](docs/FEATURES_AND_FLOW.md)**: A high-level overview of our **Role-Based Access Control** (RBAC), the **Smart Scheduling Engine** logic, a visual Mermaid flowchart of our end-to-end system, and the appointment booking lifecycle.
+- 🏗️ **[System Architecture & Tech Stack](docs/ARCHITECTURE.md)**: Deep dive into the technical design, covering our **layered project structure**, CI/CD pipelines via GitHub Actions, secure tunnel-based deployment infrastructure, and the specific frameworks/versions used.
+- 🔐 **[Roles & Permissions](docs/ROLES.md)**: Detailed mapping of available roles (`ADMIN`, `DOCTOR`, `PATIENT`) to specific API endpoints and restricted actions.
+- 🗄️ **[Database Design](docs/DATABASE.md)**: Comprehensive overview of our schema, including core entities like `UserAccount`, `Doctor`, and `Appointment`, plus a link to our full Mermaid ERD.
+- 📖 **[API Documentation](docs/API_DOCUMENTATION.md)**: Quick reference for the most important REST endpoints, including base paths, authentication requirements, and common status codes.
+- 🚀 **[Getting Started](docs/GETTING_STARTED.md)**: Everything you need to get the project running locally, from cloning the repo and setting up **MySQL/Redis** to configuring environment variables.
 
 ---
 
