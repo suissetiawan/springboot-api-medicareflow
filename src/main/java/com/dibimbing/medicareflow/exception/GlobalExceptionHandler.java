@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
      @ExceptionHandler(Exception.class)
      public <T> ResponseEntity<BaseResponse<T>> handleException(Exception ex) {
           log.error("Internal server error: ", ex);
-          return ResponseHelper.error(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+          return ResponseHelper.error("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
      }
 
      @ExceptionHandler(BadRequestException.class)

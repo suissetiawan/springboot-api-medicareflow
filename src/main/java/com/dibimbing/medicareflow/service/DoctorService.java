@@ -11,6 +11,8 @@ import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.repository.ConsultationTypeRepository;
 import com.dibimbing.medicareflow.repository.DoctorRepository;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ public class DoctorService {
     private final ConsultationTypeRepository consultationTypeRepository;
 
     @Transactional
+    @CacheEvict(value = {"doctors", "doctor"}, allEntries = true)
     public String addService(String username, Long consultationTypeId) {
         Doctor doctor = doctorRepository.findByUserAccountUsername(username)
                 .orElseThrow(() -> new NotFoundException("Doctor not found"));
@@ -41,6 +44,7 @@ public class DoctorService {
     }
 
     @Transactional
+    @CacheEvict(value = {"doctors", "doctor"}, allEntries = true)
     public String removeService(String username, Long consultationTypeId) {
         Doctor doctor = doctorRepository.findByUserAccountUsername(username)
                 .orElseThrow(() -> new NotFoundException("Doctor not found"));
@@ -57,6 +61,7 @@ public class DoctorService {
         return "Service removed successfully";
     }
 
+    @Cacheable(value = "doctors")
     public List<Doctor> getAllDoctors() {
         return doctorRepository.findAll();
     }

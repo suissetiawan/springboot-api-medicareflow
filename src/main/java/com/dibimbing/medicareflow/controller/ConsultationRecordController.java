@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.security.Principal;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.ConsultationRecordRequest;
@@ -46,8 +47,8 @@ public class ConsultationRecordController {
     @GetMapping("/appointments/records/my")
     public ResponseEntity<?> getMyRecords(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
-            Pageable pageable) {
-        Page<ConsultationRecordResponse> result = consultationRecordService.getMyRecords(pageable);
+            Pageable pageable, Principal principal) {
+        Page<ConsultationRecordResponse> result = consultationRecordService.getMyRecords(principal.getName(), pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
                 .page(result.getNumber() + 1)

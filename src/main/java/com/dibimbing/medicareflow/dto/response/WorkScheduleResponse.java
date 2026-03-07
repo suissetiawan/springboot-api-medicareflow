@@ -2,6 +2,8 @@ package com.dibimbing.medicareflow.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
@@ -12,7 +14,7 @@ import lombok.Data;
     "startTime",
     "endTime"
 })
-public class WorkScheduleResponse {
+public class WorkScheduleResponse implements Serializable {
     private String id;
     private String doctorUsername;
     private String dayOfWeek;

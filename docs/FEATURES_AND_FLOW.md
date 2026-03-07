@@ -4,6 +4,7 @@
 
 - **Role-Based Access Control (RBAC):** Three distinct access levels — `ADMIN`, `DOCTOR`, and `PATIENT` — enforced via Spring Security and JWT-based authentication. Public registration is restricted to `PATIENT` only; `ADMIN` or `DOCTOR` registration requires admin privileges.
 - **Automated Scheduling Engine:** The system automatically generates available time slots based on a doctor's registered work schedule and the duration defined in each consultation type. Slots are generated for the next 7 days via a scheduled job.
+- **High-Performance Caching:** Integrated Spring `@Cacheable` with Redis across all major entities (Appointments, Users, Doctors, Work Schedules), drastically improving read throughput for paginated and single-item fetches.
 - **Robust Security & Auth:** JWT authentication with Redis-backed token blacklisting and role-based registration logic.
 - **Concurrency Protection:** Unique database constraints prevent double-booking.
 - **Appointment State Machine:** Strict status transitions enforced by a state machine (`PENDING` → `CONFIRMED` → `COMPLETED` / `CANCELLED` / `NO_SHOW`). `NO_SHOW` status is automatically handled by a background scheduler.

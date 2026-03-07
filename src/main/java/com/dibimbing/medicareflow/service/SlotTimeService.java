@@ -19,6 +19,10 @@ import com.dibimbing.medicareflow.repository.AppointmentRepository;
 import com.dibimbing.medicareflow.repository.TimeSlotRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import com.dibimbing.medicareflow.helper.RestPage;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -30,14 +34,16 @@ public class SlotTimeService {
     private final AppointmentRepository appointmentRepository;
     private final UserAccountRepository userAccountRepository;
 
+    @Cacheable(value = "slot_times", key = "'all_' + #pageable.toString() + '_' + #username + '_' + #slotDate + '_' + #status + '_' + #dayOfWeek")
     public Page<TimeSlotResponse> getAllTimeSlot(String username, LocalDate slotDate, SlotStatus status, DayOfWeek dayOfWeek, Pageable pageable) {
         String dayOfWeekStr = dayOfWeek != null ? dayOfWeek.name() : null;
         LocalDate today = LocalDate.now();
         Page<TimeSlot> slots = timeSlotRepository.findAllByFilter(username, slotDate, status, dayOfWeekStr, today, pageable);
-        return slots.map(this::mapToTimeSlotResponse);
+        return new RestPage<>(slots.getContent().stream().map(this::mapToTimeSlotResponse).toList(), pageable, slots.getTotalElements());
     }
 
     @Transactional
+    @CacheEvict(value = {"slot_times", "slot_time"}, allEntries = true)
     public void blockTimeSlot(Long slotId) {
         TimeSlot timeSlot = timeSlotRepository.findById(slotId)
                 .orElseThrow(() -> new NotFoundException("Time slot not found"));

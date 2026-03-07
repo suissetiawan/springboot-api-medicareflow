@@ -26,6 +26,9 @@ import com.dibimbing.medicareflow.repository.PatientRepository;
 import com.dibimbing.medicareflow.repository.TimeSlotRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import com.dibimbing.medicareflow.helper.RestPage;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -41,6 +44,7 @@ public class AppointmentService {
     private final UserAccountRepository userAccountRepository;
 
     @Transactional
+    @CacheEvict(value = {"appointments", "appointment"}, allEntries = true)
     public AppointmentResponse createAppointment(AppointmentRequest request) {
         String currentUsername = SecurityHelper.getCurrentUsername();
         var userOpt = userAccountRepository.findByUsername(currentUsername);
@@ -90,29 +94,38 @@ public class AppointmentService {
         return mapToResponse(appointment);
     }
 
-    public Page<AppointmentResponse> getMyAppointments(Pageable pageable) {
-        String currentUsername = SecurityHelper.getCurrentUsername();
-        var userAccount = userAccountRepository.findByUsername(currentUsername)
+    @Cacheable(value = "appointments", key = "#username + '_' + #pageable.toString()")
+    public Page<AppointmentResponse> getMyAppointments(String username, Pageable pageable) {
+        var userAccount = userAccountRepository.findByUsername(username)
                .orElseThrow(() -> new NotFoundException("User not found"));
 
         if (userAccount.getRole() == Role.PATIENT) {
             Patient patient = patientRepository.findByUserAccountId(userAccount.getId())
                     .orElseThrow(() -> new NotFoundException("Patient profile not found"));
-            return appointmentRepository.findByPatientId(patient.getId(), pageable).map(this::mapToResponse);
+            
+            Page<Appointment> apps = appointmentRepository.findByPatientId(patient.getId(), pageable);
+            return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
+
         } else if (userAccount.getRole() == Role.DOCTOR) {
             Doctor doctor = doctorRepository.findByUserAccountId(userAccount.getId())
                     .orElseThrow(() -> new NotFoundException("Doctor profile not found"));
-            return appointmentRepository.findByDoctorId(doctor.getId(), pageable).map(this::mapToResponse);
+
+            Page<Appointment> apps = appointmentRepository.findByDoctorId(doctor.getId(), pageable);
+            return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
+
         } else {
              throw new ConflictException("Users with this role do not have personal appointments");
         }
     }
 
+    @Cacheable(value = "appointments", key = "'all_' + #pageable.toString()")
     public Page<AppointmentResponse> getAllAppointments(Pageable pageable) {
-        return appointmentRepository.findAll(pageable).map(this::mapToResponse);
+        Page<Appointment> apps = appointmentRepository.findAll(pageable);
+        return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
     }
 
     @Transactional
+    @CacheEvict(value = {"appointments", "appointment"}, allEntries = true)
     public AppointmentResponse updateAppointmentStatus(Long appointmentId, AppointmentStatus nextStatus) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Appointment not found"));

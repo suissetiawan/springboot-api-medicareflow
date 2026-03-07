@@ -9,7 +9,7 @@
 | Security                | Spring Security + JWT (`jjwt`)              | 0.11.5                     |
 | Persistence             | Spring Data JPA + Hibernate                 | (Spring Boot managed)      |
 | Database                | MySQL                                       | 8                          |
-| Cache / Key-Value Store | Redis (via Spring Data Redis)               | (Spring Boot managed)      |
+| Cache / Key-Value Store | Redis (Data Caching & Token Blacklisting)   | (Spring Boot managed)      |
 | API Documentation       | SpringDoc OpenAPI (Swagger UI)              | 3.0.1                      |
 | Build Tool              | Maven                                       | (via Maven Wrapper `mvnw`) |
 | Boilerplate Reduction   | Lombok                                      | (Spring Boot managed)      |

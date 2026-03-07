@@ -15,6 +15,7 @@ The core motivation behind this project is to create an automated scheduling eng
 
 - **Comprehensive Role Management:** Secure, distinct flows for `ADMIN`, `DOCTOR`, and `PATIENT` using JWT authentication.
 - **Smart Scheduling:** Instead of manual slot creation, the system intelligently generates available appointment slots from a doctor's registered `WorkSchedule`.
+- **Global Redis Caching:** Data retrieval across all core services (appointments, schedules, doctors, records) is accelerated using Spring Cache and Redis, mitigating database load for heavily read endpoints.
 - **Concurrency Safety:** Enforces strict unique constraints (`doctor_id`, `slot_date`, `start_time`) to unequivocally prevent double-booking scenarios.
 - **Data Integrity & Security:** Utilizes `UUID` for non-sequential, secure primary keys, implements widespread `Soft Deletion` to maintain historical data without clutter, and uses **Redis** for stateful, immediate JWT token invalidation (Blacklisting).
 

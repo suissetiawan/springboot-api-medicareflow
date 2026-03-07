@@ -19,6 +19,10 @@ import com.dibimbing.medicareflow.repository.ConsultationRecordRepository;
 import com.dibimbing.medicareflow.repository.DoctorRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import com.dibimbing.medicareflow.helper.RestPage;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +36,7 @@ public class ConsultationRecordService {
     private final UserAccountRepository userAccountRepository;
 
     @Transactional
+    @CacheEvict(value = {"consultation_records", "consultation_record"}, allEntries = true)
     public ConsultationRecordResponse createRecord(Long appointmentId, ConsultationRecordRequest request) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Appointment not found"));
@@ -73,6 +78,7 @@ public class ConsultationRecordService {
         return mapToResponse(record);
     }
 
+    @Cacheable(value = "consultation_record", key = "#appointmentId")
     public ConsultationRecordResponse getRecordByAppointmentId(Long appointmentId) {
         ConsultationRecord record = consultationRecordRepository.findByAppointmentId(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Consultation record not found"));
@@ -95,13 +101,13 @@ public class ConsultationRecordService {
         return mapToResponse(record);
     }
 
-    public Page<ConsultationRecordResponse> getMyRecords(Pageable pageable) {
-        String currentUsername = SecurityHelper.getCurrentUsername();
-        var userAccount = userAccountRepository.findByUsername(currentUsername)
+    @Cacheable(value = "consultation_records", key = "#username + '_' + #pageable.toString()")
+    public Page<ConsultationRecordResponse> getMyRecords(String username, Pageable pageable) {
+        var userAccount = userAccountRepository.findByUsername(username)
                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        return consultationRecordRepository.findByAppointmentPatientUserAccountId(userAccount.getId(), pageable)
-                .map(this::mapToResponse);
+        Page<ConsultationRecord> records = consultationRecordRepository.findByAppointmentPatientUserAccountId(userAccount.getId(), pageable);
+        return new RestPage<>(records.getContent().stream().map(this::mapToResponse).toList(), pageable, records.getTotalElements());
     }
 
     private ConsultationRecordResponse mapToResponse(ConsultationRecord record) {

@@ -32,7 +32,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
 
                 // AUTH & PUBLIC
-                .requestMatchers("/api/auth/**", "/docs/**").permitAll()
+                .requestMatchers("/", "/api/auth/**", "/docs/**").permitAll()
 
                 // CONSULTATION TYPES
                 .requestMatchers(HttpMethod.GET, "/api/consultationtypes/doctor/**").hasAnyRole("PATIENT", "DOCTOR", "ADMIN")
