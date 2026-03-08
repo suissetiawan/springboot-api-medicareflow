@@ -42,9 +42,10 @@ public class AppointmentController {
 
     @GetMapping("/my")
     public ResponseEntity<?> getMyAppointments(
+            @RequestParam(required = false) AppointmentStatus status,
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable, Principal principal) {
-        Page<AppointmentResponse> result = appointmentService.getMyAppointments(principal.getName(), pageable);
+        Page<AppointmentResponse> result = appointmentService.getMyAppointments(principal.getName(), status, pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
                 .page(result.getNumber() + 1)
@@ -58,9 +59,10 @@ public class AppointmentController {
 
     @GetMapping
     public ResponseEntity<?> getAllAppointments(
+            @RequestParam(required = false) AppointmentStatus status,
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable) {
-        Page<AppointmentResponse> result = appointmentService.getAllAppointments(pageable);
+        Page<AppointmentResponse> result = appointmentService.getAllAppointments(status, pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
                 .page(result.getNumber() + 1)

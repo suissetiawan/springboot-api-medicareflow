@@ -18,7 +18,10 @@ import com.dibimbing.medicareflow.entity.Appointment;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     Page<Appointment> findByPatientId(UUID patientId, Pageable pageable);
+    Page<Appointment> findByPatientIdAndStatus(UUID patientId, com.dibimbing.medicareflow.enums.AppointmentStatus status, Pageable pageable);
     Page<Appointment> findByDoctorId(UUID doctorId, Pageable pageable);
+    Page<Appointment> findByDoctorIdAndStatus(UUID doctorId, com.dibimbing.medicareflow.enums.AppointmentStatus status, Pageable pageable);
+    Page<Appointment> findByStatus(com.dibimbing.medicareflow.enums.AppointmentStatus status, Pageable pageable);
     Optional<Appointment> findByTimeSlotId(Long timeSlotId);
 
     @Query(value = "SELECT * FROM appointment WHERE id = :id AND deleted_at IS NOT NULL", nativeQuery = true)

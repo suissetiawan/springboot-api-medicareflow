@@ -1,6 +1,7 @@
 package com.dibimbing.medicareflow.repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,13 @@ import com.dibimbing.medicareflow.entity.ConsultationRecord;
 public interface ConsultationRecordRepository extends JpaRepository<ConsultationRecord, Long> {
     Optional<ConsultationRecord> findByAppointmentId(Long appointmentId);
 
-    Page<ConsultationRecord> findByAppointmentPatientUserAccountId(java.util.UUID userAccountId, Pageable pageable);
+    Page<ConsultationRecord> findByAppointmentPatientUserAccountId(UUID userAccountId, Pageable pageable);
+
+    Page<ConsultationRecord> findByAppointmentDoctorUserAccountId(UUID userAccountId, Pageable pageable);
+
+    Page<ConsultationRecord> findByAppointmentDoctorUserAccountUsername(String doctorUsername, Pageable pageable);
+    
+    Page<ConsultationRecord> findByAppointmentPatientUserAccountUsername(String patientUsername, Pageable pageable);
 
     @Query(value = "SELECT * FROM consultation_record WHERE id = :id AND deleted_at IS NOT NULL", nativeQuery = true)
     Optional<ConsultationRecord> findByDeletedId(Long id);

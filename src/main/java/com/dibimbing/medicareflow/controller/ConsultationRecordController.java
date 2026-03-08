@@ -40,8 +40,8 @@ public class ConsultationRecordController {
     }
 
     @GetMapping("/appointments/{appointmentId}/records")
-    public ResponseEntity<?> getRecordByAppointmentId(@PathVariable Long appointmentId) {
-        ConsultationRecordResponse response = consultationRecordService.getRecordByAppointmentId(appointmentId);
+    public ResponseEntity<?> getRecordByAppointmentId(@PathVariable Long appointmentId, Principal principal) {
+        ConsultationRecordResponse response = consultationRecordService.getRecordByAppointmentId(appointmentId, principal.getName());
         return ResponseHelper.successOK(response, "Successfully retrieved consultation record", null);
     }
 
@@ -59,5 +59,23 @@ public class ConsultationRecordController {
                 .build();
 
         return ResponseHelper.successOK(result.getContent(), "Successfully retrieved my consultation records", meta);
+    }
+
+    @GetMapping("/appointments/records")
+    public ResponseEntity<?> getAllRecords(
+            @org.springframework.web.bind.annotation.RequestParam(required = false) String doctorUsername,
+            @org.springframework.web.bind.annotation.RequestParam(required = false) String patientUsername,
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<ConsultationRecordResponse> result = consultationRecordService.getAllRecords(doctorUsername, patientUsername, pageable);
+        
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(result.getNumber() + 1)
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(result.getContent(), "Successfully retrieved all consultation records", meta);
     }
 }

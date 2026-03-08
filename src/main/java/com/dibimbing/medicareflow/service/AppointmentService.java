@@ -94,8 +94,8 @@ public class AppointmentService {
         return mapToResponse(appointment);
     }
 
-    @Cacheable(value = "appointments", key = "#username + '_' + #pageable.toString()")
-    public Page<AppointmentResponse> getMyAppointments(String username, Pageable pageable) {
+    @Cacheable(value = "appointments", key = "#username + '_' + (#status != null ? #status.name() : 'ALL') + '_' + #pageable.toString()")
+    public Page<AppointmentResponse> getMyAppointments(String username, AppointmentStatus status, Pageable pageable) {
         var userAccount = userAccountRepository.findByUsername(username)
                .orElseThrow(() -> new NotFoundException("User not found"));
 
@@ -103,14 +103,24 @@ public class AppointmentService {
             Patient patient = patientRepository.findByUserAccountId(userAccount.getId())
                     .orElseThrow(() -> new NotFoundException("Patient profile not found"));
             
-            Page<Appointment> apps = appointmentRepository.findByPatientId(patient.getId(), pageable);
+            Page<Appointment> apps;
+            if (status != null) {
+                apps = appointmentRepository.findByPatientIdAndStatus(patient.getId(), status, pageable);
+            } else {
+                apps = appointmentRepository.findByPatientId(patient.getId(), pageable);
+            }
             return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
 
         } else if (userAccount.getRole() == Role.DOCTOR) {
             Doctor doctor = doctorRepository.findByUserAccountId(userAccount.getId())
                     .orElseThrow(() -> new NotFoundException("Doctor profile not found"));
 
-            Page<Appointment> apps = appointmentRepository.findByDoctorId(doctor.getId(), pageable);
+            Page<Appointment> apps;
+            if (status != null) {
+                apps = appointmentRepository.findByDoctorIdAndStatus(doctor.getId(), status, pageable);
+            } else {
+                apps = appointmentRepository.findByDoctorId(doctor.getId(), pageable);
+            }
             return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
 
         } else {
@@ -118,9 +128,14 @@ public class AppointmentService {
         }
     }
 
-    @Cacheable(value = "appointments", key = "'all_' + #pageable.toString()")
-    public Page<AppointmentResponse> getAllAppointments(Pageable pageable) {
-        Page<Appointment> apps = appointmentRepository.findAll(pageable);
+    @Cacheable(value = "appointments", key = "'all_' + (#status != null ? #status.name() : 'ALL') + '_' + #pageable.toString()")
+    public Page<AppointmentResponse> getAllAppointments(AppointmentStatus status, Pageable pageable) {
+        Page<Appointment> apps;
+        if (status != null) {
+            apps = appointmentRepository.findByStatus(status, pageable);
+        } else {
+            apps = appointmentRepository.findAll(pageable);
+        }
         return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
     }
 
