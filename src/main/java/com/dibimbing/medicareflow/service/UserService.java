@@ -16,10 +16,13 @@ import com.dibimbing.medicareflow.entity.UserAccount;
 import com.dibimbing.medicareflow.enums.Role;
 import com.dibimbing.medicareflow.exception.NotFoundException;
 import com.dibimbing.medicareflow.helper.DateHelper;
+import com.dibimbing.medicareflow.helper.RestPage;
 import com.dibimbing.medicareflow.repository.DoctorRepository;
 import com.dibimbing.medicareflow.repository.PatientRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,18 +36,19 @@ public class UserService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
 
-    public Page<UserResponse> getAll(String type, Pageable pageable) {
+    @Cacheable(value = "users", key = "#role + #pageable.toString()")
+    public Page<UserResponse> getAll(Role role, Pageable pageable) {
         Page<UserAccount> users;
 
-        if (type == null || type.isBlank() || type.equalsIgnoreCase("all")) {
+        if (role == null) {
             users = userAccountRepository.findAll(pageable);
         } else {
-            Role role = Role.valueOf(type.toUpperCase());
             users = userAccountRepository.findByRole(role, pageable);
         }
-        return users.map(this::mapToResponse);
+        return new RestPage<>(users.getContent().stream().map(this::mapToResponse).toList(), pageable, users.getTotalElements());
     }
 
+    @CacheEvict(value = {"users", "user"}, allEntries = true)
     public UserResponse updateRole(UUID id, RoleUpdateRequest req) {
         UserAccount user = userAccountRepository.findById(id).orElseThrow(() -> {
             return new NotFoundException("User not found");
@@ -56,6 +60,7 @@ public class UserService {
         return mapToResponse(user);
     }
 
+    @Cacheable(value = "user", key = "#id")
     public UserResponse getUserById(UUID id) {
         UserAccount user = userAccountRepository.findById(id).orElseThrow(() -> {
             return new NotFoundException("User not found");
@@ -64,6 +69,7 @@ public class UserService {
     }
 
     @Transactional
+    @CacheEvict(value = {"users", "user"}, allEntries = true)
     public UserResponse updateUser(UUID id, UserUpdateRequest req) {
         UserAccount user = userAccountRepository.findById(id).orElseThrow(() -> {
             return new NotFoundException("User not found");
@@ -90,6 +96,7 @@ public class UserService {
     }
 
     @Transactional
+    @CacheEvict(value = {"users", "user"}, allEntries = true)
     public Boolean deleteUser(UUID id) {
         UserAccount user = userAccountRepository.findById(id).orElseThrow(() -> {
             return new NotFoundException("User not found");
@@ -117,11 +124,13 @@ public class UserService {
         return true;
     }
 
+    @Cacheable(value = "users_deleted")
     public Page<UserResponse> getAllDeletedUser(Pageable pageable) {
         Page<UserAccount> users = userAccountRepository.findAllDeletedUser(pageable);
-        return users.map(this::mapToResponse);
+        return new RestPage<>(users.getContent().stream().map(this::mapToResponse).toList(), pageable, users.getTotalElements());
     }
 
+    @CacheEvict(value = {"users", "user", "users_deleted"}, allEntries = true)
     public Boolean restoreUser(UUID id) {
         UserAccount user = userAccountRepository.findByDeletedId(id).orElseThrow(() -> {
             return new NotFoundException("User not found");

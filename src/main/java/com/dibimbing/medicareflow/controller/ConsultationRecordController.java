@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.security.Principal;
+import jakarta.validation.Valid;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.ConsultationRecordRequest;
@@ -32,22 +34,22 @@ public class ConsultationRecordController {
     @PostMapping("/appointments/{appointmentId}/records")
     public ResponseEntity<?> createRecord(
             @PathVariable Long appointmentId,
-            @RequestBody ConsultationRecordRequest request) {
+            @Valid @RequestBody ConsultationRecordRequest request) {
         ConsultationRecordResponse response = consultationRecordService.createRecord(appointmentId, request);
         return ResponseHelper.successCreated(response, "Successfully created consultation record");
     }
 
     @GetMapping("/appointments/{appointmentId}/records")
-    public ResponseEntity<?> getRecordByAppointmentId(@PathVariable Long appointmentId) {
-        ConsultationRecordResponse response = consultationRecordService.getRecordByAppointmentId(appointmentId);
+    public ResponseEntity<?> getRecordByAppointmentId(@PathVariable Long appointmentId, Principal principal) {
+        ConsultationRecordResponse response = consultationRecordService.getRecordByAppointmentId(appointmentId, principal.getName());
         return ResponseHelper.successOK(response, "Successfully retrieved consultation record", null);
     }
 
     @GetMapping("/appointments/records/my")
     public ResponseEntity<?> getMyRecords(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
-            Pageable pageable) {
-        Page<ConsultationRecordResponse> result = consultationRecordService.getMyRecords(pageable);
+            Pageable pageable, Principal principal) {
+        Page<ConsultationRecordResponse> result = consultationRecordService.getMyRecords(principal.getName(), pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
                 .page(result.getNumber() + 1)
@@ -57,5 +59,23 @@ public class ConsultationRecordController {
                 .build();
 
         return ResponseHelper.successOK(result.getContent(), "Successfully retrieved my consultation records", meta);
+    }
+
+    @GetMapping("/appointments/records")
+    public ResponseEntity<?> getAllRecords(
+            @org.springframework.web.bind.annotation.RequestParam(required = false) String doctorUsername,
+            @org.springframework.web.bind.annotation.RequestParam(required = false) String patientUsername,
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<ConsultationRecordResponse> result = consultationRecordService.getAllRecords(doctorUsername, patientUsername, pageable);
+        
+        PaginationMeta meta = PaginationMeta.builder()
+                .page(result.getNumber() + 1)
+                .size(result.getSize())
+                .totalElements(result.getTotalElements())
+                .totalPages(result.getTotalPages())
+                .build();
+
+        return ResponseHelper.successOK(result.getContent(), "Successfully retrieved all consultation records", meta);
     }
 }

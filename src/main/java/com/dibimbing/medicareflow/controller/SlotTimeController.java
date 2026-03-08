@@ -21,7 +21,7 @@ import com.dibimbing.medicareflow.dto.response.TimeSlotResponse;
 import com.dibimbing.medicareflow.enums.DayOfWeek;
 import com.dibimbing.medicareflow.enums.SlotStatus;
 import com.dibimbing.medicareflow.helper.ResponseHelper;
-import com.dibimbing.medicareflow.service.SlotGeneratorService;
+import com.dibimbing.medicareflow.scheduler.SlotGeneratorScheduler;
 import com.dibimbing.medicareflow.service.SlotTimeService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 public class SlotTimeController {
 
     private final SlotTimeService slotTimeService;
-    private final SlotGeneratorService slotGeneratorService;
+    private final SlotGeneratorScheduler slotGeneratorScheduler;
 
     @GetMapping
     public ResponseEntity<?> getAllTimeSlot(
@@ -59,7 +59,7 @@ public class SlotTimeController {
 
     @PostMapping("/generate")
     public ResponseEntity<?> triggerManualSlotGeneration() {
-        slotGeneratorService.autoGenerateSlots();
+        slotGeneratorScheduler.autoGenerateSlots();
         return ResponseHelper.successOK(null, "Successfully triggered manual slot generation for the next 7 days");
     }
 

@@ -26,6 +26,9 @@ import com.dibimbing.medicareflow.repository.PatientRepository;
 import com.dibimbing.medicareflow.repository.TimeSlotRepository;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import com.dibimbing.medicareflow.helper.RestPage;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -41,6 +44,7 @@ public class AppointmentService {
     private final UserAccountRepository userAccountRepository;
 
     @Transactional
+    @CacheEvict(value = {"appointments", "appointment"}, allEntries = true)
     public AppointmentResponse createAppointment(AppointmentRequest request) {
         String currentUsername = SecurityHelper.getCurrentUsername();
         var userOpt = userAccountRepository.findByUsername(currentUsername);
@@ -90,59 +94,86 @@ public class AppointmentService {
         return mapToResponse(appointment);
     }
 
-    public Page<AppointmentResponse> getMyAppointments(Pageable pageable) {
-        String currentUsername = SecurityHelper.getCurrentUsername();
-        var userAccount = userAccountRepository.findByUsername(currentUsername)
+    @Cacheable(value = "appointments", key = "#username + '_' + (#status != null ? #status.name() : 'ALL') + '_' + #pageable.toString()")
+    public Page<AppointmentResponse> getMyAppointments(String username, AppointmentStatus status, Pageable pageable) {
+        var userAccount = userAccountRepository.findByUsername(username)
                .orElseThrow(() -> new NotFoundException("User not found"));
 
         if (userAccount.getRole() == Role.PATIENT) {
             Patient patient = patientRepository.findByUserAccountId(userAccount.getId())
                     .orElseThrow(() -> new NotFoundException("Patient profile not found"));
-            return appointmentRepository.findByPatientId(patient.getId(), pageable).map(this::mapToResponse);
+            
+            Page<Appointment> apps;
+            if (status != null) {
+                apps = appointmentRepository.findByPatientIdAndStatus(patient.getId(), status, pageable);
+            } else {
+                apps = appointmentRepository.findByPatientId(patient.getId(), pageable);
+            }
+            return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
+
         } else if (userAccount.getRole() == Role.DOCTOR) {
             Doctor doctor = doctorRepository.findByUserAccountId(userAccount.getId())
                     .orElseThrow(() -> new NotFoundException("Doctor profile not found"));
-            return appointmentRepository.findByDoctorId(doctor.getId(), pageable).map(this::mapToResponse);
+
+            Page<Appointment> apps;
+            if (status != null) {
+                apps = appointmentRepository.findByDoctorIdAndStatus(doctor.getId(), status, pageable);
+            } else {
+                apps = appointmentRepository.findByDoctorId(doctor.getId(), pageable);
+            }
+            return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
+
         } else {
              throw new ConflictException("Users with this role do not have personal appointments");
         }
     }
 
-    public Page<AppointmentResponse> getAllAppointments(Pageable pageable) {
-        return appointmentRepository.findAll(pageable).map(this::mapToResponse);
+    @Cacheable(value = "appointments", key = "'all_' + (#status != null ? #status.name() : 'ALL') + '_' + #pageable.toString()")
+    public Page<AppointmentResponse> getAllAppointments(AppointmentStatus status, Pageable pageable) {
+        Page<Appointment> apps;
+        if (status != null) {
+            apps = appointmentRepository.findByStatus(status, pageable);
+        } else {
+            apps = appointmentRepository.findAll(pageable);
+        }
+        return new RestPage<>(apps.getContent().stream().map(this::mapToResponse).toList(), pageable, apps.getTotalElements());
     }
 
     @Transactional
-    public AppointmentResponse updateAppointmentStatus(Long appointmentId, AppointmentStatus newStatus) {
+    @CacheEvict(value = {"appointments", "appointment"}, allEntries = true)
+    public AppointmentResponse updateAppointmentStatus(Long appointmentId, AppointmentStatus nextStatus) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new NotFoundException("Appointment not found"));
                 
-        String currentUsername = SecurityHelper.getCurrentUsername();
-        var userAccount = userAccountRepository.findByUsername(currentUsername)
-               .orElseThrow(() -> new NotFoundException("User not found"));
+        AppointmentStatus currentStatus = appointment.getStatus();
 
-        if (userAccount.getRole() == Role.PATIENT) {
-            Patient patient = patientRepository.findByUserAccountId(userAccount.getId())
-                    .orElseThrow(() -> new NotFoundException("Patient profile not found"));
-            if (!appointment.getPatient().getId().equals(patient.getId())) {
-                throw new ConflictException("You are not authorized to update this appointment");
-            }
-            if (newStatus != AppointmentStatus.CANCELLED) {
-                throw new ConflictException("Patients can only cancel their appointments");
-            }
+        if (currentStatus == nextStatus) {
+            return mapToResponse(appointment);
         }
 
-        if (userAccount.getRole() == Role.DOCTOR) {
-            Doctor doctor = doctorRepository.findByUserAccountId(userAccount.getId())
-                    .orElseThrow(() -> new NotFoundException("Doctor profile not found"));
-            if (!appointment.getDoctor().getId().equals(doctor.getId())) {
-                throw new ConflictException("You are not authorized to update this appointment");
-            }
+        // --- STRICT STATE MACHINE ---
+        // 1. Final States (CANCELLED, COMPLETED, NO_SHOW)
+        if (currentStatus == AppointmentStatus.CANCELLED || 
+            currentStatus == AppointmentStatus.COMPLETED || 
+            currentStatus == AppointmentStatus.NO_SHOW) {
+            throw new ConflictException("Appointment is in a final state (" + currentStatus + ") and cannot be changed");
         }
 
-        appointment.setStatus(newStatus);
+        // 2. Transition Rules
+        if (currentStatus == AppointmentStatus.PENDING) {
+            if (nextStatus != AppointmentStatus.CONFIRMED && nextStatus != AppointmentStatus.CANCELLED) {
+                throw new ConflictException("PENDING appointments can only transition to CONFIRMED or CANCELLED");
+            }
+        } else if (currentStatus == AppointmentStatus.CONFIRMED) {
+            if (nextStatus == AppointmentStatus.PENDING) {
+                throw new ConflictException("CONFIRMED appointments cannot transition back to PENDING");
+            }
+            // Allowed: CONFIRMED -> COMPLETED, NO_SHOW, CANCELLED
+        }
+
+        appointment.setStatus(nextStatus);
         
-        if (newStatus == AppointmentStatus.CANCELLED) {
+        if (nextStatus == AppointmentStatus.CANCELLED) {
             TimeSlot timeSlot = appointment.getTimeSlot();
             timeSlot.setStatus(SlotStatus.AVAILABLE);
             timeSlotRepository.save(timeSlot);

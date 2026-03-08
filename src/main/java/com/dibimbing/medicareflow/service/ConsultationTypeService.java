@@ -17,6 +17,10 @@ import com.dibimbing.medicareflow.repository.DoctorRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import com.dibimbing.medicareflow.helper.RestPage;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +33,7 @@ public class ConsultationTypeService {
     private final ConsultationTypeRepository consultationTypeRepository;
     private final DoctorRepository doctorRepository;
 
+    @Cacheable(value = "consultation_types", key = "'doctor_' + #username")
     public List<ConsultationTypeResponse> getConsultationTypesByDoctorUsername(String username) {
         Doctor doctor = doctorRepository.findByUserAccountUsername(username)
                 .orElseThrow(() -> new NotFoundException("Doctor not found with username: " + username));
@@ -38,11 +43,13 @@ public class ConsultationTypeService {
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(value = "consultation_types", key = "'all_' + #pageable.toString()")
     public Page<ConsultationTypeResponse> getAllConsultationTypes(Pageable pageable) {
         Page<ConsultationType> type = consultationTypeRepository.findAll(pageable);
-        return type.map(this::mapToConsultationTypeResponse);
+        return new RestPage<>(type.getContent().stream().map(this::mapToConsultationTypeResponse).toList(), pageable, type.getTotalElements());
     }
 
+    @Cacheable(value = "consultation_type", key = "#id")
     public ConsultationTypeResponse getConsultationTypeById(Long id) {
         ConsultationType type = consultationTypeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Consultation type not found"));
@@ -51,6 +58,7 @@ public class ConsultationTypeService {
     }
 
     @Transactional
+    @CacheEvict(value = {"consultation_types", "consultation_type"}, allEntries = true)
     public ConsultationTypeResponse createConsultationType(ConsultationTypeRequest request) {
         ConsultationType type = new ConsultationType();
         type.setName(request.getName());
@@ -64,6 +72,7 @@ public class ConsultationTypeService {
     }
 
     @Transactional
+    @CacheEvict(value = {"consultation_types", "consultation_type"}, allEntries = true)
     public ConsultationTypeResponse updateConsultationType(Long id, ConsultationTypeRequest request) {
         ConsultationType type = consultationTypeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Consultation type not found"));
@@ -81,6 +90,7 @@ public class ConsultationTypeService {
     }
 
     @Transactional
+    @CacheEvict(value = {"consultation_types", "consultation_type"}, allEntries = true)
     public ConsultationTypeResponse updateStatus(Long id, ConsultationStatusRequest request) {
         ConsultationType type = consultationTypeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Consultation type not found"));

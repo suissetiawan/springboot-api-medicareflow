@@ -32,7 +32,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
 
                 // AUTH & PUBLIC
-                .requestMatchers("/api/auth/**", "/docs/**").permitAll()
+                .requestMatchers("/", "/api/auth/**", "/docs/**").permitAll()
 
                 // CONSULTATION TYPES
                 .requestMatchers(HttpMethod.GET, "/api/consultationtypes/doctor/**").hasAnyRole("PATIENT", "DOCTOR", "ADMIN")
@@ -40,13 +40,13 @@ public class SecurityConfig {
 
                 // APPOINTMENTS - RECORDS
                 .requestMatchers("/api/appointments/records/my").hasAnyRole("PATIENT", "DOCTOR")
-                .requestMatchers(HttpMethod.GET, "/api/appointments/*/records").hasAnyRole("ADMIN", "DOCTOR", "PATIENT")
+                .requestMatchers(HttpMethod.GET, "/api/appointments/*/records").hasAnyRole("ADMIN", "DOCTOR")
                 .requestMatchers(HttpMethod.POST, "/api/appointments/*/records").hasAnyRole("ADMIN", "DOCTOR")
 
                 // APPOINTMENTS - CORE
                 .requestMatchers("/api/appointments/my").hasAnyRole("PATIENT", "DOCTOR")
                 .requestMatchers(HttpMethod.POST, "/api/appointments").hasRole("PATIENT")
-                .requestMatchers("/api/appointments/*/status").hasAnyRole("ADMIN", "DOCTOR", "PATIENT")
+                .requestMatchers("/api/appointments/*/status").hasAnyRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/appointments").hasRole("ADMIN")
 
                 // ADMIN MODULES (USER, DOCTOR, PATIENT, SCHEDULE, SLOT)
@@ -54,7 +54,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/doctors/**").hasRole("ADMIN")
                 .requestMatchers("/api/patients/**").hasRole("ADMIN")
                 .requestMatchers("/api/work-schedule/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/slot-time/**").hasAnyRole("PATIENT", "ADMIN")
                 .requestMatchers("/api/slot-time/**").hasRole("ADMIN")
+
 
                 .anyRequest().authenticated())
             .exceptionHandling(exception -> exception

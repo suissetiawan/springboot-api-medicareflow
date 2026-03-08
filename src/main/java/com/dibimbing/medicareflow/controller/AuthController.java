@@ -1,6 +1,7 @@
 package com.dibimbing.medicareflow.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import com.dibimbing.medicareflow.dto.request.LoginRequest;
 import com.dibimbing.medicareflow.dto.request.RegisterRequest;
@@ -26,12 +27,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest registerRequest) {
         return ResponseHelper.successCreated(authService.register(registerRequest), "Register successful");
     }
     
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseHelper.successOK(authService.login(loginRequest), "Login successful");
     }
 

@@ -89,6 +89,9 @@ public class OpenApiConfig {
                         "/api/appointments",
                         "/api/appointments/**"
                 )
+                .pathsToExclude(
+                        "/api/appointments/records/my"
+                )
                 .build();
     }
 
@@ -100,7 +103,8 @@ public class OpenApiConfig {
                         "/api/appointments/*/records",
                         "/api/appointments/*/status",
                         "/api/appointments/my",
-                        "/api/appointments/records/my"
+                        "/api/appointments/records/my",
+                        "/api/consultationtypes/doctor/**"
                 )
                 .build();
     }
@@ -112,9 +116,16 @@ public class OpenApiConfig {
                 .pathsToMatch(
                         "/api/appointments",
                         "/api/appointments/my",
+                        "/api/slot-time",
                         "/api/appointments/records/my",
                         "/api/consultationtypes/doctor/**"
                 )
+                .addOpenApiCustomizer(openApi -> {
+                        if (openApi.getPaths().containsKey("/api/appointments")) {
+                                openApi.getPaths().get("/api/appointments")
+                                .setGet(null);
+                        }
+                })
                 .build();
     }
 }

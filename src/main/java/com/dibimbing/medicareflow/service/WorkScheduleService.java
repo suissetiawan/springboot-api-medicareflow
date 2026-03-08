@@ -15,6 +15,10 @@ import com.dibimbing.medicareflow.helper.DateHelper;
 import com.dibimbing.medicareflow.repository.UserAccountRepository;
 import com.dibimbing.medicareflow.repository.WorkScheduleRepository;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import com.dibimbing.medicareflow.helper.RestPage;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -26,12 +30,14 @@ public class WorkScheduleService {
     private final UserAccountRepository userAccountRepository;
 
 
+    @Cacheable(value = "work_schedules", key = "'all_' + #pageable.toString() + '_' + #username + '_' + #dayofweek")
     public Page<WorkScheduleResponse> getAllWorkSchedule(String username, DayOfWeek dayofweek, Pageable pageable) {
         Page<WorkSchedule> result = workScheduleRepository.findAllByFilter(username, dayofweek, pageable);
-        return result.map(this::mapToWorkScheduleResponse);
+        return new RestPage<>(result.getContent().stream().map(this::mapToWorkScheduleResponse).toList(), pageable, result.getTotalElements());
     }
 
     @Transactional
+    @CacheEvict(value = {"work_schedules", "work_schedule", "work_schedules_deleted"}, allEntries = true)
     public WorkScheduleResponse createWorkSchedule(WorkScheduleRequest request) {
         
         UserAccount user = userAccountRepository.findByUsername(request.getUsernameDoctor())
@@ -59,6 +65,7 @@ public class WorkScheduleService {
     }
 
     @Transactional
+    @CacheEvict(value = {"work_schedules", "work_schedule", "work_schedules_deleted"}, allEntries = true)
     public WorkScheduleResponse updateWorkSchedule(Long id, WorkScheduleRequest request) {
         
         WorkSchedule workSchedule = workScheduleRepository.findById(id)
@@ -87,6 +94,7 @@ public class WorkScheduleService {
     }
 
     @Transactional
+    @CacheEvict(value = {"work_schedules", "work_schedule", "work_schedules_deleted"}, allEntries = true)
     public void deleteWorkSchedule(Long id) {
         WorkSchedule workSchedule = workScheduleRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("Work schedule not found"));
@@ -95,11 +103,14 @@ public class WorkScheduleService {
         workScheduleRepository.save(workSchedule);
     }
 
+    @Cacheable(value = "work_schedules_deleted", key = "'all_' + #pageable.toString()")
     public Page<WorkScheduleResponse> getAllDeleted(Pageable pageable) {
-        return workScheduleRepository.findAllDeleted(pageable).map(this::mapToWorkScheduleResponse);
+        Page<WorkSchedule> result = workScheduleRepository.findAllDeleted(pageable);
+        return new RestPage<>(result.getContent().stream().map(this::mapToWorkScheduleResponse).toList(), pageable, result.getTotalElements());
     }
 
     @Transactional
+    @CacheEvict(value = {"work_schedules", "work_schedule", "work_schedules_deleted"}, allEntries = true)
     public Boolean restore(Long id) {
         WorkSchedule workSchedule = workScheduleRepository.findByDeletedId(id)
                 .orElseThrow(() -> new NotFoundException("Deleted work schedule not found"));

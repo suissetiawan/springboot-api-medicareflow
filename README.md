@@ -15,8 +15,10 @@ The core motivation behind this project is to create an automated scheduling eng
 
 - **Comprehensive Role Management:** Secure, distinct flows for `ADMIN`, `DOCTOR`, and `PATIENT` using JWT authentication.
 - **Smart Scheduling:** Instead of manual slot creation, the system intelligently generates available appointment slots from a doctor's registered `WorkSchedule`.
+- **Global Redis Caching:** Data retrieval across all core services (appointments, schedules, doctors, records) is accelerated using Spring Cache and Redis, mitigating database load for heavily read endpoints.
 - **Concurrency Safety:** Enforces strict unique constraints (`doctor_id`, `slot_date`, `start_time`) to unequivocally prevent double-booking scenarios.
 - **Data Integrity & Security:** Utilizes `UUID` for non-sequential, secure primary keys, implements widespread `Soft Deletion` to maintain historical data without clutter, and uses **Redis** for stateful, immediate JWT token invalidation (Blacklisting).
+- **Robust Validation & Error Handling:** Global request payload validation using `jakarta.validation` constraints (`@NotBlank`, `@NotNull`, `@Size`, `@Email`), coupled with a centralized generic exception handler to return clean, standardized error messages.
 
 This project serves as a robust backend portfolio, demonstrating the application of enterprise architecture patterns, RESTful principles, and modern security practices within the Spring ecosystem.
 
@@ -38,17 +40,16 @@ MediCareFlow is designed with a modern, secure, and automated infrastructure. Ou
 
 ---
 
-## 📚 Detailed Documentation
+## 📚 Project Documentation Preview
 
-For an in-depth look at how the system was built and how to operate it, please explore the detailed guides below:
+To help you navigate the codebase and understand the business logic, we provide a comprehensive set of guides in the `docs/` directory:
 
-1. ⚙️ **[Features & Application Flow](docs/FEATURES_AND_FLOW.md)**: Explore the core functionalities and step-by-step booking flow.
-2. 🏗️ **[System Architecture](docs/ARCHITECTURE.md)**: Understand the technical design, including the Slot Generator logic and Redis token blacklisting.
-3. 🗄️ **[Database Design](docs/DATABASE.md)**: Overview of the database schema and a link to the complete ERD.
-4. 📖 **[API Documentation](https://demo1.suissetiawan.my.id/docs/swagger-ui/index.html)**: Explore the interactive Swagger UI for a complete list of endpoints and live testing.
-5. 🚀 **[Getting Started & Deployment](docs/GETTING_STARTED.md)**: Step-by-step guide to running the project locally and configuring environment variables.
-6. 🛠️ **[Tech Stack & Structure](docs/TECH_STACK.md)**: Details on the technologies used and folder organization.
-7. 🗺️ **[Roadmap](docs/ROADMAP.md)**: Future development plans.
+- ✨ **[Features & System Flow](docs/FEATURES_AND_FLOW.md)**: A high-level overview of our **Role-Based Access Control** (RBAC), the **Smart Scheduling Engine** logic, a visual Mermaid flowchart of our end-to-end system, and the appointment booking lifecycle.
+- 🏗️ **[System Architecture & Tech Stack](docs/ARCHITECTURE.md)**: Deep dive into the technical design, covering our **layered project structure**, CI/CD pipelines via GitHub Actions, secure tunnel-based deployment infrastructure, and the specific frameworks/versions used.
+- 🔐 **[Roles & Permissions](docs/ROLES.md)**: Detailed mapping of available roles (`ADMIN`, `DOCTOR`, `PATIENT`) to specific API endpoints and restricted actions.
+- 🗄️ **[Database Design](docs/DATABASE.md)**: Comprehensive overview of our schema, including core entities like `UserAccount`, `Doctor`, and `Appointment`, plus a link to our full Mermaid ERD.
+- 📖 **[API Documentation](docs/API_DOCUMENTATION.md)**: Quick reference for the most important REST endpoints, including base paths, authentication requirements, and common status codes.
+- 🚀 **[Getting Started](docs/GETTING_STARTED.md)**: Everything you need to get the project running locally, from cloning the repo and setting up **MySQL/Redis** to configuring environment variables.
 
 ---
 

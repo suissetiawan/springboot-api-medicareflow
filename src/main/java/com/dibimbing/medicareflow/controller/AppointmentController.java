@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.security.Principal;
+import jakarta.validation.Valid;
 
 import com.dibimbing.medicareflow.dto.PaginationMeta;
 import com.dibimbing.medicareflow.dto.request.AppointmentRequest;
@@ -33,16 +35,17 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @PostMapping
-    public ResponseEntity<?> createAppointment(@RequestBody AppointmentRequest request) {
+    public ResponseEntity<?> createAppointment(@Valid @RequestBody AppointmentRequest request) {
         AppointmentResponse response = appointmentService.createAppointment(request);
         return ResponseHelper.successCreated(response, "Successfully created appointment");
     }
 
     @GetMapping("/my")
     public ResponseEntity<?> getMyAppointments(
+            @RequestParam(required = false) AppointmentStatus status,
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
-            Pageable pageable) {
-        Page<AppointmentResponse> result = appointmentService.getMyAppointments(pageable);
+            Pageable pageable, Principal principal) {
+        Page<AppointmentResponse> result = appointmentService.getMyAppointments(principal.getName(), status, pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
                 .page(result.getNumber() + 1)
@@ -56,9 +59,10 @@ public class AppointmentController {
 
     @GetMapping
     public ResponseEntity<?> getAllAppointments(
+            @RequestParam(required = false) AppointmentStatus status,
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable) {
-        Page<AppointmentResponse> result = appointmentService.getAllAppointments(pageable);
+        Page<AppointmentResponse> result = appointmentService.getAllAppointments(status, pageable);
         
         PaginationMeta meta = PaginationMeta.builder()
                 .page(result.getNumber() + 1)
