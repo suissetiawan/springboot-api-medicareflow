@@ -2,6 +2,10 @@ services:
   app:
     build: .
     image: ${DOCKERHUB_USERNAME}/medicareflow-api:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.medicareflow.rule=Host(`medicareflow.suissetiawan.my.id`)"
+      - "traefik.http.services.medicareflow.loadbalancer.server.port=8080"
     container_name: medicare-flow-api
     ports:
       - "8081:8080"
