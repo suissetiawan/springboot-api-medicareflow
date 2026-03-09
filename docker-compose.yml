@@ -4,8 +4,13 @@ services:
     image: ${DOCKERHUB_USERNAME}/medicareflow-api:latest
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.medicareflow.rule=Host(`medicareflow.suissetiawan.my.id`)"
       - "traefik.http.services.medicareflow.loadbalancer.server.port=8080"
+
+      - "traefik.http.routers.med-public.rule=Host(`api.suissetiawan.my.id`) && PathPrefix(`/medicareflow`)"
+      - "traefik.http.routers.med-public.entrypoints=web"
+      - "traefik.http.routers.med-local.rule=Host(`api.suissetiawan.home`) && PathPrefix(`/medicareflow`)"
+      - "traefik.http.routers.med-local.entrypoints=web"
+
     container_name: api-medicareflow
     ports:
       - "8081:8080"
