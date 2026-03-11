@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - main
 
 jobs:
   deploy:
@@ -56,6 +57,7 @@ jobs:
       # DEPLOY TO VPS
       # =========================
       - name: Connect to Tailscale
+        if: github.ref == 'refs/heads/develop'
         uses: tailscale/github-action@v4
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
