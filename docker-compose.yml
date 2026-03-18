@@ -2,7 +2,17 @@ services:
   app:
     build: .
     image: ${DOCKERHUB_USERNAME}/medicareflow-api:latest
-    container_name: medicare-flow-api
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.medicareflow.loadbalancer.server.port=8080"
+
+      - "traefik.http.routers.medicareflow-local.rule=Host(`api.suissetiawan.home`) && PathPrefix(`/medicareflow`)"
+      - "traefik.http.routers.medicareflow-local.entrypoints=web"
+
+      - "traefik.http.middlewares.medicareflow-strip.stripprefix.prefixes=/medicareflow"
+      - "traefik.http.routers.medicareflow-local.middlewares=medicareflow-strip"
+
+    container_name: api-medicareflow
     ports:
       - "8081:8080"
     env_file:
